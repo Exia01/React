@@ -12,6 +12,8 @@ class App extends Component {
     e.preventDefault()
   }
 
+ /*  The state is scoped and has no access to the handle submit function. 
+  We bind it to the state by using the arrow function wich gives us acess to the state */
   handleSubmit = (e) => {
     e.preventDefault();
     console.log('form submitted', this.state);
@@ -33,7 +35,7 @@ class App extends Component {
 
   }
   handleMouseOver(e) {
-    console.log(e.target, e.pageX)
+    console.log(e.target, e.pageX) //logs the location of the mouse
   }
   handleCopy(e) {
     console.log('Try being original for once! ;]')
