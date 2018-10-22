@@ -1,6 +1,7 @@
 /* This is a containerComponent since it stores a State */
 import React, { Component } from 'react';
 
+
 class AddNinja extends Component {
   state = {
     name: '',
@@ -16,7 +17,9 @@ class AddNinja extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
+      /* We have access to the method because we passed it down in app.js We then pass the 'object' */
+      this.props.addNinja(this.state)
   };
 
   render() {

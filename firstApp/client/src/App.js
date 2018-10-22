@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import uuid from 'uuid';
 
 import Ninjas from './components/NinjasComponent/Ninjas';
 import AddNinja from './components/addNinjaComponent/addNinja'
@@ -22,12 +23,25 @@ class App extends Component {
             {name: 'Ricky', age: 29, language: 'German', id:5},
         ]
     }
+    /* Takes in the new ninja from 'AddNinja' Submit */
+    addNinja = (person) => {
+        /* we recieve the object and assign it an id */
+        person.id = uuid.v4()
+        console.log(person);
+        /* Creating a new array  based on the old one using spread */
+        let newNinjas = [...this.state.ninjas]
+        this.setState({
+            ninjas:newNinjas
+        })
+        
+
+    }
     render() {
         return (
             <div className="App">
                 <h1>My First React App</h1>
                 <Ninjas people={this.state.ninjas} />
-                <AddNinja/>
+                <AddNinja addNinja={this.addNinja}/>
             </div>
         );
     }
