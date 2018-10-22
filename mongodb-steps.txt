@@ -1,0 +1,12 @@
+navigate to : cd c:/"Program Files"/MongoDB/Server/4.0/bin/
+
+mongod.exe     // using Command Prompt; this runs the executable file!
+./mongod      // using bash
+
+DON'T CLOSE THIS WINDOW OR TYPE ANYTHING ELSE!
+As long as this terminal window is open, your mongo server will run. Now to be able to connect to your database server, open ANOTHER terminal window and navigate back to the same location as the mongod executable. Now we are going to run the mongo executable, which is the command line program for interacting with your database. Just type:
+
+mongo.exe
+or  ./mongo
+
+navigate to : cd c:/"Program Files"/MongoDB/Server/3.6/bin/ --> old Do not use.
