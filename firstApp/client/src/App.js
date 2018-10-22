@@ -8,13 +8,22 @@ However, we can still embed divs inside of it.
 */
 
 class App extends Component {
+    /* We create a state */
+    state = {
+        /* Creating a dictionary that will be passed in the 'Props'
+         * We pass the ninjas from the apps down to the ninjas js
+         * */
+        ninjas: [
+            {name: 'Jose', age: 28, language: 'Spanish', id:1},
+            {name: 'Heather', age: 20, language: 'English', id:2},
+            {name: 'Nelson', age: 35, language: 'German', id:3},
+        ]
+    }
     render() {
         return (
             <div className="App">
                 <h1>My First React App</h1>
-                <Ninjas name="John" age="25" belt="Black" />
-                <hr />
-                <Ninjas name="Jose" age="27" belt="Red" />
+                <Ninjas people={this.state.ninjas}/>
             </div>
         );
     }
