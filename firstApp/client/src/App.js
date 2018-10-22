@@ -15,8 +15,10 @@ class App extends Component {
          * */
         ninjas: [
             {name: 'Jose', age: 28, language: 'Spanish', id:1},
-            {name: 'Heather', age: 20, language: 'English', id:2},
-            {name: 'Nelson', age: 35, language: 'German', id:3},
+            {name: 'Jasmine', age: 17, language: 'English', id:2},
+            {name: 'Heather', age: 19, language: 'English', id:3},
+            {name: 'Nelson', age: 35, language: 'French', id:4},
+            {name: 'Ricky', age: 29, language: 'German', id:5},
         ]
     }
     render() {

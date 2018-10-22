@@ -1,12 +1,20 @@
-Resources and links:
+Resources and links => {
 
 
-Destructuring Objects:
-	- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+	Destructuring Objects:
+		- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 
-	***			Container vs Ui Comoponets			***
-	Container Components					UI Components
-	 - Contain State						 - Don't contain state
-	 - Contain lifecyle hooks				 - Receive data from props
-	 - Not concerned with UI				 - Only concerned with UI
-	 - Use classes to Create				 - Use functions to create
+		***			Container vs Ui Comoponets			***
+		Container Components					UI Components
+		 - Contain State						 - Don't contain state
+		 - Contain lifecyle hooks				 - Receive data from props
+		 - Not concerned with UI				 - Only concerned with UI
+		 - Use classes to Create				 - Use functions to create
+
+
+	Examples of Ternary Operator:
+	 -https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+
+
+
+ }
