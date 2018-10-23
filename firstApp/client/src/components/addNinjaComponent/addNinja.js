@@ -9,17 +9,18 @@ class AddNinja extends Component {
     language: ''
   };
   /* This metho is handling all changes in the form */
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
       /* THis is targeting the id of each form */
       [e.target.id]: e.target.value
     });
   };
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     // console.log(this.state);
       /* We have access to the method because we passed it down in app.js We then pass the 'object' */
-      this.props.addNinja(this.state)
+    this.props.addNinja(this.state)
+    e.target.reset()
   };
 
   render() {

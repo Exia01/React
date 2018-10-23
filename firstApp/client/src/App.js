@@ -39,14 +39,14 @@ class App extends Component {
   /* Creating a delete option, takes an id. We then pass it onto the app */
   deleteNinja = (id) => {
     /* No splice: When using React, you should never mutate the state directly. If an object (or Array, which is an object too) is changed, you should create a new copy. */
-      let people = this.state.ninjas.filter(person => {
-         /* if the ninja does not have the id then i will keep it */
-          return person.id !== id
-      })
+    let people = this.state.ninjas.filter(person => {
+      /* if the ninja does not have the id then i will keep it --> return the person that doesnt have that id*/
+      return person.id !== id;
+    });
 
-      this.setState({
-          ninjas:people
-      })
+    this.setState({
+      ninjas: people
+    });
   };
 
   render() {
