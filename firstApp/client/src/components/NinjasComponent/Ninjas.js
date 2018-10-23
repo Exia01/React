@@ -3,7 +3,7 @@ import React from 'react';
 /* We are changing this to a UI Container since there are no states, it is only related to UI */
 //we still need to pass the 'properties' ninja
 /*  'Destructuring' We extracted the properties from the props object; can be used wherever */
-const Ninjas = ({ people }) => {
+const Ninjas = ({ people, deleteNinja }) => {
     /* Here we use map which creates a new element  */
     //const peopleList = people.map(person => {
     //console.log(person)
@@ -28,6 +28,7 @@ const Ninjas = ({ people }) => {
                     <li>Name: {person.name}</li>
                     <li>Age: {person.age}</li>
                     <li> Language: {person.language}</li>
+                    <button onClick={() => {deleteNinja(person.id)}}>Delete Ninja</button>
                 </ul>
             </div>
         ) : null
