@@ -28,10 +28,10 @@ class App extends Component {
         /* we recieve the object and assign it an id */
         person.id = uuid.v4()
         console.log(person);
-        /* Creating a new array  based on the old one using spread */
-        let newNinjas = [...this.state.ninjas]
+        /* Creating a new array  based on the old one using spread operator */
+        let ninjaList = [...this.state.ninjas, person]
         this.setState({
-            ninjas:newNinjas
+            ninjas:ninjaList
         })
         
 
