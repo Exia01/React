@@ -16,5 +16,16 @@ Resources and links => {
 	 -https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
 
 
+	Diagrams For lifecyle in React:
+	 - http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+
+	CSS in React: 
+		- CSS is not active to that particular component. It'll be active for any component rendered at the time. 
+		- Targetting CSS like in Angular can be implemented. 
+		- CSS modules are also available:
+			* Getting started with CSS Modules in React:
+				- https://blog.pusher.com/css-modules-react/
+		 
 
  }

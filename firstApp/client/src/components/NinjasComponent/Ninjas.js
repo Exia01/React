@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Ninjas.css';
 /* We are changing this to a UI Container since there are no states, it is only related to UI */
 //we still need to pass the 'properties' ninja
 /*  'Destructuring' We extracted the properties from the props object; can be used wherever */
