@@ -47,6 +47,8 @@ class App extends Component {
     this.setState({
       ninjas: people
     });
+
+    
   };
 
   componentDidMount = () => {
