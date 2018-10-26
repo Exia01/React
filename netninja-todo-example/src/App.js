@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import Todos from './components/TodoComponent/Todos';
-// import uuid from 'uuid';
+import AddTodo from './components/addFormComponent/addTodo';
+import uuid from 'uuid';
 
 /* This is a container component */
 class App extends Component {
   state = {
     /* An array */
     todos: [
-      { id: 1, content: 'Buy milk', active: true },
-      { id: 2, content: 'Test', active: true }
+      {id: 1, content: 'Buy milk', active: true},
+      {id: 2, content: 'Test', active: true}
     ]
   };
 
@@ -21,7 +22,7 @@ class App extends Component {
     });
     /* Since key and value is named the same, es6 allows for the same name ---I think---*/
     this.setState({
-     todos
+      todos
     })
 
     // this.setState(prevState => ({
@@ -30,11 +31,25 @@ class App extends Component {
     //   })}))
 
   };
+
+  addTodo = (item) => {
+    item.id = uuid.v4()
+    item.active = true
+    console.log(item)
+    /* create a new array or 'Tree' , add item */
+    let todos = [...this.state.todos, item]
+    this.setState({
+      todos
+    })
+
+    
+  }
   render() {
     return (
       <div className="App container">
         <h1 className="center blue-text">Todo's</h1>
         <Todos todoList={this.state.todos} deleteTodo={this.deleteTodo} />
+        <AddTodo addTodo={this.addTodo}/>
       </div>
     );
   }
