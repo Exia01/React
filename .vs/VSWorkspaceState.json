@@ -1,14 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\firstApp",
     "\\firstApp\\client",
     "\\firstApp\\client\\src",
     "\\firstApp\\client\\src\\components",
-    "\\firstApp\\client\\src\\components\\addNinjaComponent",
-    "\\testingAPIs\\client",
-    "\\testingAPIs\\client\\src"
+    "\\firstApp\\client\\src\\components\\addNinjaComponent"
   ],
-  "SelectedNode": "\\firstApp\\client\\src\\components\\addNinjaComponent\\addNinja.js",
   "PreviewInSolutionExplorer": false
 }
