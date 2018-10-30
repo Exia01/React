@@ -5,7 +5,6 @@ const Rainbow = WrappedComponent => {
   const colors = ['red', 'orange', 'blue', 'green', 'lightgray', 'pink'];
   /* Picks random color position */
   const randomColor = colors[Math.floor(Math.random() * 5)];
-  console.log(randomColor);
   /* concatenating the class */
   const className = randomColor + '-text';
 
