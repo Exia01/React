@@ -29,6 +29,9 @@ Resources and links => {
 	
 	Materialize CSS:
 	 - https://materializecss.com/getting-started.html
-		 
+	
+
+	HashRouter and BrowserRouter difference:
+	 - https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 
  }

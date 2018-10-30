@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
+/* Using BrowserRouter instead of HashRouter */
 import './App.css';
+/* Props are being passed via "Route" */
+import About from './components/AboutComponent/About';
+import Contact from './components/Contact/Contact';
+import Home from './components/HomeComponent/Home';
+import Navbar from './components/NavbarComponent/Navbar';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar/>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/contact" component={Contact} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
