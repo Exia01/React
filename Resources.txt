@@ -34,4 +34,8 @@ Resources and links => {
 	HashRouter and BrowserRouter difference:
 	 - https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 
+
+	Higher Order Component: **30min read
+	 - https://medium.freecodecamp.org/higher-order-components-the-ultimate-guide-b453a68bb851
+
  }
