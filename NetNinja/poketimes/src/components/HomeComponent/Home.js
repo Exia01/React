@@ -10,11 +10,12 @@ class Home extends Component {
     // let calls = 9;
     /* Returns a promise */
     axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
-      //  console.log(res);
       this.setState({
         /* only taking in the first 10 posts */
         posts: res.data.slice(0, 10)
       });
+    }).catch(res => {
+      console.log(res)
     });
     /*  for (let num = 1; num <= calls; num += 2) {
       console.log(num);

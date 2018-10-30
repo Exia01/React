@@ -7,6 +7,7 @@ import About from './components/AboutComponent/About';
 import Contact from './components/Contact/Contact';
 import Home from './components/HomeComponent/Home';
 import Navbar from './components/NavbarComponent/Navbar';
+import Post from './components/PostComponent/Post';
 
 class App extends Component {
   render() {
@@ -17,6 +18,8 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route exact path="/contact" component={Contact} />
+          <Route path="/:post_id" component={Post} />
+          
         </div>
       </BrowserRouter>
     );
