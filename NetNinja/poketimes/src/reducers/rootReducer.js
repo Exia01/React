@@ -9,6 +9,21 @@ const initState = {
 
 /* creating the Reducer with the initial state */
 const rootReducer = (state = initState, action) => {
+  /* Checks for delete action coming from post */
+  if (action.type === 'DELETE_POST') {
+    /* Create a new state and manipulate in a non destructing way */
+    let newPosts = state.posts.filter(post => {
+      return action.id !== post.id
+      /* want to return true if this checks for things not being the same */
+    })
+    return {
+       /* Spread so that all properties are inside the state */
+      ...state,
+      posts:newPosts
+
+    }
+      
+  }
   return state;
 };
 

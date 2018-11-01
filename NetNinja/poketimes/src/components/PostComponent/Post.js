@@ -3,12 +3,25 @@ import { connect } from 'react-redux';
 /* We import the connect  */
 /* was Container component */
 class Post extends Component {
+  /* Create the function to initiate the dispatch */
+  handleClick = () => {
+    this.props.deletePost(this.props.post.id);
+    console.log(this.props.history)
+    /* We can add this to the stack to redirect them*/
+    this.props.history.push('/')
+  };
   render() {
     /* First check if post exist with ternary*/
+    console.log(this.props);
     const post = this.props.post ? (
       <div className="post">
         <h4 className="center">{this.props.post.title}</h4>
         <p>{this.props.post.body}</p>
+        <div className="center">
+          <button className="btn grey" onClick={this.handleClick}>
+            Delete Post
+          </button>
+        </div>
       </div>
     ) : (
       <div className="center">Loading Post...</div>
@@ -31,6 +44,21 @@ const mapStateToProps = (state, ownProps) => {
     */
   };
 };
-/* passing down the mapStateToProps */
-export default connect(mapStateToProps)(Post);
+
+/* Creating a mapping the function dispatch from the "store" */
+const mapDispatchToProps = (dispatch) => {
+  return {
+    /* This is an action or function */
+    deletePost: (id) => {
+      dispatch({ type: 'DELETE_POST', id: id });
+      /* This dispatches an action, takes the type of action and the id of the post */
+    }
+  };
+};
+
+/* passing down the mapStateToProps and mapDispatchToProps */
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Post);
 /* Returns a hoc or higher order component and wraps the posts */
