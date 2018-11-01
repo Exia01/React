@@ -1,34 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-/* Container component */
-/* Props have been inherited from the Route Component */
+import { connect } from 'react-redux';
+/* We import the connect  */
+/* was Container component */
 class Post extends Component {
-  /* First initialize -> then grab from the resquest */
-  state = {
-    post: null
-  };
-
-  componentDidMount() {
-    /* console.log(this.props) */
-    let id = this.props.match.params.post_id;
-    axios
-      .get('https://jsonplaceholder.typicode.com/posts/' + id)
-      .then(res => {
-        this.setState({
-          post: res.data
-        });
-        console.log(res);
-      })
-      .catch(res => {
-        console.log(res);
-      });
-  }
   render() {
     /* First check if post exist with ternary*/
-    const post = this.state.post ? (
+    const post = this.props.post ? (
       <div className="post">
-        <h4 className="center">{this.state.post.title}</h4>
-        <p>{this.state.post.body}</p>
+        <h4 className="center">{this.props.post.title}</h4>
+        <p>{this.props.post.body}</p>
       </div>
     ) : (
       <div className="center">Loading Post...</div>
@@ -36,5 +16,21 @@ class Post extends Component {
     return <div className="container">{post}</div>;
   }
 }
-
-export default Post;
+/* state is the props from redux, ownProps is the props from this component before attaching the additional*/
+const mapStateToProps = (state, ownProps) => {
+  /* This prop is coming from the app.js --> "post_id" */
+  /* console.Log(ownProps) */
+  let id = ownProps.match.params.post_id;
+  return {
+    /* we're taking the state that is coming in from redux */
+    post: state.posts.find(post => post.id === id)
+    /* short version:
+    (post =>{
+    return post.id ==id})
+    })
+    */
+  };
+};
+/* passing down the mapStateToProps */
+export default connect(mapStateToProps)(Post);
+/* Returns a hoc or higher order component and wraps the posts */
