@@ -14,7 +14,7 @@ import { createStore } from 'redux';
 
 /* instantiate a store */
 const store = createStore(rootReducer);
-/* The provider is going to wrapp the root app component, we then provide the store to the provder*/
+/* The provider is going to wrapp the root app component, we then provide the store the provider and hand it the app*/
 ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
