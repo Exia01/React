@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {deletePost} from'../../actions/PostActions'
 import { connect } from 'react-redux';
 /* We import the connect  */
 /* was Container component */
@@ -50,8 +51,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     /* This is an action or function */
     deletePost: (id) => {
-      dispatch({ type: 'DELETE_POST', id: id });
-      /* This dispatches an action, takes the type of action and the id of the post */
+      dispatch(deletePost(id));
+    
     }
   };
 };
