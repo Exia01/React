@@ -1,4 +1,5 @@
 /* Initial State that we will pass to the rootReducer */
+import axios from 'axios'
 const initState = {
   posts: [
     { id: '1', title: 'Testing post, post here, post there, post everywhere' },
@@ -6,6 +7,22 @@ const initState = {
     { id: '3', title: 'Testing Three, post here, post there, post everywhere' }
   ]
 };
+console.log(initState.posts)
+
+axios
+      .get('https://jsonplaceholder.typicode.com/posts')
+      .then(res => {
+          /* only taking in the first 10 posts */
+          // posts: res.data.slice(0, 10)
+        for (let article of res.data) {
+         initState.posts.push(article)
+        }
+      })
+      .catch(res => {
+        console.log(res);
+      });
+
+console.log(initState.posts)
 
 /* creating the Reducer with the initial state */
 const rootReducer = (state = initState, action) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* NavLink adds an active class, adding a higher order component */
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, Link } from 'react-router-dom';
 /* Passing props from appjs */
 const Navbar = (props) => {
   // console.log(props)
@@ -11,7 +11,8 @@ const Navbar = (props) => {
   return (
     <nav className="nav-wrapper red darken-3">
       <div className="container">
-        <a className="brand-logo">Poke'Times</a>
+      
+        <Link to={'/'} className="brand-logo">Poke'Times</Link>
         <ul className="right">
           <li>
             <NavLink to="/">Home</NavLink>

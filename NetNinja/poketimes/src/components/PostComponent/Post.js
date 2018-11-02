@@ -7,7 +7,7 @@ class Post extends Component {
   /* Create the function to initiate the dispatch */
   handleClick = () => {
     this.props.deletePost(this.props.post.id);
-    console.log(this.props.history)
+    // console.log(this.props.history)
     /* We can add this to the stack to redirect them*/
     this.props.history.push('/')
   };
