@@ -7,7 +7,6 @@ import uuid from 'uuid';
 /* This is a container component */
 class App extends Component {
   state = {
-    /* An array */
     todos: [
       {id: 1, content: 'Buy milk', active: true},
       {id: 2, content: 'Test', active: true}

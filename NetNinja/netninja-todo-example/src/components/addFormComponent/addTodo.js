@@ -13,7 +13,7 @@ class AddTodo extends Component {
             content: e.target.value
         })
     }
-    
+    //binding it with the arrow function
     handleSubmit = (e) => {
         e.preventDefault()
         /* Calling the todo Props from apps */
