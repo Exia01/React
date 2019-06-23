@@ -1,6 +1,5 @@
 Resources and links => {
 
-
 	Destructuring Objects:
 		- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 
@@ -37,5 +36,9 @@ Resources and links => {
 
 	Higher Order Component: **30min read
 	 - https://medium.freecodecamp.org/higher-order-components-the-ultimate-guide-b453a68bb851
+
+	 Redux |What is it? | How it works -->
+	 - https://medium.com/@itsdavidthai/redux-an-explanation-for-beginners-957f268e7382
+	 - https://medium.com/leanjs/introduction-to-redux-redux-explained-with-very-simple-examples-b39d7967ceb8
 
  }

@@ -1,0 +1,1 @@
+We store multiple reducers to keep it modularize

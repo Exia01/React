@@ -1,47 +1,25 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Pokeball from '../img/pokeball.png'
-
+import Pokeball from '../img/pokeball.png';
 import { Link } from 'react-router-dom';
-/* This is a class based Component*/
+
+/* This WAS a class based Component*/
+/* Is bassically a function we invoke it to use it */
+import { connect } from 'react-redux';
+/* We 'connect' to bring back the HOC('Higher order component') */
 class Home extends Component {
-  state = {
-    posts: []
-  };
-  /* */
-  componentDidMount() {
-    // let calls = 9;
-    /* Returns a promise */
-    axios
-      .get('https://jsonplaceholder.typicode.com/posts')
-      .then(res => {
-        this.setState({
-          /* only taking in the first 10 posts */
-          posts: res.data.slice(0, 10)
-        });
-      })
-      .catch(res => {
-        console.log(res);
-      });
-    /*  for (let num = 1; num <= calls; num += 2) {
-      console.log(num);
-      axios.get('https://pokeapi.co/api/v2/pokemon/' + num).then(res => {
-        console.log(res);
-      });
-    } */
-  }
   render() {
+    console.log(this.props)
     /* Destructuring */
-    const { posts } = this.state;
+    const { posts } = this.props;
     /* Ternary operator */
     const postList = posts.length ? (
       posts.map(post => {
         return (
           <div className="post card" key={post.id}>
-            <img src={Pokeball} alt="A Pokeball"/>
+            <img src={Pokeball} alt="A Pokeball" />
             <div className="card-content">
               <Link to={'/' + post.id}>
-              <span className="card-title red-text">{post.title}</span>
+                <span className="card-title red-text">{post.title}</span>
               </Link>
               <p>{post.body}</p>
             </div>
@@ -59,5 +37,14 @@ class Home extends Component {
     );
   }
 }
+/* Create a function --> taking the state and mapping it to the props */
+const mapStateToProps = (state) => {
+  return {
+    /* Taking the state and grabbing the posts propperty */
+    posts:state.posts
+  }
+}
 
-export default Home;
+/* We invoke it and then connect or wrapping the home component */
+export default connect(mapStateToProps)(Home);
+/* We then pass it to the connnect function so that it knows what to grab from the props */
