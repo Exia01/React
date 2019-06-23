@@ -3,7 +3,7 @@ Resources and links => {
 	Destructuring Objects:
 		- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 
-		***			Container vs Ui Comoponets			***
+		***			Container vs Ui Components			***
 		Container Components					UI Components
 		 - Contain State						 - Don't contain state
 		 - Contain lifecyle hooks				 - Receive data from props
@@ -21,7 +21,7 @@ Resources and links => {
 
 	CSS in React: 
 		- CSS is not active to that particular component. It'll be active for any component rendered at the time. 
-		- Targetting CSS like in Angular can be implemented. 
+		- Targeting CSS like in Angular can be implemented. 
 		- CSS modules are also available:
 			* Getting started with CSS Modules in React:
 				- https://blog.pusher.com/css-modules-react/
