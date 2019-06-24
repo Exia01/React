@@ -11,7 +11,7 @@ export const deletePost = (id) => {
 }
 // export const getPosts = () => {
 //     return {
-//         type: 'GET_POST',
+//         type: 'GET_POSTS',
 //         posts
 //         /* es6 short code for id:id */
 //     }
