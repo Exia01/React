@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 class Home extends Component {
   render() {
     console.log(this.props)
-    /* Destructuring */
+  /* Destructuring */
     const { posts } = this.props;
     /* Ternary operator */
     const postList = posts.length ? (
@@ -36,6 +36,11 @@ class Home extends Component {
       </div>
     );
   }
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   console.log('Component has been updated')
+  //   console.log(prevProps, prevState)
+  //   console.log(this.state)
+  // };
 }
 /* Create a function --> taking the state and mapping it to the props */
 const mapStateToProps = (state) => {

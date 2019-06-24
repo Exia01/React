@@ -9,4 +9,11 @@ export const deletePost = (id) => {
         /* es6 short code for id:id */
     }
 }
+// export const getPosts = () => {
+//     return {
+//         type: 'GET_POST',
+//         posts
+//         /* es6 short code for id:id */
+//     }
+// }
  /* This dispatches an action, takes the type of action and the id of the post */
