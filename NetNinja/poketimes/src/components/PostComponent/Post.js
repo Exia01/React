@@ -33,8 +33,8 @@ class Post extends Component {
 /* state is the props from redux, ownProps is the props from this component before attaching the additional*/
 const mapStateToProps = (state, ownProps) => {
   /* This prop is coming from the app.js --> "post_id" */
-  /* console.Log(ownProps) */
-  let id = ownProps.match.params.post_id;
+/* console.Log(ownProps) */
+  let id = parseInt(ownProps.match.params.post_id, 10); 
   return {
     /* we're taking the state that is coming in from redux */
     post: state.posts.find(post => post.id === id)
