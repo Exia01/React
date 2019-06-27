@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {createProject} from '../../store/actions/projectActions'
 
 class CreateProject extends Component {
     state = {
@@ -8,11 +10,12 @@ class CreateProject extends Component {
     handleChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
-        })
+        }) //passes the project into the function which performs the dispatch
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
+        this.props.createProject(this.state);
     }
     render() {
         return (
@@ -36,4 +39,38 @@ class CreateProject extends Component {
     }
 }
 
-export default CreateProject
+//takes in dispatch method
+const mapDispatchToProps = dispatch => {
+    return {
+        //returning whatever property we can to add to the props. Adding method
+        createProject: (project) => dispatch(createProject(project))//takes in individual object and then dispatch action creator
+    }
+}
+//function, hoc, then wrap it
+export default connect(null, mapDispatchToProps)(CreateProject)
+//the first parameter is always mapStateToProps. There is none; passing null
+
+
+
+// handleChange function is called each time we key down thus it is not good practice. we can change state using on onSubmit itself, using refs and here it goes
+//   handleSubmit = (e) => {
+//     e.preventDefault()
+//       this.setState(() => {
+//         return {
+//           title: this.refs.title.value,
+//           content: this.refs.content.value
+//         }
+//       }, () => {
+//         this.props.createProject(this.state)
+//       })
+//     }
+// or
+// handleSubmit = (e) => {
+//     e.preventDefault()
+//       this.setState({
+//           title: this.refs.title.value,
+//           content: this.refs.content.value
+//       }, () => {
+//         this.props.createProject(this.state)
+//       })
+//     }

@@ -6,7 +6,14 @@ const initState = {
   ]
 }
 
+
+//takes in action, performs switch case. 
 const projectReducer = (state = initState, action) => {
+  switch (action.type) {
+    //checking action and using the function from projectActions
+    case 'CREATE_PROJECT':
+      console.log('create project', action.project);
+  }
   return state;
 };
 
