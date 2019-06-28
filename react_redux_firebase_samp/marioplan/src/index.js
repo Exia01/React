@@ -31,3 +31,8 @@ const store = createStore(rootReducer,
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
 serviceWorker.unregister();
+
+
+//Newer base implementation for firebase:https://stackoverflow.com/questions/53872757/react-redux-v6-a-v3-version-of-react-redux-firebase-is-required
+
+// http://docs.react-redux-firebase.com/history/v3.0.0/
