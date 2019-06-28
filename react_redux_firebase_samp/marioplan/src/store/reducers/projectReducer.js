@@ -9,12 +9,17 @@ const initState = {
 
 //takes in action, performs switch case. 
 const projectReducer = (state = initState, action) => {
+  //checking action and using the function from projectActions
   switch (action.type) {
-    //checking action and using the function from projectActions
     case 'CREATE_PROJECT':
-      console.log('create project', action.project);
+      console.log('create project success');
+      return state;
+    case 'CREATE_PROJECT_ERROR':
+      console.log('create project error');
+      return state;
+    default:
+      return state;
   }
-  return state;
 };
 
 export default projectReducer;
