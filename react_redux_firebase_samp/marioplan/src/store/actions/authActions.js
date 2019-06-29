@@ -14,3 +14,14 @@ export const signIn = (credentials) => {//this is the action creator
 
   }
 }
+
+//no need to pass credentials
+export const signOut = () => {
+  return (dispatch, getState, {getFirebase}) => {
+    const firebase = getFirebase();//make instance
+
+    firebase.auth().signOut().then(() => {
+      dispatch({ type: 'SIGNOUT_SUCCESS' }) //when complete dispatch action
+    });
+  }
+}
