@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {createProject} from '../../store/actions/projectActions'
+import { Redirect } from 'react-router-dom'
+
 
 class CreateProject extends Component {
     state = {
@@ -18,6 +20,8 @@ class CreateProject extends Component {
         this.props.createProject(this.state);
     }
     render() {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to='/signin' /> 
         return (
             <div className="container">
                 <form className="white" onSubmit={this.handleSubmit}>
@@ -38,6 +42,13 @@ class CreateProject extends Component {
         )
     }
 }
+//adding auth to state
+const mapStateToProps = (state) => {
+    return {
+      auth: state.firebase.auth
+    }
+  }
+  
 
 //takes in dispatch method
 const mapDispatchToProps = dispatch => {
@@ -47,7 +58,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 //function, hoc, then wrap it
-export default connect(null, mapDispatchToProps)(CreateProject)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)
 //the first parameter is always mapStateToProps. There is none; passing null
 
 

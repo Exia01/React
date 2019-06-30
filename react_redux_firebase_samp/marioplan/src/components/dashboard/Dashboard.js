@@ -5,15 +5,15 @@ import {connect} from 'react-redux'
 //being used as a higher order component
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
-import {Redirect}
+import { Redirect } from 'react-router-dom'
 
 //Class based component --> might use state
 class Dashboard extends Component {
   render() {
     // console.log(this.props)
     //destructuring then passing down the component as props 
-    const {projects, auth} = this.props;
-    if (!auth.uid) return <Redirect to='/signin' /> //if there is not a user id
+    const { projects, auth } = this.props;
+    if (!auth.uid) return <Redirect to='/signin' />  //if there is not a user id
 
     return (
       <div className="dashboard container">
