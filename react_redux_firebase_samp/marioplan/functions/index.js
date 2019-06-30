@@ -27,18 +27,17 @@ exports.projectCreated = functions.firestore
         return createNotification(notification);
 
     });
-
+//user with auth trigger
 exports.userJoined = functions.auth.user()
     .onCreate(user => {
-
+        //head over into the collection and grab the record based on the id
         return admin.firestore().collection('users')
-            .doc(user.uid).get().then(doc => {
-
-                const newUser = doc.data();
+            .doc(user.uid).get().then(doc => { // get id then pass the cb with the obj
+                const newUser = doc.data();//get the data from the doc
                 const notification = {
                     content: 'Joined the party',
                     user: `${newUser.firstName} ${newUser.lastName}`,
-                    time: admin.firestore.FieldValue.serverTimestamp()
+                    time: admin.firestore.FieldValue.serverTimestamp()//timestamp from the server and will store when the notification was created
                 };
 
                 return createNotification(notification);
