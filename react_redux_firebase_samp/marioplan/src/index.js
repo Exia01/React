@@ -21,16 +21,17 @@ const store = createStore(rootReducer,
     //compose function allows for multiple store enhancers like rootreducer combining several store enhancer
     compose(
         applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-        reactReduxFirebase(fbConfig), // redux binding for firebase and passing config so that store knows what to connect to
+        reactReduxFirebase(fbConfig, {attachAuthIsReady:true}), // redux binding for firebase and passing config so that store knows what to connect to
         reduxFirestore(fbConfig) // redux bindings for firestore
     )
 );
 // applyMiddleware takes in a list of applyMiddlewares
 
 //passing the provider the component and wrap it around the app and pass the store to the application
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
-
-serviceWorker.unregister();
+store.firebaseAuthIsReady.then(() => {
+    ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+    serviceWorker.unregister();
+  });
 
 
 //Newer base implementation for firebase:https://stackoverflow.com/questions/53872757/react-redux-v6-a-v3-version-of-react-redux-firebase-is-required
