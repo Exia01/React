@@ -18,6 +18,7 @@ class CreateProject extends Component {
         e.preventDefault();
         console.log("clicked");
         this.props.createProject(this.state);
+        this.props.history.push('/')
     }
     render() {
         const { auth } = this.props;
