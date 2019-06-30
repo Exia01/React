@@ -1,10 +1,10 @@
 import React from 'react'
 //Enables active class for the links
-import { NavLink } from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 //connect to redux
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 //action creator 
-import { signOut } from '../../store/actions/authActions'
+import {signOut} from '../../store/actions/authActions'
 
 //functional component takes in props
 const SignedInLinks = (props) => {
@@ -14,7 +14,7 @@ const SignedInLinks = (props) => {
       <ul className="right">
         <li><NavLink to='/create'>New Project</NavLink></li>
         <li><a onClick={props.signOut}>Log Out</a></li>
-        <li><NavLink to='/' className="btn btn-floating pink lighten-1">NN</NavLink></li>
+        <li><NavLink to='/' className="btn btn-floating pink lighten-1">{props.profile.initials}</NavLink></li>
       </ul>
     </div>
   )

@@ -21,7 +21,7 @@ const store = createStore(rootReducer,
     //compose function allows for multiple store enhancers like rootreducer combining several store enhancer
     compose(
         applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-        reactReduxFirebase(fbConfig, {attachAuthIsReady:true}), // redux binding for firebase and passing config so that store knows what to connect to
+        reactReduxFirebase(fbConfig, {userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true}), // redux binding for firebase and passing config so that store knows what to connect to
         reduxFirestore(fbConfig) // redux bindings for firestore
     )
 );
