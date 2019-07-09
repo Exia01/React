@@ -3,6 +3,7 @@ import {BrowserRouter, Link, Route} from 'react-router-dom';
 import './App.css';
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
+import UserOutput from './UserOutput/UserOutput';
 
 
 
@@ -40,7 +41,8 @@ class App extends Component {
   }
   inputValueSubmitHandler = (obj) => {
     this.setState({inputValue: obj})
-    console.log(this.props);
+    console.log(this.state);
+    
     
   }
   componentDidUpdate(prevProps, prevState) {
@@ -87,7 +89,10 @@ class App extends Component {
               path='/input'
               render={(props) => <UserInput {...props} inputValueSubmitHandler={this.inputValueSubmitHandler} currentEmail={this.state.inputValue} />}
             />
-            <Route path="/output" component={UserInput} />
+            <Route
+              path='/output'
+              render={(props) => <UserOutput {...props} stateValues={this.state}/>}
+            />
           </BrowserRouter>
         </div>
       </div>

@@ -15,6 +15,9 @@ class UserInput extends Component {
       emailValue: ''
     })
     this.props.inputValueSubmitHandler(this.state.emailValue)
+    setTimeout(() => {
+      this.props.history.push('/output')
+    }, 2000);
    
   }
   render() {
