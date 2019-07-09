@@ -1,6 +1,9 @@
 /* This css file is not scoped. It is global scoped */
 .Person{
     width: 60%;
-    margin: auto;
-    border: 1px so
+    margin: 16px auto;
+    border: 1px solid #eee; 
+    box-shadow: 0 2px 3px #CCC;
+    padding:16px;
+    text-align: center;
 }
