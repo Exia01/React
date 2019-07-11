@@ -1,7 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
+import Validation from './ValidationComponent/Validation';
 
 class App extends Component {
+  state = {
+    paragraph: ""
+  }
+  paragraphChangeHandler = (e) => {
+    e.preventDefault()
+    this.setState({paragraph: e.target.value})
+  }
   render() {
     return (
       <div className="App">
@@ -14,6 +22,15 @@ class App extends Component {
           <li>When you click a CharComponent, it should be removed from the entered text.</li>
         </ol>
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+        <div className="container">
+          <div className="row">
+            <Validation
+              paragraph={this.state.paragraph} />
+          </div>
+          <div className="row">
+            <input type="text" onChange={this.paragraphChangeHandler} placeholder={"Please fill"} value={this.state.paragraph} />
+          </div>
+        </div>
       </div>
     );
   }
