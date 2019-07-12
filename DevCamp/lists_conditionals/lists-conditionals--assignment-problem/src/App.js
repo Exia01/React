@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Validation from './ValidationComponent/Validation';
+import CharComponent from './CharCompoment/CharComponent';
 
 class App extends Component {
   state = {
@@ -9,6 +10,9 @@ class App extends Component {
   paragraphChangeHandler = (e) => {
     e.preventDefault()
     this.setState({paragraph: e.target.value})
+  }
+  charRemoveHandler = (e, id) => {
+    console.log("clicked!")
   }
   render() {
     return (
@@ -29,6 +33,11 @@ class App extends Component {
           </div>
           <div className="row">
             <input type="text" onChange={this.paragraphChangeHandler} placeholder={"Please fill"} value={this.state.paragraph} />
+          </div>
+          <div className="row">
+            <CharComponent
+              paragraph={this.state.paragraph}
+              charRemoveHandler={this.charRemoveHandler}/>
           </div>
         </div>
       </div>

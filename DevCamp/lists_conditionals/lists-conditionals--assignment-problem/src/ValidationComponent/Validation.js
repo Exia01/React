@@ -2,8 +2,8 @@ import React from 'react'
 
 const Validation = (props) => {
     const paragraph = [...props.paragraph]
-    console.log(props)
-    console.log(paragraph.length)
+    // console.log(props)
+    // console.log(paragraph.length)
     let vTag = ""
     if (paragraph && paragraph.length >= 1) {
         paragraph.length >= 5 ?
