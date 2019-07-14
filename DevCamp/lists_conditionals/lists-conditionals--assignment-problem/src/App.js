@@ -11,8 +11,8 @@ class App extends Component {
     e.preventDefault()
     this.setState({paragraph: e.target.value})
   }
-  charRemoveHandler = (id) => {
-    console.log(id)
+  charRemoveHandler = (paragraph) => {
+    this.setState({paragraph})
   }
   render() {
     return (
@@ -38,7 +38,7 @@ class App extends Component {
             <CharComponent
               paragraph={this.state.paragraph}
               charRemoveHandler={this.charRemoveHandler}
-              removeChar={(e) => this.charRemoveHandler(e)}
+              removeChar={() => this.charRemoveHandler}
               />
           </div>
         </div>
