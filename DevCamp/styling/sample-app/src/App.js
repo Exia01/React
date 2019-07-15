@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Link, Route} from 'react-router-dom';
-import Radium, {StyleRoot} from "radium"
+// import Radium, {StyleRoot} from "radium"
 import './App.css';
 import Person from './Person/Person';
 
@@ -68,11 +68,11 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      //setting property as string due to colon
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      // //setting property as string due to colon
+      // ':hover': {
+      //   backgroundColor: 'lightgreen',
+      //   color: 'black'
+      // }
     }
     //default which checks every time the state renders or updates. 
     let persons = null
@@ -94,10 +94,10 @@ class App extends Component {
       )
       style.backgroundColor = "red"
       //changing on hover to red
-      style[':hover'] = { //radium enables on hover
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // style[':hover'] = { //radium enables on hover
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
     }
     //creating css styling to match app.css on if condition then joining
     const classes = []
@@ -109,18 +109,17 @@ class App extends Component {
       classes.push("bold")// classes = ["red", "bold"]
     }
 
-    //StyleRoot enables media queries when placed inside div
+
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1 className={classes.join(" ")}>Hello There</h1>
-          <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1 className={classes.join(" ")}>Hello There</h1>
+        <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        {persons}
+      </div>
+
     )
   }
 }
 
 
-export default Radium(App)
+export default App
