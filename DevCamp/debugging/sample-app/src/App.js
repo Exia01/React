@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter, Link, Route} from 'react-router-dom';
 import classes from './App.module.css' // css modules scoped to this component
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'; //HOC wraps a component with the goal of handling any errors that it might throw
 
 
 class App extends Component {
@@ -57,7 +58,7 @@ class App extends Component {
 
   }
   render() {
-    
+
     //default which checks every time the state renders or updates. 
     let persons = null
     let btnClass = ''
@@ -65,15 +66,17 @@ class App extends Component {
     if (this.state.showPersons) {
       // if the statement is true and will render
       //mapping with index and passing the arg to the anonymous func
+      //key has to be on the outer element that we map
       persons = (
         <div>
           {this.state.persons.map((individual, index) => {
-            return <Person
-              clickEvent={() => this.deletePersonHandler(index)}
-              name={individual.name}
-              age={individual.age}
-              changed={(event) => this.nameChangedHandler(event, individual.id)}
-              key={individual.id} />
+            return <ErrorBoundary   key={individual.id} >
+              <Person
+                clickEvent={() => this.deletePersonHandler(index)}
+                name={individual.name}
+                age={individual.age}
+                changed={(event) => this.nameChangedHandler(event, individual.id)}/>
+            </ErrorBoundary>
           })}
         </div>
       )
@@ -89,7 +92,7 @@ class App extends Component {
       assignClasses.push(classes.bold)// classes = ["red", "bold"]
     }
 
-    
+
     return (
       <div className={classes.App}>
         <h1 className={assignClasses.join(" ")}>Hello There</h1>
