@@ -1,17 +1,12 @@
 import React from 'react'
-// import Radium from 'radium'
-import './Person.css'
+import personClass from './Person.module.css' // css module
 
 const Person = (props) => {
     // console.log(props);
-    // const style = {
-    //     '@media(min-width:500px)': {
-    //         width:'450px'
-    //     }
-    // }
+
     
     return (
-        <div className="Person">
+        <div className={personClass.Person}>
             <p onClick={props.clickEvent}>My name is {props.name} and i am {props.age} years old</p>
             <p className="">{props.id}</p>
             <p>{props.children}</p>
