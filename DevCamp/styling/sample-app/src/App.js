@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Link, Route} from 'react-router-dom';
-// import Radium, {StyleRoot} from "radium"
-import './App.css';
+import classes from './App.module.css' // css modules scoped to this component
 import Person from './Person/Person';
 
 
@@ -34,13 +33,11 @@ class App extends Component {
     const persons = [...this.state.persons] //spread operator to copy the state
     persons[personIndex] = person// update the value on the array
 
-    this.setState({persons: persons})
+    this.setState({persons: persons}) //can pass pass object persons for simplicity
   }
 
 
   deletePersonHandler = (personIndex) => {
-    console.log('hello?');
-
     //fetch all persons
     const persons = this.state.persons.slice()//without args returns a whole copy
     // const persons = [...this.state.persons]//spreads the state into a new arr/
@@ -60,22 +57,10 @@ class App extends Component {
 
   }
   render() {
-    //inline style can be difficult for actions --> "hover" and can also help with scoping 
-    const style = {
-      backgroundColor: 'green',
-      color: "white",
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      // //setting property as string due to colon
-      // ':hover': {
-      //   backgroundColor: 'lightgreen',
-      //   color: 'black'
-      // }
-    }
+    
     //default which checks every time the state renders or updates. 
     let persons = null
+    let btnClass = ''
     //check if true
     if (this.state.showPersons) {
       // if the statement is true and will render
@@ -92,28 +77,23 @@ class App extends Component {
           })}
         </div>
       )
-      style.backgroundColor = "red"
-      //changing on hover to red
-      // style[':hover'] = { //radium enables on hover
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // }
+      btnClass = classes.Red // string from obj css loader that gives us access
     }
     //creating css styling to match app.css on if condition then joining
-    const classes = []
+    const assignClasses = []
     //if 2 persons or less
     if (this.state.persons.length <= 2) {
-      classes.push('red') // classes = ["red"]
+      assignClasses.push(classes.red) // classes = ["red"]
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold")// classes = ["red", "bold"]
+      assignClasses.push(classes.bold)// classes = ["red", "bold"]
     }
 
-
+    
     return (
-      <div className="App">
-        <h1 className={classes.join(" ")}>Hello There</h1>
-        <button style={style} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+      <div className={classes.App}>
+        <h1 className={assignClasses.join(" ")}>Hello There</h1>
+        <button className={btnClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
         {persons}
       </div>
 
@@ -123,3 +103,6 @@ class App extends Component {
 
 
 export default App
+//CSS modules: https://programmingwithmosh.com/react/css-modules-react/
+//https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
+//https://github.com/css-modules/css-modules
