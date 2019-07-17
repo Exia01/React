@@ -2,6 +2,7 @@ import React from 'react'
 import personClass from './Person.module.css' // css module
 
 const Person = (props) => {
+    console.log('[Person.js] Rendering...... ')
     // console.log(props);
     return (
         <div className={personClass.Person}>

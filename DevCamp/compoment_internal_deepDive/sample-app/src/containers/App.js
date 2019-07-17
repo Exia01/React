@@ -6,6 +6,12 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 //container component shouldn't be involved with UI too much. Should be lean
 class App extends Component {
+  constructor(props) {
+    //first life cycle that executes
+    super(props); // when declaring a constructor, need to pass super to initialize properly
+    console.log('[App.js] constructor');
+    // could also declare state here but not needed
+  }
   // state is a class property that
   //can implement from class based component
   state = {
@@ -17,7 +23,16 @@ class App extends Component {
     otherState: 'Some otherValue',
     showPersons: false
   };
-
+  // after constructor runs this life cycle follows
+  //need to add static to execute properly
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+  //after getDerivedStateFromProps render gets executed
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  } //after render componentDidMount runs
   nameChangedHandler = (e, id) => {
     //event and id
     e.preventDefault();
@@ -51,11 +66,13 @@ class App extends Component {
     //inverting value if true. React will merge the rest of the components
     this.setState({ showPersons: !doesShow });
   };
+
   componentDidUpdate(prevProps, prevState) {
     // console.log(prevProps, prevState)
     // console.log(this.state)
   }
   render() {
+    console.log('[App.js] render');
     //default which checks every time the state renders or updates.
     let persons = null;
 
@@ -71,10 +88,11 @@ class App extends Component {
         />
       );
     }
-
+    //props coming from index.js
     return (
       <div>
         <Cockpit
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}
@@ -89,3 +107,4 @@ export default App;
 //CSS modules: https://programmingwithmosh.com/react/css-modules-react/
 //https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
 //https://github.com/css-modules/css-modules
+//component lifeCycle : https://blog.bitsrc.io/react-16-lifecycle-methods-how-and-when-to-use-them-f4ad31fb2282
