@@ -1,17 +1,25 @@
-import React from 'react'
-import personClass from './Person.module.css' // css module
+import React, { Component } from 'react';
+import personClass from './Person.module.css'; // css module
 
-const Person = (props) => {
-    console.log('[Person.js] Rendering...... ')
-    // console.log(props);
+class Person extends Component {
+  render() {
+    console.log('[Person.js] Rendering...... ');
+    // console.log(this.props);
     return (
-        <div className={personClass.Person}>
-            <p onClick={props.clickEvent}>My name is {props.name} and i am {props.age} years old</p>
-            <p className="">{props.id}</p>
-            <p>{props.children}</p>
-            <input value={props.name} type="text" onChange={props.changed}/>
-        </div>
-    )
+      <div className={personClass.Person}>
+        <p onClick={this.props.clickEvent}>
+          My name is {this.props.name} and i am {this.props.age} years old
+        </p>
+        <p className="">{this.props.id}</p>
+        <p>{this.props.children}</p>
+        <input
+          value={this.props.name}
+          type="text"
+          onChange={this.props.changed}
+        />
+      </div>
+    );
+  }
 }
 
-export default Person
+export default Person;
