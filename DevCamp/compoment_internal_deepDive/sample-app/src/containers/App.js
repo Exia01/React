@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classes from './App.module.css'; // css module
 // import {BrowserRouter, Link, Route} from 'react-router-dom';
 
 import Persons from '../components/Persons/Persons';
@@ -21,7 +22,8 @@ class App extends Component {
       {id: '23', name: 'Melanie', age: '17'}
     ],
     otherState: 'Some otherValue',
-    showPersons: false
+    showPersons: false,
+    showCockpit: true,
   };
 
   // after constructor runs this life cycle follows
@@ -100,14 +102,17 @@ class App extends Component {
       );
     }
     //props coming from index.js
+    //passing length to cockpit to better optimize the conditional for updating 
     return (
-      <div>
-        <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          clicked={this.togglePersonsHandler}
-        />
+      <div className={classes.App}>
+        <button onClick={() => {this.setState({showCockpit: false})}}>Remove Cockpit Component</button>
+        {this.state.showCockpit ?
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          /> : null}
         {persons}
       </div>
     );

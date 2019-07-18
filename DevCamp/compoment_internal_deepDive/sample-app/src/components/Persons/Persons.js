@@ -12,7 +12,8 @@ class Persons extends Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     console.log('[Persons.js] shouldComponentUpdate...');
     // have to return or false whether it should update
-    return true;
+    //this is comparing pointers in memory, since the spread operators copied the values --> shallow comparison. Memory pointers are different due to the objects being replaced.
+    return nextProps.persons !== this.props.persons; // more efficient
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -24,6 +25,11 @@ class Persons extends Component {
     //will run after render method
     console.log('[Persons.js] componentDidUpdate');
     console.log(snapshot);
+  }
+
+  componentWillUnmount() {
+    console.log('[App.js] componentWillUnmount');
+    //can run any clean up or action
   }
 
   render() {

@@ -19,11 +19,21 @@ const Cockpit = props => {
   useEffect(() => {
     console.log('[Cockpit.js] UseEffect...');
     //http request can be made here
-    setTimeout(() => {
-      //simulating requests
-      alert('Saved data to cloud');
+     setTimeout(() => {
+        //simulating requests
+        //   alert('Saved data to cloud');
     }, 1000);
+      return () => {
+        
+        console.log('[Cockpit.js] cleanup work in useEffect...');
+      }
   }, []);//empty array tells react only to execute only when any dependencies changes and thus only once because it is empty
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd UseEffect...');
+    return () => {
+        console.log('[Cockpit.js] 2nd cleanup work in useEffect...');
+      }
+  });
   // console.log(props);
 
   //if 2 persons or less
@@ -34,10 +44,10 @@ const Cockpit = props => {
     //coming from the app state
     btnClass = classes.Red; // string from obj css loader that gives us access
   }
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     assignClasses.push(classes.red); // classes = ["red"]
   }
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     assignClasses.push(classes.bold); // classes = ["red", "bold"]
   }
   return (
@@ -51,4 +61,4 @@ const Cockpit = props => {
   );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit); //storing a snapshot of the component 
