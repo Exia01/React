@@ -4,6 +4,8 @@ import classes from './App.module.css'; // css module
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withWrapper from '../hoc/withWrapped'; //lowercase since it is Functional Component
+import Aux from '../hoc/Auxiliary'
 
 //container component shouldn't be involved with UI too much. Should be lean
 class App extends Component {
@@ -104,22 +106,22 @@ class App extends Component {
     //props coming from index.js
     //passing length to cockpit to better optimize the conditional for updating 
     return (
-      <div className={classes.App}>
-        <button onClick={() => {this.setState({showCockpit: false})}}>Remove Cockpit Component</button>
-        {this.state.showCockpit ?
-          <Cockpit
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            personsLength={this.state.persons.length}
-            clicked={this.togglePersonsHandler}
-          /> : null}
+      <Aux>
+      <button onClick={() => {this.setState({showCockpit: false})}}>Remove Cockpit Component</button>
+      {this.state.showCockpit ?
+        <Cockpit
+        title={this.props.appTitle}
+        showPersons={this.state.showPersons}
+        personsLength={this.state.persons.length}
+        clicked={this.togglePersonsHandler}
+        /> : null}
         {persons}
-      </div>
+        </Aux>
     );
   }
 }
 
-export default App;
+export default withWrapper(App, classes.App); //wrapping app and passing in the classes from app
 //CSS modules: https://programmingwithmosh.com/react/css-modules-react/
 //https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
 //https://github.com/css-modules/css-modules
