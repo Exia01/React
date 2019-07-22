@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useRef} from 'react';
 //useEffect is the second most important hook you can use next to useState
 //useEffect //combines the functionality of the use cases for lifecycle hooks
 import classes from './Cockpit.module.css'; // css modules scoped to this component
@@ -13,12 +13,17 @@ const Cockpit = props => {
 //       alert('Saved data to cloud');
 //     }, 1000);
 //   }, [props.persons]); //can pass second argument and points to all the variables that are actually used on the effect
-    
-    
+  
+  // NO constructor available
+  const toggleBtnRef = useRef(null) //using hook. null as initial value
 //   //useEffect executes for every render cycle can be tricky to use
-  useEffect(() => {
+  // setTimeout(() => {
+  //   toggleBtnRef.current.click() //reference button, current property click
+  // },2500)
+  useEffect(() => { //runs after the render lifecycle
     console.log('[Cockpit.js] UseEffect...');
     //http request can be made here
+    toggleBtnRef.current.click()
      setTimeout(() => {
         //simulating requests
         //   alert('Saved data to cloud');
@@ -54,7 +59,7 @@ const Cockpit = props => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <h1 className={assignClasses.join(' ')}>Hello There</h1>
-      <button className={btnClass} onClick={props.clicked}>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
     </div>
