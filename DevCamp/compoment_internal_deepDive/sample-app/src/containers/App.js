@@ -19,13 +19,14 @@ class App extends Component {
   //can implement from class based component
   state = {
     persons: [
-      {id: 1, name: 'Max', age: '28'},
-      {id: 2, name: 'Manu', age: '23'},
-      {id: '23', name: 'Melanie', age: '17'}
+      {id: 1, name: 'Max', age: 28},
+      {id: 2, name: 'Manu', age: 23},
+      {id: '23', name: 'Melanie', age: 17}
     ],
     otherState: 'Some otherValue',
     showPersons: false,
     showCockpit: true,
+    changeCounter: 0,
   };
 
   // after constructor runs this life cycle follows
@@ -69,7 +70,13 @@ class App extends Component {
     const persons = [...this.state.persons]; //spread operator to copy the state
     persons[personIndex] = person; // update the value on the array
 
-    this.setState({persons: persons}); //can pass pass object persons for simplicity
+    //we can either initialize a variable and pass in increase num or use the prev state and increase it to set the new state
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      }
+    })
   };
 
   deletePersonHandler = personIndex => {
@@ -107,16 +114,16 @@ class App extends Component {
     //passing length to cockpit to better optimize the conditional for updating 
     return (
       <Aux>
-      <button onClick={() => {this.setState({showCockpit: false})}}>Remove Cockpit Component</button>
-      {this.state.showCockpit ?
-        <Cockpit
-        title={this.props.appTitle}
-        showPersons={this.state.showPersons}
-        personsLength={this.state.persons.length}
-        clicked={this.togglePersonsHandler}
-        /> : null}
+        <button onClick={() => {this.setState({showCockpit: false})}}>Remove Cockpit Component</button>
+        {this.state.showCockpit ?
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          /> : null}
         {persons}
-        </Aux>
+      </Aux>
     );
   }
 }
