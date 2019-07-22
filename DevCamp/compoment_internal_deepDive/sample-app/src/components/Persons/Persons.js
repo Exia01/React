@@ -1,6 +1,5 @@
-import React, { Component, PureComponent } from 'react';
+import React, {Component, PureComponent} from 'react';
 import Person from './Person/Person';
-
 class Persons extends PureComponent {
   //PureComponent checks for all any props changes
   //   static getDerivedStateFromProps(props, state = { hello: 'Hello World!' }) {
@@ -24,7 +23,7 @@ class Persons extends PureComponent {
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('[Persons.js] getSnapshotBeforeUpdate..');
-    return { message: 'Snapshot!!' };
+    return {message: 'Snapshot!!'};
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -37,21 +36,21 @@ class Persons extends PureComponent {
     console.log('[App.js] componentWillUnmount');
     //can run any clean up or action
   }
-
+//setting AuthContext.consumer which takes in a function. We then pass in the context obj
   render() {
     console.log('[Persons.js] Rendering...... ');
     return this.props.persons.map((individual, index) => {
-      //using property naming for this.props functions
-      return (
-        <Person
-          key={individual.id}
-          clickEvent={() => this.props.clicked(index)}
-          name={individual.name}
-          age={individual.age}
-          changed={event => this.props.changed(event, individual.id)}
-        />
-      );
-    });
+        //using property naming for this.props functions
+        return (
+          <Person
+            key={individual.id}
+            clickEvent={() => this.props.clicked(index)}
+            name={individual.name}
+            age={individual.age}
+            changed={event => this.props.changed(event, individual.id)}
+          />
+        );
+      })
   }
 }
 

@@ -6,6 +6,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withWrapper from '../hoc/withWrapped'; //lowercase since it is Functional Component
 import Aux from '../hoc/Auxiliary'
+import AuthContext from '../context/auth-context' //being used as a component
 
 //container component shouldn't be involved with UI too much. Should be lean
 class App extends Component {
@@ -27,6 +28,8 @@ class App extends Component {
     showPersons: false,
     showCockpit: true,
     changeCounter: 0,
+    authenticated: false,
+
   };
 
   // after constructor runs this life cycle follows
@@ -92,6 +95,9 @@ class App extends Component {
     //inverting value if true. React will merge the rest of the components
     this.setState({showPersons: !doesShow});
   };
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
 
   render() {
     console.log('[App.js] render');
@@ -107,6 +113,7 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
+          isAuthenticated={this.state.authenticated}
         />
       );
     }
@@ -115,14 +122,19 @@ class App extends Component {
     return (
       <Aux>
         <button onClick={() => {this.setState({showCockpit: false})}}>Remove Cockpit Component</button>
-        {this.state.showCockpit ?
-          <Cockpit
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            personsLength={this.state.persons.length}
-            clicked={this.togglePersonsHandler}
-          /> : null}
-        {persons}
+        <AuthContext.Provider value={{
+          authenticated: this.state.authenticated,
+          login: this.loginHandler
+        }}>
+          {this.state.showCockpit ?
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonsHandler}
+            /> : null}
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }
