@@ -18,18 +18,38 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0,
     },
-    totalPrice: 1
+    totalPrice: 1,
+    purchaseable: false
   };
+
+
+  updatePurchaseState() {
+    //copying the state
+    const ingredients = {
+      ...this.state.ingredients
+    }
+    console.log(ingredients)
+    //obtaining the keys and cycling to get the totals
+    const ingredientTotal = Object.keys(ingredients).map(igKey => {
+      //array of nums for ingredients
+      return ingredients[igKey]
+    }).reduce((totalSum, el) => {
+      // adding to totalSum with starting value of 0
+      return totalSum + el
+    }, 0)
+    console.log(ingredientTotal)
+    this.setState({ purchaseable: ingredientTotal > 0 })
+  }
 
   addIngredientHandler = type => {
     let oldCount = this.state.ingredients[type]; //obtaining the count from the state
-    const updatedCount = (oldCount += 1); //increasing count
+    const updatedCount = oldCount + 1; //increasing count
     const updatedIngredients = {
       //distributing old properties from state using map
       ...this.state.ingredients
     };
 
-    console.log(updatedIngredients);
+    // console.log(updatedIngredients);
     updatedIngredients[type] = updatedCount;
     //setting that ingredient on that count
     const priceAddition = INGREDIENT_PRICES[type];
@@ -39,6 +59,10 @@ class BurgerBuilder extends Component {
       totalPrice: newPrice,
       ingredients: updatedIngredients
     });
+    this.updatePurchaseState()    
+    console.log(this.state)
+    console.log(this.state.purchaseable)
+
   };
 
   removeIngredientHandler = type => {
@@ -62,6 +86,10 @@ class BurgerBuilder extends Component {
       totalPrice: newPrice,
       ingredients: updatedIngredients
     });
+    console.log(this.state)
+    this.updatePurchaseState()
+    console.log(this.state.purchaseable)
+
   };
 
   render() {
@@ -80,6 +108,9 @@ class BurgerBuilder extends Component {
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disabledInfo}
+          //reverting
+          purchaseable={this.state.purchaseable}
+          price={this.state.totalPrice}
         />
       </Fragment>
     );
