@@ -10,13 +10,13 @@ const burger = (props) => {
     //     console.log(props.ingredients[igKey])
         //chaining method, and creating array of ingredients based of key and values [salad, salad]
         return [...Array(props.ingredients[igKey])].map((x, i) => { //could do _ for any
-            console.log("inside the second loop", i, igKey)
+            // console.log("inside the second loop", i, igKey)
             return <BurgerIngredient key={uuid.v4()} type={igKey} />
         })//reduce, previous value and current value. Flattning the array 
     }).reduce((arr, el)=> { 
         return arr.concat(el)
     },[]) //passing in an array value and return to add to it
-    console.log(transformedIngredients)
+    // console.log(transformedIngredients)
     if (transformedIngredients.length === 0) {
         transformedIngredients = <p>Please start adding ingredients</p>
     }
@@ -31,3 +31,13 @@ const burger = (props) => {
 
 export default burger
 // Using UUID: https://stackoverflow.com/questions/52852018/use-npm-uuid-in-reactjs
+//=========================
+//Better way to implement the burger rendering
+// const { ingredients } = this.props;
+// let ingredientsArray = [];
+// Object.keys(ingredients).forEach(ingKey => {
+//   for(let i = 0; i < ingredients[ingKey]; i++)
+//     ingredientsArray.push(<Ingredient key={ingKey + i} type={ingKey}/>)
+// });
+
+//=========================================================
