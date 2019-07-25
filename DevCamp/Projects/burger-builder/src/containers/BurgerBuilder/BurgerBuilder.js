@@ -1,6 +1,8 @@
-import React, { Component, Fragment } from 'react'; //using fragment instead of auxiliary hoc
+import React, {Component, Fragment} from 'react'; //using fragment instead of auxiliary hoc
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSumary from '../../components/Burger/OrderSummary/OrderSumary';
 
 //Global constant (shouldnt it be let since it might be changed?)
 const INGREDIENT_PRICES = {
@@ -30,7 +32,7 @@ class BurgerBuilder extends Component {
       };
     } else {
       //copying the state
-       ingredients = {
+      ingredients = {
         ...this.state.ingredients
       };
     }
@@ -46,7 +48,7 @@ class BurgerBuilder extends Component {
       }, 0);
     // console.log('Ingredients: ', ingredients);
     // console.log('Total ingredients: ', ingredientTotal);
-    this.setState({ purchaseable: ingredientTotal > 0 });
+    this.setState({purchaseable: ingredientTotal > 0});
   }
 
   addIngredientHandler = type => {
@@ -65,7 +67,7 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + priceAddition;
     // this.setState({ totalPrice: newPrice, ingredients });
     this.setState(
-      { ingredients, totalPrice: newPrice },
+      {ingredients, totalPrice: newPrice},
       this.updatePurchaseState
     ); //callback after updating state
   };
@@ -105,6 +107,7 @@ class BurgerBuilder extends Component {
     }
     return (
       <Fragment>
+        <Modal ><OrderSumary ingredients={this.state.ingredients}/></Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
