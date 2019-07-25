@@ -16,53 +16,58 @@ class BurgerBuilder extends Component {
       salad: 0,
       bacon: 0,
       cheese: 0,
-      meat: 0,
+      meat: 0
     },
     totalPrice: 1,
     purchaseable: false
   };
 
-
-  updatePurchaseState() {
-    //copying the state
-    const ingredients = {
-      ...this.state.ingredients
+  updatePurchaseState(ingredientsList) {
+    let ingredients = {};
+    if (ingredientsList) {
+      ingredients = {
+        ...ingredientsList
+      };
+    } else {
+      //copying the state
+       ingredients = {
+        ...this.state.ingredients
+      };
     }
-    console.log(ingredients)
     //obtaining the keys and cycling to get the totals
-    const ingredientTotal = Object.keys(ingredients).map(igKey => {
-      //array of nums for ingredients
-      return ingredients[igKey]
-    }).reduce((totalSum, el) => {
-      // adding to totalSum with starting value of 0
-      return totalSum + el
-    }, 0)
-    console.log(ingredientTotal)
-    this.setState({ purchaseable: ingredientTotal > 0 })
+    const ingredientTotal = Object.keys(ingredients)
+      .map(igKey => {
+        //array of nums for ingredients
+        return ingredients[igKey];
+      })
+      .reduce((totalSum, el) => {
+        // adding to totalSum with starting value of 0
+        return totalSum + el;
+      }, 0);
+    // console.log('Ingredients: ', ingredients);
+    // console.log('Total ingredients: ', ingredientTotal);
+    this.setState({ purchaseable: ingredientTotal > 0 });
   }
 
   addIngredientHandler = type => {
-    let oldCount = this.state.ingredients[type]; //obtaining the count from the state
-    const updatedCount = oldCount + 1; //increasing count
-    const updatedIngredients = {
-      //distributing old properties from state using map
+    const oldCount = this.state.ingredients[type];
+    //obtaining the count from the state
+    const updatedCount = oldCount + 1;
+    const ingredients = {
+      //distributing old properties from state using spread
       ...this.state.ingredients
     };
 
-    // console.log(updatedIngredients);
-    updatedIngredients[type] = updatedCount;
+    ingredients[type] = updatedCount;
     //setting that ingredient on that count
     const priceAddition = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
-    this.setState({
-      totalPrice: newPrice,
-      ingredients: updatedIngredients
-    });
-    this.updatePurchaseState()    
-    console.log(this.state)
-    console.log(this.state.purchaseable)
-
+    // this.setState({ totalPrice: newPrice, ingredients });
+    this.setState(
+      { ingredients, totalPrice: newPrice },
+      this.updatePurchaseState
+    ); //callback after updating state
   };
 
   removeIngredientHandler = type => {
@@ -86,10 +91,7 @@ class BurgerBuilder extends Component {
       totalPrice: newPrice,
       ingredients: updatedIngredients
     });
-    console.log(this.state)
-    this.updatePurchaseState()
-    console.log(this.state.purchaseable)
-
+    this.updatePurchaseState(updatedIngredients);
   };
 
   render() {
