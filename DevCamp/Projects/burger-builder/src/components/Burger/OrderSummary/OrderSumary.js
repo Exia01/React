@@ -1,5 +1,6 @@
 import React from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
+import Button from '../../UI/Button/Button';
 //using auxiliary instead of fragment
 const OrderSumary = props => {
   const ingredientSummary = Object.keys(props.ingredients).map(igKey => {
@@ -11,12 +12,14 @@ const OrderSumary = props => {
     );
   });
   return (
-    <h3>
+    <Auxiliary>
       <h3>Your Order</h3>
       <p>A delicious burger with the following ingredients:</p>
       <ul>{ingredientSummary}</ul>
       <p>Continue to Checkout?</p>
-    </h3>
+      <Button btnType={'Danger'} clicked={props.purchaseCanceled}>Cancel</Button>
+      <Button btnType={'Success'} clicked={props.purchaseContinued}>Continue</Button>
+    </Auxiliary>
   );
 };
 
