@@ -1,0 +1,17 @@
+.Toolbar{
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #703B09;
+    display: flex; /* will shift all elements in row */
+    justify-content: space-between; /* utilizing whitespace */
+    align-items: center;
+    padding: 0 20px;/* top-bottom right-left */
+    box-sizing: border-box;
+    z-index: 90; /* This number should be lower than the the backdrop */
+}
+.Toolbar nav{
+    height: 100%;
+}
