@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import Aux from '../../hoc/Auxiliary'; // using aux as a wrapper for the adjacent tags || can React Fragment.
+import Aux from '../Auxiliary/Auxiliary'; // using aux as a wrapper for the adjacent tags || can React Fragment.
 
 import classes from './Layout.module.css' //module css
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
+// though it has a class and could be defined as a container, it wraps the burger builder in app and can classify as hoc
 //setting class component to handle one click for side drawer
 class Layout extends Component {
     state = {
