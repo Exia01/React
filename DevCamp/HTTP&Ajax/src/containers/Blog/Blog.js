@@ -10,17 +10,24 @@ import './Blog.css';
 class Blog extends Component {
   state = {
     posts: [],
-    selectedPostId: null //initially null, wont render post info in component
+    selectedPostId: null, //initially null, wont render post info in component
+    errors: false
   };
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts').then(response => {
-      console.log(response);
-      const data = response.data.slice(0, 4);
-      const updatedPost = data.map(post => {
-        return { ...post, author: 'Joshi' };
+    axios
+      .get('https://jsonplaceholder.typicode.com/posts')
+      .then(response => {
+        console.log(response);
+        const data = response.data.slice(0, 4);
+        const updatedPost = data.map(post => {
+          return { ...post, author: 'Joshi' };
+        });
+        this.setState({ posts: updatedPost }); //needs to be called in the "then" so that the data has been fetched
+      })
+      .catch(err => {
+        console.log('Error!! ', err);
+        this.setState({ errors: true });
       });
-      this.setState({ posts: updatedPost }); //needs to be called in the "then" so that the data has been fetched
-    });
   }
   postSelectedHandler = id => {
     // console.log(e.target.id) could also just pass an id to the object article
@@ -28,15 +35,19 @@ class Blog extends Component {
     this.setState({ selectedPostId: id });
   };
   render() {
-    const posts = this.state.posts.map(post => {
-      return (
-        <Post
-          post={post}
-          key={post.id}
-          clicked={() => this.postSelectedHandler(post.id)}
-        />
-      );
-    });
+    let posts = <p style={{ textAlign: 'center' }}>Something went sideways!</p>;
+    if (!this.state.errors) {
+      //if there aren't errors
+       posts = this.state.posts.map(post => {
+        return (
+          <Post
+            post={post}
+            key={post.id}
+            clicked={() => this.postSelectedHandler(post.id)}
+          />
+        );
+      });
+    }
     return (
       <div>
         <section className="Posts">{posts}</section>
