@@ -3,7 +3,6 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSumary from '../../components/Burger/OrderSummary/OrderSumary';
-import axios from '../../axios-orders';
 
 //Global constant (shouldnt it be let since it might be changed?)
 const INGREDIENT_PRICES = {
@@ -107,37 +106,9 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   };
 
-  purchaseContinueHandler = () => {
-    // alert("Success! ")
-
-    const burgerOrder = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice, //would do this on the db
-      customer: {
-        name: 'Yoshi',
-        address: {
-          street: 'Sesame',
-          zipCode: '56454',
-          Country: 'Antarctica'
-        },
-        email: 'test@woohzah.com'
-      },
-      deliveryMethod: 'Del/ASAP'
-    };
-    const orderObj = {
-      ...this.state.ingredients
-    };
-    console.log(orderObj);
-    //baseURL and sub route.
-    axios
-      .post('orders.json', burgerOrder)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  purchaseContinueHandler = () =>{
+    alert("Success! ")
+  }
 
   render() {
     const disabledInfo = {
@@ -150,15 +121,12 @@ class BurgerBuilder extends Component {
     }
     return (
       <Fragment>
-        <Modal
-          show={this.state.purchasing}
-          modalClosed={this.purchaseCancelHandler}
-        >
-          <OrderSumary
-            ingredients={this.state.ingredients}
-            purchaseCanceled={this.purchaseCancelHandler}
-            purchaseContinued={this.purchaseContinueHandler}
-            price={this.state.totalPrice}
+        <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+          <OrderSumary ingredients={this.state.ingredients}
+          purchaseCanceled={this.purchaseCancelHandler}
+          purchaseContinued={this.purchaseContinueHandler}
+          price={this.state.totalPrice}
+
           />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
