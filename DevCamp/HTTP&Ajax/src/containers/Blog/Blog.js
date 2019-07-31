@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -13,7 +13,7 @@ class Blog extends Component {
     selectedPostId: null //initially null, wont render post info in component
   };
   componentDidMount() {
-    Axios.get('https://jsonplaceholder.typicode.com/posts').then(response => {
+    axios.get('https://jsonplaceholder.typicode.com/posts').then(response => {
       console.log(response);
       const data = response.data.slice(0, 4);
       const updatedPost = data.map(post => {
