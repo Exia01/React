@@ -17,7 +17,7 @@ class FullPost extends Component {
       ) {
         //additional check helps ensure we check the first time around for sending a call
         axios
-          .get(`https://jsonplaceholder.typicode.com/posts/${this.props.id}`)
+          .get(`/posts/${this.props.id}`)
           .then(response => {
             this.setState({ loadedPost: response.data });
           });
@@ -26,7 +26,7 @@ class FullPost extends Component {
   }
   deletePostHandler =() => {
     axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${this.props.id}`)
+      .delete(`/posts/${this.props.id}`)
       .then(response => {
         console.log('Success! ', response);
       })
