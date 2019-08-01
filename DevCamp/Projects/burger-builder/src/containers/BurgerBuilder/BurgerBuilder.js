@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from 'react'; //using fragment instead of auxiliary hoc
+import React, {Component, Fragment} from 'react'; //using fragment instead of auxiliary hoc
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSumary from '../../components/Burger/OrderSummary/OrderSumary';
 import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 //Global constant (shouldnt it be let since it might be changed?)
 const INGREDIENT_PRICES = {
@@ -23,7 +24,9 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 1,
     purchaseable: false,
-    purchasing: false
+    purchasing: false,
+    loading: false,
+
   };
 
   updatePurchaseState(ingredientsList) {
@@ -50,7 +53,7 @@ class BurgerBuilder extends Component {
       }, 0);
     // console.log('Ingredients: ', ingredients);
     // console.log('Total ingredients: ', ingredientTotal);
-    this.setState({ purchaseable: ingredientTotal > 0 });
+    this.setState({purchaseable: ingredientTotal > 0});
   }
 
   addIngredientHandler = type => {
@@ -69,7 +72,7 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + priceAddition;
     // this.setState({ totalPrice: newPrice, ingredients });
     this.setState(
-      { ingredients, totalPrice: newPrice },
+      {ingredients, totalPrice: newPrice},
       this.updatePurchaseState
     ); //callback after updating state
   };
@@ -100,16 +103,16 @@ class BurgerBuilder extends Component {
 
   //modal handler
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    this.setState({purchasing: true});
   };
   //closes modal
   purchaseCancelHandler = () => {
-    this.setState({ purchasing: false });
+    this.setState({purchasing: false});
   };
 
   purchaseContinueHandler = () => {
     // alert("Success! ")
-
+    this.setState({loading:true}) //showing loading spinner
     const burgerOrder = {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice, //would do this on the db
@@ -132,10 +135,12 @@ class BurgerBuilder extends Component {
     axios
       .post('orders.json', burgerOrder)
       .then(response => {
-        console.log(response);
+        // console.log(response);
+        this.setState({loading:false, purchasing:false})
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
+        this.setState({loading:false, purchasing:false})
       });
   };
 
@@ -148,18 +153,24 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] <= 0;
       //checking true or false, will use for disabling buttons
     }
+
+    let orderSumary = <OrderSumary
+      ingredients={this.state.ingredients}
+      purchaseCanceled={this.purchaseCancelHandler}
+      purchaseContinued={this.purchaseContinueHandler}
+      price={this.state.totalPrice}
+    />
+    if (this.state.loading) { //while the state is "loading"
+      orderSumary = <Spinner/>
+
+    }
     return (
       <Fragment>
         <Modal
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
         >
-          <OrderSumary
-            ingredients={this.state.ingredients}
-            purchaseCanceled={this.purchaseCancelHandler}
-            purchaseContinued={this.purchaseContinueHandler}
-            price={this.state.totalPrice}
-          />
+          {orderSumary}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
