@@ -19,17 +19,29 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0
-    },
+    ingredients: null,
     totalPrice: 1,
     purchaseable: false,
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false
   };
+
+  //reaching out to firebase for the ingredients and setting state
+  componentDidMount() {
+    axios
+      .get(
+        'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
+      )
+      .then(response => {
+        const ingredients = response.data;
+        this.setState({ ingredients });
+      })
+      .catch(err => {
+        //the hoc will catch the error and render the modal component??? -> i'm so lost by this point
+        this.setState({ error: true });
+      });
+  }
 
   updatePurchaseState(ingredientsList) {
     let ingredients = {};
@@ -156,18 +168,47 @@ class BurgerBuilder extends Component {
       //checking true or false, will use for disabling buttons
     }
 
-    let orderSumary = (
-      <OrderSumary
-        ingredients={this.state.ingredients}
-        purchaseCanceled={this.purchaseCancelHandler}
-        purchaseContinued={this.purchaseContinueHandler}
-        price={this.state.totalPrice}
-      />
+    //implementing same check as the burger below
+    let orderSumary = null;
+
+    //before we get the data from firebase, show spinner
+    let burger = this.state.error ? (
+      <p>Ingredients Can't be loaded!!</p>
+    ) : (
+      <Spinner />
     );
+    //when state changes, this will recheck and render the burger component
+    if (this.state.ingredients) {
+      burger = (
+        <React.Fragment>
+          <Burger ingredients={this.state.ingredients} />
+          <BuildControls
+            ingredientAdded={this.addIngredientHandler}
+            ingredientRemoved={this.removeIngredientHandler}
+            disabled={disabledInfo}
+            //reverting
+            purchaseable={this.state.purchaseable}
+            ordered={this.purchaseHandler}
+            price={this.state.totalPrice}
+          />
+        </React.Fragment>
+      );
+      orderSumary = (
+        <OrderSumary
+          ingredients={this.state.ingredients}
+          purchaseCanceled={this.purchaseCancelHandler}
+          purchaseContinued={this.purchaseContinueHandler}
+          price={this.state.totalPrice}
+        />
+      );
+    }
+
+    //checking after ingredients set
     if (this.state.loading) {
       //while the state is "loading"
       orderSumary = <Spinner />;
     }
+
     return (
       <Fragment>
         <Modal
@@ -176,16 +217,7 @@ class BurgerBuilder extends Component {
         >
           {orderSumary}
         </Modal>
-        <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-          ingredientAdded={this.addIngredientHandler}
-          ingredientRemoved={this.removeIngredientHandler}
-          disabled={disabledInfo}
-          //reverting
-          purchaseable={this.state.purchaseable}
-          ordered={this.purchaseHandler}
-          price={this.state.totalPrice}
-        />
+        {burger}
       </Fragment>
     );
   }

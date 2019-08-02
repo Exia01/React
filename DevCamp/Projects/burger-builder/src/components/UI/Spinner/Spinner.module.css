@@ -1,7 +1,8 @@
 .Loader {
     color: #4745f9;
+    padding-top: 0px;
     font-size: 20px;
-    margin: 100px auto;
+    margin: 115px auto;
     width: 1em;
     height: 1em;
     border-radius: 50%;
