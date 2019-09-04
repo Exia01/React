@@ -1,3 +1,5 @@
+// Typically this would the used as a wrapper around the core component we want to render to the screen
+
 import React, {Component} from 'react'
 import Aux from '../Auxiliary/Auxiliary'; // using aux as a wrapper for the adjacent tags || can React Fragment.
 
