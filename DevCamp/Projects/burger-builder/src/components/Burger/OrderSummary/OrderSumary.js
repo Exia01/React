@@ -6,6 +6,7 @@ import Button from '../../UI/Button/Button';
 // could switch to class base component
 const OrderSumary = props => {
   const ingredientSummary = Object.keys(props.ingredients).map(igKey => {
+    // <li> Salad : 1 </li>
     return (
       <li key={igKey}>
         <span style={{ textTransform: 'capitalize' }}> {igKey} </span>:

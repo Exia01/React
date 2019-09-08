@@ -8,19 +8,20 @@ const burger = props => {
   //key method to extract keys and turn into array, the mapping with ingredient key
   let transformedIngredients = Object.keys(props.ingredients) //ingredient is an obj
     .map(igKey => {
-      console.log('Current ingredient key', igKey);
+      // console.log('Current ingredient key', igKey);
       //     console.log(props.ingredients[igKey])
       //chaining method, and creating array of ingredients based of key and values [salad, salad]
       return [...Array(props.ingredients[igKey])].map((x,i) => {
         //could do _ for any
-        console.log('inside the second loop', x, i, igKey);
+        // console.log('inside the second loop', x, i, igKey);
         return <BurgerIngredient key={uuid.v4()} type={igKey} />;
-      }); //reduce, previous value and current value. Flattning the array
+      }); //reduce, previous value and current value. Flattening the array
     })
     .reduce((arr, el) => {
+      // console.log(`reducing obj: arr is${arr}, element is ${el}`)
       return arr.concat(el);
     }, []); //passing in an array value and return to add to it
-  console.log(transformedIngredients);
+  // console.log(transformedIngredients);
   // console.log(transformedIngredients)
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please start adding ingredients</p>;

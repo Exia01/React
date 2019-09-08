@@ -10,7 +10,7 @@ const controls = [
   { label: 'Meat', type: 'meat' }
 ];
 const buildControls = props => {
-  // console.log(props.disabled)
+  // console.log(props.disabled) {salad:true, meat:false}
   return (
     <div className={classes.BuildControls}>
       <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>

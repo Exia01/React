@@ -11,10 +11,10 @@ import Modal from '../../components/UI/Modal/Modal';
 
 //Global constant (shouldnt it be let since it might be changed?)
 const INGREDIENT_PRICES = {
-  salad: 0.75,
-  cheese: 0.4,
-  meat: 1.3,
-  bacon: 0.75
+  salad: 0.35,
+  cheese: 0.5,
+  meat: 1.45,
+  bacon: 1.0
 };
 
 class BurgerBuilder extends Component {
@@ -22,7 +22,7 @@ class BurgerBuilder extends Component {
     ingredients: null,
     totalPrice: 1,
     purchaseable: false,
-    purchasing: false,
+    purchasing: false, //if on the checkout screen --> pressed "Order now" btn
     loading: false,
     error: false
   };
@@ -104,7 +104,7 @@ class BurgerBuilder extends Component {
     };
 
     // console.log(updatedIngredients);
-    updatedIngredients[type] = updatedCount;
+    updatedIngredients[type] = updatedCount; // salad:number
     //setting that ingredient on that count
     const priceDeduction = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
@@ -117,7 +117,7 @@ class BurgerBuilder extends Component {
   };
 
   //modal handler
-  purchaseHandler = () => {
+  purchaseHandler = () => { //set is set as an event need arrow function
     this.setState({ purchasing: true });
   };
   //closes modal
