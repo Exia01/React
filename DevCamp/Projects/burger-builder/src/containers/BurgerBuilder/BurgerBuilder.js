@@ -121,7 +121,7 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: true });
   };
   //closes modal
-  purchaseCancelHandler = () => {
+  purchaseCancelHandler = () => { //event -> need arrow function
     this.setState({ purchasing: false });
   };
 
@@ -145,7 +145,7 @@ class BurgerBuilder extends Component {
     const orderObj = {
       ...this.state.ingredients
     };
-    console.log(orderObj);
+    console.log(`Order Obj from order continue ${orderObj}`);
     //baseURL and sub route.
     axios
       .post('orders.js', burgerOrder)
@@ -154,7 +154,7 @@ class BurgerBuilder extends Component {
         this.setState({ loading: false, purchasing: false });
       })
       .catch(err => {
-        // console.log(err);
+        console.log(err);
         this.setState({ loading: false, purchasing: false });
       });
   };
