@@ -22,7 +22,7 @@ class Blog extends Component {
         console.log(response);
         const data = response.data.slice(0, 4);
         const updatedPost = data.map(post => {
-          return { ...post, author: 'Joshi' };
+          return { ...post, author: 'Joshua' };
         });
         this.setState({ posts: updatedPost }); //needs to be called in the "then" so that the data has been fetched
       })
@@ -35,6 +35,8 @@ class Blog extends Component {
     // console.log(e.target.id) could also just pass an id to the object article
     console.log(id);
     this.setState({ selectedPostId: id });
+    // axios
+    //   .get('posts')
   };
   render() {
     let posts = <p style={{ textAlign: 'center' }}>Something went sideways!</p>;

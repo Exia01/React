@@ -8,6 +8,7 @@ import Backdrop from '../Backdrop/Backdrop';
 export class Modal extends Component {
   //since order summary is wrapped with with modal this will decide to update component or not 
   shouldComponentUpdate(nextProps, nextState, nextContext){
+    console.log(`Testing if Modal Should update: ${nextProps.show}, ${this.props.show} ${this.props.children !== nextContext.children}`)
     return nextProps.show !== this.props.show || nextProps.children !== this.props.children
   }
   UNSAFE_componentWillUpdate(nextProps, nextState, nextContext){
