@@ -1,14 +1,19 @@
 .NavigationItems {
     margin: 0;
     padding: 0;
-    list-style: none; /* no list style */
-    display: flex; /* row */
-    flex-flow: column; /* will align each other */
-    align-items: center; /* vertically center */
+    list-style: none;
+    /* no list style */
+    display: flex;
+    /* row */
+    flex-flow: column;
+    /* will align each other */
+    align-items: center;
+    /* vertically center */
     height: 100%;
 }
-/* this will merge with current settings */
-@media (min-width: 500px) {
+
+/* this will merge with current settings media query for desktop devices */
+@media (min-width: 527px) {
     .NavigationItems {
         flex-flow: row;
     }

@@ -4,7 +4,6 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './SideDrawer.module.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
-// import Auxiliary from '../../../hoc/Auxiliary';
 
 const sideDrawer = props => { 
   //check from the incoming prop
@@ -12,6 +11,7 @@ const sideDrawer = props => {
   if (props.open) {
     attachedClasses = [classes.SideDrawer, classes.Open];
   }
+  
   return (
     <React.Fragment>
       <Backdrop show={props.open} clicked={props.closed} />

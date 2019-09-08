@@ -1,3 +1,4 @@
+/* Written mobile first; will target bigger screen with media queries */
 .NavigationItem {
     margin: 10px 0;
     box-sizing: border-box;
@@ -20,7 +21,7 @@
 }
 
 /* media queries will merge with current settings */
-@media (min-width: 500px) {
+@media (min-width: 526px) {
     .NavigationItem {
         margin: 0;
         display: flex; /* matches the flex  */
