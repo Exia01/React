@@ -7,7 +7,7 @@ import axios from 'axios';
 //all configs can be moved to a utils folder implement as HOC??
 axios.defaults.baseURL='https://jsonplaceholder.typicode.com' //setting up true for all requests
 
-axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN'//this could be set as a authorization token
+// axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN'//this could be set as a authorization token
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8' //application/json would be the default
 //interceptors are functions that can be defined globally that will apply every time we execute a request or receive a response
 // applying here since it is the most global file

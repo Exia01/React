@@ -17,9 +17,9 @@ class Blog extends Component {
   };
   componentDidMount() {
     axios
-      .get('posts')
+      .get('/posts')
       .then(response => {
-        console.log(response);
+        // console.log(response);
         const data = response.data.slice(0, 4);
         const updatedPost = data.map(post => {
           return { ...post, author: 'Joshua' };
@@ -33,10 +33,8 @@ class Blog extends Component {
   }
   postSelectedHandler = id => {
     // console.log(e.target.id) could also just pass an id to the object article
-    console.log(id);
+    // console.log(id);
     this.setState({ selectedPostId: id });
-    // axios
-    //   .get('posts')
   };
   render() {
     let posts = <p style={{ textAlign: 'center' }}>Something went sideways!</p>;
