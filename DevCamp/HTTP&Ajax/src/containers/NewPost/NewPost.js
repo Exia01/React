@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './NewPost.css';
+import classes from './NewPost.module.css'
 import axios from 'axios';
 
 class NewPost extends Component {
@@ -24,7 +24,7 @@ class NewPost extends Component {
 
   render() {
     return (
-      <div className="NewPost">
+      <div className={classes.NewPost}>
         <h1>Add a Post</h1>
         <label>Title</label>
         <input

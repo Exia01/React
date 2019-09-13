@@ -1,0 +1,23 @@
+.BlogCss ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+.BlogCss li {
+    display: inline-block;
+    margin: 20px;
+}
+
+.BlogCss a{
+    text-decoration: none;
+    color: black;
+}
+
+.BlogCss a:hover{
+    color: orange;
+}
+.BlogCss a:active{
+    color: teal;
+}

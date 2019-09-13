@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './FullPost.css';
+import Fullpost from './FullPost.module.css';
 import axios from 'axios';
 
 class FullPost extends Component {
@@ -20,11 +20,14 @@ class FullPost extends Component {
           .get(`/posts/${this.props.id}`)
           .then(response => {
             this.setState({ loadedPost: response.data });
+          })
+          .catch(err => {
+            console.log(err);
           });
       }
     }
   }
-  deletePostHandler =() => {
+  deletePostHandler = () => {
     axios
       .delete(`/posts/${this.props.id}`)
       .then(response => {
@@ -45,10 +48,10 @@ class FullPost extends Component {
     if (this.state.loadedPost) {
       // initially null so evaluates as false
       post = (
-        <div className="FullPost">
+        <div className={Fullpost.FullPost}>
           <h1>{this.state.loadedPost.title}</h1>
           <p>{this.state.loadedPost.body}</p>
-          <div className="Edit">
+          <div className={FullPost.edit}>
             <button onClick={this.deletePostHandler} className="Delete">
               Delete
             </button>

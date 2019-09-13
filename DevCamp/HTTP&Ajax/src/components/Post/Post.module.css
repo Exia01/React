@@ -1,4 +1,4 @@
-.Post {
+.Postcss {
     width: 200px;
     padding: 16px;
     text-align: center;
@@ -9,8 +9,8 @@
     cursor: pointer;
 }
 
-.Post:hover,
-.Post:active {
+.Postcss:hover,
+.Postcss:active {
     background-color: #C0DDF5;
 }
 
