@@ -133,13 +133,13 @@ class BurgerBuilder extends Component {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice, //would do this on the db
       customer: {
-        name: 'Yoshi',
+        name: 'Ryu Washumaru',
         address: {
-          street: 'Sesame',
+          street: 'Sesame st #119',
           zipCode: '56454',
           Country: 'Antarctica'
         },
-        email: 'test@woohzah.com'
+        email: 'test@huzzah.com'
       },
       deliveryMethod: 'Del/ASAP'
     };
@@ -226,4 +226,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+export default withErrorHandler(BurgerBuilder, axios); //axios is expected on the withError hoc 

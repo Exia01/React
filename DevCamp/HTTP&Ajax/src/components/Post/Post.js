@@ -1,4 +1,6 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom'
+//HOC, will enable props
 
 import Postcss from './Post.module.css'
 

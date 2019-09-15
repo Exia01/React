@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
-import Post from '../../components/Post/Post'
+import React, { Component } from 'react';
+import Post from '../../components/Post/Post';
 import axios from '../../axios';
 import classes from './Posts.module.css'; //reusing css
-
 
 export class Posts extends Component {
   state = {
     posts: []
   };
   componentDidMount() {
+    console.log(`Current props in Posts:`);
+    console.log(this.props);
     axios
       .get('/posts')
       .then(response => {
