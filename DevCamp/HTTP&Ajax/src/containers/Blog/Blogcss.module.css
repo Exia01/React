@@ -5,19 +5,30 @@
     width: 100%;
     text-align: center;
 }
+
 .BlogCss li {
     display: inline-block;
     margin: 20px;
 }
+.BlogCss li.test {
+    display: inline-block;
+    background-color:grey;
+    margin: 20px;
+}
 
-.BlogCss a{
+.BlogCss a {
     text-decoration: none;
     color: black;
 }
 
-.BlogCss a:hover{
-    color: orange;
+.BlogCss a:hover {
+    color: lightblue;
 }
-.BlogCss a:active{
-    color: teal;
+
+.BlogCss a:active {
+    color:lightcoral;
+}
+
+a.active {
+    color: purple;
 }

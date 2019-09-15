@@ -5,3 +5,14 @@
     width: 80%;
     margin: auto;
 }
+.Posts article{
+    border-radius: 5%;
+}
+.Posts a{
+    text-decoration: none;
+    color: black
+}
+.Posts a:hover{
+    text-decoration: underline;
+    color: lightcoral;
+}

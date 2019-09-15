@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
+// navlink enables extra styling, switch enables rendering one at a time
 
-import BlogCss from './Blogcss.module.css';
-import axios from '../../axios'; //could rename to AxiosInstanceName or other if necessary
+import classes from './Blogcss.module.css';
+// import axios from '../../axios'; //could rename to AxiosInstanceName or other if necessary
 import Posts from '../Posts/Posts';
 import NewPost from '../NewPost/NewPost';
+import FullPost from '../FullPost/FullPost';
 
 //root page
 class Blog extends Component {
@@ -17,22 +19,24 @@ class Blog extends Component {
   render() {
     return (
       <React.Fragment>
-        <header className={BlogCss.BlogCss}>
+        <header className={classes.BlogCss}>
           <nav>
             <ul>
-              <li>
-                <Link to="/">Home</Link>
+              <li className="test">
+                <NavLink to="/" exact activeClassName="Blogcss_active__2e6Pm">
+                  Home
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to={{
                     pathname: '/new-post',
                     hash: '#submit',
-                    search:'?quick-submit=true'
+                    search: '?quick-submit=true'
                   }}
                 >
                   New Post
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>
@@ -40,7 +44,10 @@ class Blog extends Component {
         {/* <Route path="/" exact render={()=><h1>Home</h1>}/>
         <Route path="/" render={()=><h1>Home2</h1>}/>  */}
         <Route path="/" exact component={Posts} />
-        <Route path="/new-post" component={NewPost} />
+        <Switch>
+          <Route path="/new-post" component={NewPost} />
+          <Route path="/:id" exact component={FullPost} />
+        </Switch>
       </React.Fragment>
     );
   }

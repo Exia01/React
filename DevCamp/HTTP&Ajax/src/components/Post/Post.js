@@ -7,7 +7,8 @@ import Postcss from './Post.module.css'
 
 const post = (props) => {
     const {title, author} = props.post
-    // console.log(props);
+    console.log(
+        'Props from Post: ', props);
     
     return (
         <article id={props.post.id} onClick={props.clicked} className={Postcss.Postcss}>
@@ -20,4 +21,5 @@ const post = (props) => {
 }
 
 
-export default post;
+export default post
+// export default withRouter(post); // sample of wrapping

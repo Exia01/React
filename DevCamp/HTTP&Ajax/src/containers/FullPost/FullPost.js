@@ -7,9 +7,10 @@ class FullPost extends Component {
   state = {
     loadedPost: null
   };
-  componentDidUpdate(prevProps, prevState) {
+  componentDidMount(prevProps, prevState) {
+    console.log(this.props)
     // first check is to check if we have a props id to move forward
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       // Second check will stop infinite loop from executing otherwise it would change state and update the component
       if (
         !this.state.loadedPost ||
@@ -17,7 +18,7 @@ class FullPost extends Component {
       ) {
         //additional check helps ensure we check the first time around for sending a call
         axios
-          .get(`/posts/${this.props.id}`)
+          .get(`/posts/${this.props.match.params.id}`)
           .then(response => {
             this.setState({ loadedPost: response.data });
           })
