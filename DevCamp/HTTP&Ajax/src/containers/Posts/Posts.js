@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Post from '../../components/Post/Post';
 import axios from '../../axios';
 import classes from './Posts.module.css'; //reusing css
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 export class Posts extends Component {
   state = {
@@ -30,6 +30,10 @@ export class Posts extends Component {
     // console.log(e.target.id) could also just pass an id to the object article
     // console.log(id);
     this.setState({ selectedPostId: id });
+    //navigating programmatically
+    let location = {pathname:`/${id}`}
+    // this.props.history.push(`/${id`)
+    this.props.history.push(location)
   };
   render() {
     let posts = <p style={{ textAlign: 'center' }}>Something went sideways!</p>;
@@ -37,12 +41,13 @@ export class Posts extends Component {
       //if there aren't errors
       posts = this.state.posts.map(post => {
         return (
-          <Link to={`/${post.id}`} key={post.id}>
+          //<Link to={`/${post.id}`} key={post.id}>
             <Post
+            key={post.id}
               post={post}
               clicked={() => this.postSelectedHandler(post.id)}
             />
-          </Link>
+         // </Link>
         );
       });
     }
