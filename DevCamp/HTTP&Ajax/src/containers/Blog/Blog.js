@@ -11,12 +11,19 @@ import NewPost from '../NewPost/NewPost';
 
 //root page
 class Blog extends Component {
+  state ={
+    auth:true
+  }
   state = {
     selectedPostId: null, //initially null, wont render post info in component
     errors: false
   };
 
   render() {
+    let newPostRoute = null
+    if(this.state.auth){
+      newPostRoute = <Route path="/new-post" component={NewPost} />
+    }
     return (
       <React.Fragment>
         <header className={classes.BlogCss}>
@@ -48,9 +55,10 @@ class Blog extends Component {
         {/* <Route path="/" exact render={()=><h1>Home</h1>}/>
         <Route path="/" render={()=><h1>Home2</h1>}/>  */}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          {newPostRoute}
           <Route path="/posts" component={Posts} />
           <Redirect from="/" to="/posts" />
+          <Route render={()=> <h1>Not Found?</h1>}/>
           {/* <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
       </React.Fragment>

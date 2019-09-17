@@ -12,6 +12,7 @@ class NewPost extends Component {
   };
 
   componentDidMount() {
+    // If unauth => this.props.history.replace('/posts')
     // console.log(`Current props in NewPost:`);
     // console.log(this.props);
   }
@@ -27,7 +28,9 @@ class NewPost extends Component {
         //baseURL set on indexjs
         console.log(response);
         alert('Submitted!');
-        this.setState({ submitted: true });
+            this.props.history.push('/posts')
+        // this.setState({ submitted: true });
+        //redirect replaces the page on the stack
       })
       .catch(err => {
         console.log(err);
