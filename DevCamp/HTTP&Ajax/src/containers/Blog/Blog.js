@@ -7,7 +7,7 @@ import classes from './Blogcss.module.css';
 // import axios from '../../axios'; //could rename to AxiosInstanceName or other if necessary
 import Posts from '../Posts/Posts';
 import NewPost from '../NewPost/NewPost';
-import FullPost from '../FullPost/FullPost';
+// import FullPost from '../FullPost/FullPost';
 
 //root page
 class Blog extends Component {
@@ -23,8 +23,8 @@ class Blog extends Component {
           <nav>
             <ul>
               <li className="test">
-                <NavLink to="/" exact activeClassName="Blogcss_active__2e6Pm">
-                  Home
+                <NavLink to="/posts" exact activeClassName="Blogcss_active__2e6Pm">
+                  Posts
                 </NavLink>
               </li>
               <li>
@@ -43,10 +43,10 @@ class Blog extends Component {
         </header>
         {/* <Route path="/" exact render={()=><h1>Home</h1>}/>
         <Route path="/" render={()=><h1>Home2</h1>}/>  */}
-        <Route path="/" exact component={Posts} />
         <Switch>
-          <Route path="/new-post" component={NewPost} />
-          <Route path="/:id" exact component={FullPost} />
+        <Route path="/new-post" component={NewPost} />
+        <Route path="/posts" component={Posts} />
+          {/* <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
       </React.Fragment>
     );

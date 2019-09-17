@@ -8,13 +8,21 @@ class FullPost extends Component {
     loadedPost: null
   };
   componentDidMount(prevProps, prevState) {
-    console.log(this.props)
+    // console.log('Mounted Full POst')
+    // console.log(this.props)
     // first check is to check if we have a props id to move forward
+    this.loadData();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    this.loadData();
+  }
+  loadData() {
     if (this.props.match.params.id) {
       // Second check will stop infinite loop from executing otherwise it would change state and update the component
       if (
         !this.state.loadedPost ||
-        (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
+        (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)
+        //checking for type equality so adding +
       ) {
         //additional check helps ensure we check the first time around for sending a call
         axios
@@ -30,7 +38,7 @@ class FullPost extends Component {
   }
   deletePostHandler = () => {
     axios
-      .delete(`/posts/${this.props.id}`)
+      .delete(`/posts/${this.props.match.params.id}`)
       .then(response => {
         console.log('Success! ', response);
       })
@@ -42,7 +50,7 @@ class FullPost extends Component {
     //Truthy... checks if post.id, if ID we render it
     let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
 
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       post = <p style={{ textAlign: 'center' }}>....Loading...</p>;
     }
 
