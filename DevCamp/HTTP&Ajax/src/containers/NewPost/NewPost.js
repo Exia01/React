@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-
-import classes from './NewPost.module.css'
+import { Redirect } from 'react-router-dom';
+import classes from './NewPost.module.css';
 import axios from 'axios';
 
 class NewPost extends Component {
   state = {
     title: '',
     content: '',
-    author: 'Yoshi'
+    author: 'Yoshi',
+    submitted: false
   };
 
-  componentDidMount(){
+  componentDidMount() {
     // console.log(`Current props in NewPost:`);
     // console.log(this.props);
   }
@@ -20,15 +21,29 @@ class NewPost extends Component {
       body: this.state.content,
       author: this.state.author
     };
-    axios.post('posts', post).then(response=>{ //baseURL set on indexjs
-        console.log(response)
-    });
+    axios
+      .post('posts', post)
+      .then(response => {
+        //baseURL set on indexjs
+        console.log(response);
+        alert('Submitted!');
+        this.setState({ submitted: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   //can implement onChange handler here instead of inline
 
   render() {
+    let redirect = null;
+    if (this.state.submitted) {
+      redirect = <Redirect to="posts" />;
+    }
+    //redirect embedded within div
     return (
       <div className={classes.NewPost}>
+        {redirect}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input

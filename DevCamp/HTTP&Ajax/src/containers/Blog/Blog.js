@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 // navlink enables extra styling, switch enables rendering one at a time
 
 import classes from './Blogcss.module.css';
@@ -23,7 +23,11 @@ class Blog extends Component {
           <nav>
             <ul>
               <li className="test">
-                <NavLink to="/posts" exact activeClassName="Blogcss_active__2e6Pm">
+                <NavLink
+                  to="/posts"
+                  exact
+                  activeClassName="Blogcss_active__2e6Pm"
+                >
                   Posts
                 </NavLink>
               </li>
@@ -44,8 +48,9 @@ class Blog extends Component {
         {/* <Route path="/" exact render={()=><h1>Home</h1>}/>
         <Route path="/" render={()=><h1>Home2</h1>}/>  */}
         <Switch>
-        <Route path="/new-post" component={NewPost} />
-        <Route path="/posts" component={Posts} />
+          <Route path="/new-post" component={NewPost} />
+          <Route path="/posts" component={Posts} />
+          <Redirect from="/" to="/posts" />
           {/* <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
       </React.Fragment>
