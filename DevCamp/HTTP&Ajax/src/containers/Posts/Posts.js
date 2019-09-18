@@ -56,7 +56,7 @@ export class Posts extends Component {
     }
     return (
       <div>
-        <section className={classes.Posts}>{posts}</section>;
+        <section className={classes.Posts}>{posts}</section>
         <Route path={`${this.props.match.url}/:id`} exact component={FullPost} />
       </div>
     );

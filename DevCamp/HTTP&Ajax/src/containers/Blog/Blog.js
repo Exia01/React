@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
-// navlink enables extra styling, switch enables rendering one at a time
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 
-import classes from './Blogcss.module.css';
-// import axios from '../../axios'; //could rename to AxiosInstanceName or other if necessary
+import asyncComponent from '../../hoc/asyncComponent';
+
 import Posts from '../Posts/Posts';
-import NewPost from '../NewPost/NewPost';
-// import FullPost from '../FullPost/FullPost';
+// navlink enables extra styling, switch enables rendering one at a time
+import classes from './Blogcss.module.css';
+
+const AsyncNewPost = asyncComponent(() => {
+  return import('../NewPost/NewPost'); //dynamic import syntax only when anonymous func is fired
+});
 
 //root page
 class Blog extends Component {
-  state ={
-    auth:true
-  }
   state = {
     selectedPostId: null, //initially null, wont render post info in component
-    errors: false
+    errors: false,
+    auth: true
   };
 
   render() {
-    let newPostRoute = null
-    if(this.state.auth){
-      newPostRoute = <Route path="/new-post" component={NewPost} />
+    let newPostRoute
+    if (this.state.auth) {
+      newPostRoute = <Route path="/new-post" component={AsyncNewPost} />;
     }
     return (
       <React.Fragment>
@@ -58,7 +59,7 @@ class Blog extends Component {
           {newPostRoute}
           <Route path="/posts" component={Posts} />
           <Redirect from="/" to="/posts" />
-          <Route render={()=> <h1>Not Found?</h1>}/>
+          <Route render={() => <h1>Not Found?</h1>} />
           {/* <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
       </React.Fragment>
@@ -68,13 +69,5 @@ class Blog extends Component {
 
 export default Blog;
 
-// <section>
-//           <FullPost id={this.state.selectedPostId} />
-//         </section>
-//         <section>
-//           <NewPost />
-//         </section>
-//       </div>
-//</section>
-
 // Router Links: https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md
+// Using React Lazy: https://reactjs.org/docs/code-splitting.html
