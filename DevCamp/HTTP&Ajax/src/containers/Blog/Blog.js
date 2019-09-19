@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,  } from 'react';
 // import axios from 'axios';
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import asyncComponent from '../../hoc/asyncComponent';
 import Posts from '../Posts/Posts';
 // navlink enables extra styling, switch enables rendering one at a time
 import classes from './Blogcss.module.css';
+import  NotFoundComponent from '../../components/NotFound/NotFound'
 
 const AsyncNewPost = asyncComponent(() => {
   return import('../NewPost/NewPost'); //dynamic import syntax only when anonymous func is fired
@@ -58,8 +59,8 @@ class Blog extends Component {
         <Switch>
           {newPostRoute}
           <Route path="/posts" component={Posts} />
-          <Redirect from="/" to="/posts" />
-          <Route render={() => <h1>Not Found?</h1>} />
+          <Redirect from="/" to='/posts'/>
+          <Route render={NotFoundComponent} />
           {/* <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
       </React.Fragment>

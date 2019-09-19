@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import {Route} from 'react-router-dom'
+import React, { Component, Suspense, lazy } from 'react';
+import { Route } from 'react-router-dom';
 
 import Post from '../../components/Post/Post';
 import axios from '../../axios';
 import classes from './Posts.module.css'; //reusing css
 import FullPost from '../FullPost/FullPost';
+const FullPostComponent = React.lazy(() => import('../FullPost/FullPost'));
 // import { Link } from 'react-router-dom';
 
 export class Posts extends Component {
@@ -57,7 +58,13 @@ export class Posts extends Component {
     return (
       <div>
         <section className={classes.Posts}>{posts}</section>
-        <Route path={`${this.props.match.url}/:id`} exact component={FullPost} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route
+            path={`${this.props.match.url}/:id`}
+            exact
+            component={FullPost}
+          />
+        </Suspense>
       </div>
     );
   }
