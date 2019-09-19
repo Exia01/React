@@ -7,6 +7,8 @@ class App extends Component {
   render() {
     return (
       //enabling routing on the part of the app that needs routing
+      //setting basename to any domain that is being served
+      // <BrowserRouter basename="/my-app">
       <BrowserRouter>
         <div className="App">
           <Blog />
