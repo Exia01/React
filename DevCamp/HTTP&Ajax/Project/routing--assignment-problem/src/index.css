@@ -14,7 +14,7 @@ ul {
 
 ul li {
   color: grey;
-  width: 25%;
+  width: 20%;
   margin: 1% auto;
   display: inline-block;
   border-radius: 6px;
@@ -31,6 +31,9 @@ a {
 a:hover {
 
   background-color: lightgreen;
+}
+a.active {
+  color: whitesmoke;
 }
 
 ul li:hover {

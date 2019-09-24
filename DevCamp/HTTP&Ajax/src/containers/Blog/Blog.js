@@ -20,6 +20,13 @@ class Blog extends Component {
     errors: false,
     auth: true
   };
+  shouldComponentUpdate(nextProps, nextState, nextContext){
+    console.log('ShouldComponentUpdate');
+    
+    console.log(this.props);
+    console.log(nextProps);
+
+  }
 
   render() {
     let newPostRoute
