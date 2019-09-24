@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
+import { Route } from 'react-router-dom';
 
 import './Courses.css';
+import Course from '../Course/Course';
 
 class Courses extends Component {
   state = {
@@ -10,17 +12,35 @@ class Courses extends Component {
       { id: 3, title: 'PWA - The Complete Guide' }
     ]
   };
-  loadFullPostHandler = id => {
-    console.log('clicked!');
-  };
+  // shouldComponentUpdate(nextProps, nextState, nextContext){
+  //   console.log('ShouldComponentUpdate');
+  //   console.log(this.props.location.pathname !== nextProps.location.pathname);
+  //   // console.log(this.props);
+  //   // console.log(nextProps);
+  //   return this.props.location.pathname !== nextProps.location.pathname
 
+  // }
+  
+  loadFullPostHandler = course => {
+    let location = {
+      hash: '#Get',
+      pathname: `/Courses/${course.id}`,
+      search: `?lookup-course=true&courseTitle=${course.title}`,
+      courseTitle:`?course-title=${course.title}`,
+      ReviewSort: '?marked=helpful'
+
+    };
+    // this.props.history.push(`/posts/${id`)
+    this.props.history.push(location);
+  };
+  
   render() {
-    console.log(this.props.location);
+    console.log(this.props);
     let articles = this.state.courses.map(course => {
       return (
         <article
           className="Course"
-          onClick={() =>this.loadFullPostHandler(course)}
+          onClick={() => this.loadFullPostHandler(course)}
           key={course.id}
         >
           <h4>{course.title}</h4>
@@ -53,6 +73,12 @@ class Courses extends Component {
         </ol>
 
         <section className="Courses">{articles}</section>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route
+            path={`${this.props.match.url}/:id`}
+            component={Course}
+          />
+        </Suspense>
       </div>
     );
   }
