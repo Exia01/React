@@ -41,10 +41,10 @@ class App extends Component {
             </ul>
           </nav>
           <Switch>
-          <Route exact path="/" component={() => <h1>Home</h1>} /> 
-          <Route exact path="/Users"  component={Users} />
-          <Route path="/Courses" component={Courses} />
-          <Route exact Path="/all-courses"  redirect="/Courses/" />
+            <Route exact path="/" component={() => <h1>Home</h1>} />
+            <Route exact path="/Users" component={Users} />
+            <Route path="/Courses" component={Courses} />
+            <Redirect from="/All-courses" to="/Courses/" />
             <Route component={NotFoundComponent} />
             {/*<Route path="/" component={() => <h1>Home</h1>} />*/}
           </Switch>

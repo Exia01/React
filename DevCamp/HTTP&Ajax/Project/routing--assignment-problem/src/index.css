@@ -29,11 +29,11 @@ a {
 }
 
 a:hover {
-
   background-color: lightgreen;
 }
 a.active {
   color: whitesmoke;
+  background-color: grey
 }
 
 ul li:hover {

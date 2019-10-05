@@ -31,3 +31,6 @@ class Course extends Component {
 }
 
 export default Course;
+
+
+//How to use query strings: https://tylermcginnis.com/react-router-query-strings/
