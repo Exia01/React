@@ -24,10 +24,10 @@ class Courses extends Component {
   loadFullPostHandler = course => {
     let location = {
       hash: '#Get',
-      pathname: `/Courses/${course.id}`,
+      pathname: `/Courses/${course.id}`, // could do this.props.match.url
       search: `?lookup-course=true&courseTitle=${course.title}`,
       courseTitle:`?course-title=${course.title}`,
-      ReviewSort: '?marked=helpful'
+      ReviewSort: '?marked=helpful',
 
     };
     // this.props.history.push(`/posts/${id`)

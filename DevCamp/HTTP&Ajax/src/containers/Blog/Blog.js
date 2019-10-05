@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react';
+import React, { Component } from 'react';
 // import axios from 'axios';
 import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import asyncComponent from '../../hoc/asyncComponent';
 import Posts from '../Posts/Posts';
 // navlink enables extra styling, switch enables rendering one at a time
 import classes from './Blogcss.module.css';
-import  NotFoundComponent from '../../components/NotFound/NotFound'
+import NotFoundComponent from '../../components/NotFound/NotFound';
 
 const AsyncNewPost = asyncComponent(() => {
   return import('../NewPost/NewPost'); //dynamic import syntax only when anonymous func is fired
@@ -20,16 +20,15 @@ class Blog extends Component {
     errors: false,
     auth: true
   };
-  shouldComponentUpdate(nextProps, nextState, nextContext){
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
     console.log('ShouldComponentUpdate');
-    
+
     console.log(this.props);
     console.log(nextProps);
-
   }
 
   render() {
-    let newPostRoute
+    let newPostRoute;
     if (this.state.auth) {
       newPostRoute = <Route path="/new-post" component={AsyncNewPost} />;
     }
@@ -66,7 +65,7 @@ class Blog extends Component {
         <Switch>
           {newPostRoute}
           <Route path="/posts" component={Posts} />
-          <Redirect from="/" to='/posts'/>
+          <Redirect from="/" to="/posts" />
           <Route render={NotFoundComponent} />
           {/* <Route path="/:id" exact component={FullPost} /> */}
         </Switch>
