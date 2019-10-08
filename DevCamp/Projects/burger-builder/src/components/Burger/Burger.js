@@ -1,9 +1,11 @@
 import React from 'react';
 import uuid from 'uuid';
+import { withRouter } from 'react-router-dom';
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = props => {
+  console.log(props);
   // console.log(Object.keys(props.ingredients).sort());
   //key method to extract keys and turn into array, the mapping with ingredient key
   let transformedIngredients = Object.keys(props.ingredients) //ingredient is an obj
@@ -11,7 +13,7 @@ const burger = props => {
       // console.log('Current ingredient key', igKey);
       //     console.log(props.ingredients[igKey])
       //chaining method, and creating array of ingredients based of key and values [salad, salad]
-      return [...Array(props.ingredients[igKey])].map((x,i) => {
+      return [...Array(props.ingredients[igKey])].map((x, i) => {
         //could do _ for any
         // console.log('inside the second loop', x, i, igKey);
         return <BurgerIngredient key={uuid.v4()} type={igKey} />;
@@ -28,14 +30,14 @@ const burger = props => {
   }
   return (
     <div className={classes.Burger}>
-      <BurgerIngredient type="bread-top" />
+      <BurgerIngredient type='bread-top' />
       {transformedIngredients}
-      <BurgerIngredient type="bread-bottom" />
+      <BurgerIngredient type='bread-bottom' />
     </div>
   );
 };
 
-export default burger;
+export default withRouter(burger); //hoc provided by router dom
 
 // using maps with two args:https://stackoverflow.com/questions/12344087/using-javascript-map-with-a-function-that-has-two-arguments
 // Using UUID: https://stackoverflow.com/questions/52852018/use-npm-uuid-in-reactjs

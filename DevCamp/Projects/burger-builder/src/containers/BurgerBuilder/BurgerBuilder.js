@@ -127,38 +127,39 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({ loading: true }); //showing loading spinner
-    const burgerOrder = {
-      orderId:uuid.v4(),
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice, //would do this on the db
-      customer: {
-        name: 'Ryu Washumaru',
-        address: {
-          street: 'Sesame st #119',
-          zipCode: '56454',
-          Country: 'Antarctica'
-        },
-        email: 'test@huzzah.com'
-      },
-      deliveryMethod: 'Del/ASAP'
-    };
-    const orderObj = {
-      ...this.state.ingredients
-    };
-    console.log(`Order Obj from order continue ${orderObj}`);
-    //baseURL and sub route.
-    axios
-    .post('/online-orders/orders.json', burgerOrder) //using .json to target the endpoint 
-    .then(response => {
-      console.log(response);
-      this.setState({ loading: false, purchasing: false , ingredients:null});
-      alert("Success! ")
-    })
-    .catch(err => {
-      console.log(err);
-      this.setState({ loading: false, purchasing: false });
-    });
+    // this.setState({ loading: true }); //showing loading spinner
+    // const burgerOrder = {
+    //   orderId:uuid.v4(),
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice, //would do this on the db
+    //   customer: {
+    //     name: 'Ryu Washumaru',
+    //     address: {
+    //       street: 'Sesame st #119',
+    //       zipCode: '56454',
+    //       Country: 'Antarctica'
+    //     },
+    //     email: 'test@huzzah.com'
+    //   },
+    //   deliveryMethod: 'Del/ASAP'
+    // };
+    // const orderObj = {
+    //   ...this.state.ingredients
+    // };
+    // console.log(`Order Obj from order continue ${orderObj}`);
+    // //baseURL and sub route.
+    // axios
+    // .post('/online-orders/orders.json', burgerOrder) //using .json to target the endpoint 
+    // .then(response => {
+    //   console.log(response);
+    //   this.setState({ loading: false, purchasing: false , ingredients:null});
+    //   alert("Success! ")
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    //   this.setState({ loading: false, purchasing: false });
+    // });
+    this.props.history.push('/checkout')
   };
   
   render() {
