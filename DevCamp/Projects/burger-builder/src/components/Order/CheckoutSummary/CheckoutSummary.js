@@ -8,6 +8,7 @@ const checkoutSummary = props => {
     width: '100%',
     margin: 'auto'
   };
+  console.log('CheckoutSummary Props' , props)
   return (
     //Passing btnType to render buttons and props for burger
     <div className={classes.CheckoutSummary}>
@@ -15,7 +16,7 @@ const checkoutSummary = props => {
       <div style={burgerStyle}>
         <Burger ingredients={props.ingredients} />
       </div>
-      <Button clicked={props.CheckoutCancelled} btnType='Danger'>
+      <Button clicked={props.checkoutCancelled} btnType='Danger'>
         CANCEL
       </Button>
       <Button clicked={props.checkoutContinued} btnType='Success'>

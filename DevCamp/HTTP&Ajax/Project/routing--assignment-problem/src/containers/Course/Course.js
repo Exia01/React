@@ -60,3 +60,4 @@ class Course extends Component {
 export default Course;
 
 //How to use query strings: https://tylermcginnis.com/react-router-query-strings/
+//dictionaries:https://macwright.org/2017/03/13/maps-not-strictly-better.html
