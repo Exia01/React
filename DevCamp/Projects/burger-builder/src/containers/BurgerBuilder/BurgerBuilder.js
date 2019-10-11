@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'; //using fragment instead of auxiliary hoc
+import React, {Component, Fragment} from 'react'; //using fragment instead of auxiliary hoc
 import uuid from 'uuid';
 import axios from '../../axios-orders'; //using axios instance
 
@@ -36,11 +36,11 @@ class BurgerBuilder extends Component {
       )
       .then(response => {
         const ingredients = response.data;
-        this.setState({ ingredients });
+        this.setState({ingredients});
       })
       .catch(err => {
         //the hoc will catch the error and render the modal component??? -> i'm so lost by this point
-        this.setState({ error: true });
+        this.setState({error: true});
       });
   }
 
@@ -68,7 +68,7 @@ class BurgerBuilder extends Component {
       }, 0);
     // console.log('Ingredients: ', ingredients);
     // console.log('Total ingredients: ', ingredientTotal);
-    this.setState({ purchaseable: ingredientTotal > 0 });
+    this.setState({purchaseable: ingredientTotal > 0});
   }
 
   addIngredientHandler = type => {
@@ -87,7 +87,7 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + priceAddition;
     // this.setState({ totalPrice: newPrice, ingredients });
     this.setState(
-      { ingredients, totalPrice: newPrice },
+      {ingredients, totalPrice: newPrice},
       this.updatePurchaseState
     ); //callback after updating state
   };
@@ -119,14 +119,22 @@ class BurgerBuilder extends Component {
 
   //modal handler
   purchaseHandler = () => { //set is set as an event need arrow function
-    this.setState({ purchasing: true });
+    this.setState({purchasing: true});
   };
   //closes modal
   purchaseCancelHandler = () => { //event -> need arrow function
-    this.setState({ purchasing: false });
+    this.setState({purchasing: false});
   };
 
   purchaseContinueHandler = () => {
+    let paramIngredients = new URLSearchParams(this.state.ingredients).toString()
+    let checkoutLocation = {
+        hash:'#order',
+        pathname:`${this.props.match.url}checkout`,
+        search:`?${paramIngredients}`,
+        ingredientsParams:`?${paramIngredients}`
+    }
+
     // this.setState({ loading: true }); //showing loading spinner
     // const burgerOrder = {
     //   orderId:uuid.v4(),
@@ -159,9 +167,9 @@ class BurgerBuilder extends Component {
     //   console.log(err);
     //   this.setState({ loading: false, purchasing: false });
     // });
-    this.props.history.push('/checkout')
+    this.props.history.push(checkoutLocation)
   };
-  
+
   render() {
     const disabledInfo = {
       //copying state and creating a true or false
@@ -179,8 +187,8 @@ class BurgerBuilder extends Component {
     let burger = this.state.error ? (
       <p>Ingredients Can't be loaded!!</p>
     ) : (
-      <Spinner />
-    );
+        <Spinner />
+      );
     //when state changes, this will recheck and render the burger component
     if (this.state.ingredients) {
       burger = (
@@ -228,3 +236,5 @@ class BurgerBuilder extends Component {
 }
 
 export default withErrorHandler(BurgerBuilder, axios); //axios is expected on the withError hoc 
+// Turning obj into queryStringParam: https://howchoo.com/g/nwywodhkndm/how-to-turn-an-object-into-query-string-parameters-in-javascript
+//another param solution:https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
