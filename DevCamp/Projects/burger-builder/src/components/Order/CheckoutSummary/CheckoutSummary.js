@@ -8,7 +8,7 @@ const checkoutSummary = props => {
     width: '100%',
     margin: 'auto'
   };
-  console.log('CheckoutSummary Props' , props)
+  // console.log('CheckoutSummary Props', props);
   return (
     //Passing btnType to render buttons and props for burger
     <div className={classes.CheckoutSummary}>
