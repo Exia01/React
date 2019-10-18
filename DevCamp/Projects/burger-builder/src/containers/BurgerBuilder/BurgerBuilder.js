@@ -192,7 +192,7 @@ class BurgerBuilder extends Component {
       //while the state is "loading"
       orderSumary = <Spinner />;
     }
-
+ 
     return (
       <Fragment>
         <Modal

@@ -57,7 +57,7 @@ export class ContactData extends Component {
         console.log(response);
         this.setState({ loading: false, ingredients: null });
         alert('Success! ');
-        this.props.history.push('/')
+        this.props.history.push('/');
       })
       .catch(err => {
         console.log(err);
