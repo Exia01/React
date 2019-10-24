@@ -12,6 +12,7 @@ class Checkout extends Component {
   componentDidMount() {
     this.fetchIngredientsData();
   }
+
   fetchIngredientsData = paramSearchTerm => {
     // console.log('Fetching Ingredients Data in Checkout');
     // console.log(this.props)
@@ -50,16 +51,17 @@ class Checkout extends Component {
           />
           <Route
             path={`${this.props.match.path}/contact-data`}
-            render={(props) => (
+            render={props => (
               <ContactData
                 ingredients={this.state.ingredients}
                 totalPrice={this.state.totalPrice}
-                {...props}//passing props including history obj
+                {...props} //passing props including history obj
               />
             )}
           />
         </React.Fragment>
       ) : null;
+
     return <div>{checkoutSummaryComponent}</div>;
   }
 }

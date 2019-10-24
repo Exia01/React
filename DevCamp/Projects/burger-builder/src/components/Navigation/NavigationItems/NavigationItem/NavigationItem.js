@@ -13,10 +13,14 @@ const NavigationItem = props => {
   };
   let navLinkTag = null;
 
-  //because of the way the navlink interprets the active route the to path needs to be specified because of the prefixing --> add exact as workaround 
+  //because of the way the navlink interprets the active route the to path needs to be specified because of the prefixing --> add exact as workaround
   return (
     <li className={`${classes.NavigationItem}`}>
-      <NavLink to={props.link} activeClassName={classes.active}>
+      <NavLink
+        to={props.link}
+        exact={props.exact}
+        activeClassName={classes.active}
+      >
         {props.children}
       </NavLink>
     </li>
