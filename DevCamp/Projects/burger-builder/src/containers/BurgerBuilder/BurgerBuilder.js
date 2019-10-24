@@ -30,6 +30,7 @@ class BurgerBuilder extends Component {
 
   //reaching out to firebase for the ingredients and setting state
   componentDidMount() {
+    
     axios
       .get(
         'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
