@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-orders'; //using axios instance
+
 import uuid from 'uuid';
+import formInput from '../../../components/UI/Input/FormInput/FormInput';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 
@@ -28,7 +30,7 @@ export class ContactData extends Component {
 
   orderHandler = e => {
     e.preventDefault();
-    // console.log('Props on Contact Data');
+    console.log('Props on Contact Data');
     // console.log(this.props);
     this.setState({ loading: true }); //showing loading spinner
     const burgerOrder = {
@@ -67,26 +69,26 @@ export class ContactData extends Component {
   render() {
     let form = (
       <form>
-        <input
-          className={classes.Input}
+        <formInput
+          inputType='input'
           type='text'
           name='name'
           placeholder='Your Name'
         />
-        <input
-          className={classes.Input}
+        <formInput
+          inputType='input'
           type='email'
           name='email'
           placeholder='Your email'
         />
-        <input
-          className={classes.Input}
+        <formInput
+          inputType='input'
           type='text'
           name='street'
           placeholder='Street'
         />
-        <input
-          className={classes.Input}
+        <formInput
+          inputType='input'
           type='text'
           name='zipCode'
           placeholder='ZIp Code'
