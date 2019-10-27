@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from '../../../axios-orders'; //using axios instance
 
 import uuid from 'uuid';
-import formInput from '../../../components/UI/Input/FormInput/FormInput';
+import Input from '../../../components/UI/Input/FormInput/FormInput';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 
@@ -19,11 +19,59 @@ import classes from './ContactData.module.css';
 
 export class ContactData extends Component {
   state = {
-    name: '',
-    email: '',
-    address: {
-      street: '',
-      postalCode: ''
+    oderForm: {
+      name: {
+        //defining the input element tag
+        elementType: 'input',
+        //confing for html Tag
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Your Name'
+        },
+        value: 'Ryu Washumaru'
+      },
+      street: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Street'
+        },
+        value: 'Sesame st #119'
+      },
+      zipCode: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Zipcode'
+        },
+        value: '010101'
+      },
+      Country: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Zipcode'
+        },
+        value: 'Antarctica'
+      },
+      email: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Email'
+        },
+        value: 'test@huzzah.com'
+      },
+      deliveryMethod: {
+        elementType: 'select',
+        elementConfig: {
+          options: [
+            { value: 'fastest', displayValue: 'Fastest!' },
+            { value: 'cheapest', displayValue: 'No rush!' }
+          ]
+        },
+        value: ''
+      }
     },
     loading: false
   };
@@ -36,17 +84,7 @@ export class ContactData extends Component {
     const burgerOrder = {
       orderId: uuid.v4(),
       ingredients: this.props.ingredients,
-      price: this.props.totalPrice, //would do this on the db
-      customer: {
-        name: 'Ryu Washumaru',
-        address: {
-          street: 'Sesame st #119',
-          zipCode: '010101',
-          Country: 'Antarctica'
-        },
-        email: 'test@huzzah.com'
-      },
-      deliveryMethod: 'Del/ASAP'
+      price: this.props.totalPrice //would do this on the db
     };
     const orderObj = {
       ...this.state.ingredients
@@ -67,32 +105,23 @@ export class ContactData extends Component {
       });
   };
   render() {
+    const formElementArray = [];
+    for (let key in this.state.oderForm) {
+      //creating obj from keys in orderform
+      formElementArray.push({ id: key, config: this.state.oderForm[key] });
+    }
+    let inputsArray = formElementArray.map(formElement => {
+      return (
+        <Input key={Math.floor(Math.random() * 99999)}
+          elementType={formElement.config.elementType}
+          elementConfig={formElement.config.elementConfig}
+          value={formElement.value}
+        />
+      );
+    });
     let form = (
       <form>
-        <formInput
-          inputType='input'
-          type='text'
-          name='name'
-          placeholder='Your Name'
-        />
-        <formInput
-          inputType='input'
-          type='email'
-          name='email'
-          placeholder='Your email'
-        />
-        <formInput
-          inputType='input'
-          type='text'
-          name='street'
-          placeholder='Street'
-        />
-        <formInput
-          inputType='input'
-          type='text'
-          name='zipCode'
-          placeholder='ZIp Code'
-        />
+        {inputsArray}
         <Button btnType='Success' clicked={this.orderHandler}>
           Order
         </Button>

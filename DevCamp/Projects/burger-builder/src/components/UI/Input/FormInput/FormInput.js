@@ -1,23 +1,44 @@
 import React from 'react';
-import classes from './FormInput.module.css'
+import classes from './FormInput.module.css';
 
 const formInput = props => {
-  let label = { props };
-  console.log("Form input component loaded")
+  let { label } = props;
+ 
   let inputTagElement = null;
-  switch (props.inputType) {
+  switch (props.elementType) {
     case 'input':
-      inputTagElement = <input className={classes.InputElement} {...props} />;
+      //passing the props config from the input --> input type / placeholder
+      inputTagElement = (
+        <input
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
       break;
     case 'textarea':
-      inputTagElement = <textarea className={classes.InputElement} {...props} />;
+      inputTagElement = (
+        <textarea
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
       break;
     default:
-      inputTagElement = <input className={classes.InputElement} {...props} />;
+      inputTagElement = (
+        <input
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
   }
   return (
     <div className={classes.Input}>
-      <label className={classes.Label} htmlFor='{label}'></label>
+      <label className={classes.Label} htmlFor={label}>
+        {label}
+      </label>
       {inputTagElement}
     </div>
   );

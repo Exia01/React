@@ -19,12 +19,13 @@ const Order = props => {
   }
   let ingredientsOutput = ingredientsArr.map(ig => {
     return (
-      <span key={uuid.v4} style={style}>
+      <span key={uuid.v4()} style={style}>
         {ig.igName} ({ig.qty})
       </span>
     );
   });
-
+  
+  console.log(ingredientsOutput)
   return (
     <div className={classes.Order}>
       <p>Ingredients: {ingredientsOutput}</p>
