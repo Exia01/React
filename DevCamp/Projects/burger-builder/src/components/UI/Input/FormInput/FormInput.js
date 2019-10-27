@@ -1,9 +1,11 @@
 import React from 'react';
 import classes from './FormInput.module.css';
+import jssPluginPropsSort from 'jss-plugin-props-sort';
 
 const formInput = props => {
-  let { label } = props;
- 
+  let { label } = props; //currently not being passed. Could implement feature
+  // console.log(props);
+
   let inputTagElement = null;
   switch (props.elementType) {
     case 'input':
@@ -13,6 +15,7 @@ const formInput = props => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.valueChanged}
         />
       );
       break;
@@ -22,7 +25,29 @@ const formInput = props => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.valueChanged}
         />
+      );
+      break;
+    case 'select':
+      const { options } = props.elementConfig;
+      let optionsTagElements = options.map(opTag => {
+        return (
+          <option
+            key={Math.floor(Math.random() * (9999 - 1 + 1))}
+          >
+            {opTag.displayValue}
+          </option>
+        );
+      });
+      inputTagElement = (
+        <select
+          className={classes.InputElement}
+          onChange={props.valueChanged}
+          value={props.value}
+        >
+          {optionsTagElements}
+        </select>
       );
       break;
     default:
@@ -31,6 +56,7 @@ const formInput = props => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.valueChanged}
         />
       );
   }

@@ -104,6 +104,19 @@ export class ContactData extends Component {
         this.setState({ loading: false });
       });
   };
+  inputChangedHandler = (e, inputIdentifier) => {
+    //creating copy of state 
+    const updatedOrderForm = {...this.state.oderForm} //nested objects would be mutated.
+
+    //pull the nested property and creates a clone 
+    const updatedFormElement= {...updatedOrderForm[inputIdentifier]}
+    //now properties can be updated safely
+    updatedFormElement.value = e.target.value
+    
+   //setting the updatedOrderForm obj with updated property 
+   updatedOrderForm[inputIdentifier] = updatedFormElement
+   this.setState({ oderForm: updatedOrderForm });
+  };  
   render() {
     const formElementArray = [];
     for (let key in this.state.oderForm) {
@@ -112,10 +125,12 @@ export class ContactData extends Component {
     }
     let inputsArray = formElementArray.map(formElement => {
       return (
-        <Input key={Math.floor(Math.random() * 99999)}
+        <Input
+          key={formElement.id}
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
-          value={formElement.value}
+          value={formElement.config.value}
+          valueChanged={(e) => this.inputChangedHandler(e,formElement.id)} //anonymous function to pass added args --> name, address, 
         />
       );
     });
