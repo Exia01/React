@@ -35,6 +35,7 @@ const formInput = props => {
         return (
           <option
             key={Math.floor(Math.random() * (9999 - 1 + 1))}
+            value={opTag.value}
           >
             {opTag.displayValue}
           </option>

@@ -19,7 +19,7 @@ import classes from './ContactData.module.css';
 
 export class ContactData extends Component {
   state = {
-    oderForm: {
+    orderForm: {
       name: {
         //defining the input element tag
         elementType: 'input',
@@ -28,7 +28,11 @@ export class ContactData extends Component {
           type: 'text',
           placeholder: 'Your Name'
         },
-        value: 'Ryu Washumaru'
+        value: 'Ryu Washumaru',
+        validation: {
+          required: true
+        }, 
+        valid:false,
       },
       street: {
         elementType: 'input',
@@ -36,7 +40,11 @@ export class ContactData extends Component {
           type: 'text',
           placeholder: 'Street'
         },
-        value: 'Sesame st #119'
+        value: 'Sesame st #119',
+        validation: {
+          required: true
+        },
+         valid:false,
       },
       zipCode: {
         elementType: 'input',
@@ -44,7 +52,11 @@ export class ContactData extends Component {
           type: 'text',
           placeholder: 'Zipcode'
         },
-        value: '010101'
+        value: '010101',
+        validation: {
+          required: true
+        },
+         valid:false,
       },
       Country: {
         elementType: 'input',
@@ -52,7 +64,11 @@ export class ContactData extends Component {
           type: 'text',
           placeholder: 'Zipcode'
         },
-        value: 'Antarctica'
+        value: 'Antarctica',
+        validation: {
+          required: true // could also implement length, properties, or type. 
+        },
+         valid:false,
       },
       email: {
         elementType: 'input',
@@ -60,7 +76,11 @@ export class ContactData extends Component {
           type: 'email',
           placeholder: 'Email'
         },
-        value: 'test@huzzah.com'
+        value: 'test@huzzah.com',
+        validation: {
+          required: true
+        },
+         valid:false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -70,7 +90,9 @@ export class ContactData extends Component {
             { value: 'cheapest', displayValue: 'No rush!' }
           ]
         },
-        value: ''
+        value: '',
+        displayValue: ''
+        //could implement a required of validation field.
       }
     },
     loading: false
@@ -78,13 +100,21 @@ export class ContactData extends Component {
 
   orderHandler = e => {
     e.preventDefault();
-    console.log('Props on Contact Data');
     // console.log(this.props);
     this.setState({ loading: true }); //showing loading spinner
+    const formData = {}; //extracting top level and specific values --> name: value
+    for (let formElementIdentifier in this.state.orderForm) {
+      // for of does not work.
+      //email, country
+      formData[formElementIdentifier] = this.state.orderForm[
+        formElementIdentifier
+      ].value;
+    }
     const burgerOrder = {
       orderId: uuid.v4(),
       ingredients: this.props.ingredients,
-      price: this.props.totalPrice //would do this on the db
+      price: this.props.totalPrice, //would do this on the db,
+      orderData: formData
     };
     const orderObj = {
       ...this.state.ingredients
@@ -104,42 +134,60 @@ export class ContactData extends Component {
         this.setState({ loading: false });
       });
   };
-  inputChangedHandler = (e, inputIdentifier) => {
-    //creating copy of state 
-    const updatedOrderForm = {...this.state.oderForm} //nested objects would be mutated.
 
-    //pull the nested property and creates a clone 
-    const updatedFormElement= {...updatedOrderForm[inputIdentifier]}
-    //now properties can be updated safely
-    updatedFormElement.value = e.target.value
+  checkValidity = (values, rules) => {
+    //checking for required rule, could implement other rules. 
     
-   //setting the updatedOrderForm obj with updated property 
-   updatedOrderForm[inputIdentifier] = updatedFormElement
-   this.setState({ oderForm: updatedOrderForm });
-  };  
+  };
+
+  inputChangedHandler = (e, inputIdentifier) => {
+    //creating copy of state
+    const updatedOrderForm = { ...this.state.orderForm }; //nested objects would be mutated.
+    let updatedFormElement = null;
+
+    if (
+      e.target.childNodes.length === 0 ||
+      e.target.selectedOptions.length === 0
+    ) {
+      updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
+      //pull the nested property and creates a clone
+      //now properties can be updated safely
+      updatedFormElement.value = e.target.value;
+    } else {
+      //if target is select or option
+      updatedFormElement = JSON.parse(
+        JSON.stringify(updatedOrderForm[inputIdentifier])
+      );
+      updatedFormElement.value = e.target.selectedOptions[0].value;
+      updatedFormElement.displayValue = e.target.selectedOptions[0].innerHTML;
+    }
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    //setting the updatedOrderForm obj with updated property
+    this.setState({ orderForm: updatedOrderForm });
+  };
   render() {
     const formElementArray = [];
-    for (let key in this.state.oderForm) {
+    for (let key in this.state.orderForm) {
       //creating obj from keys in orderform
-      formElementArray.push({ id: key, config: this.state.oderForm[key] });
+      formElementArray.push({ id: key, config: this.state.orderForm[key] });
     }
     let inputsArray = formElementArray.map(formElement => {
+      let selected = null;
+      // formElement.config.options.value != formElement.value
       return (
         <Input
           key={formElement.id}
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
           value={formElement.config.value}
-          valueChanged={(e) => this.inputChangedHandler(e,formElement.id)} //anonymous function to pass added args --> name, address, 
+          valueChanged={e => this.inputChangedHandler(e, formElement.id)} //anonymous function to pass added args --> name, address,
         />
       );
     });
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {inputsArray}
-        <Button btnType='Success' clicked={this.orderHandler}>
-          Order
-        </Button>
+        <Button btnType='Success'>Order</Button>
       </form>
     );
     if (this.state.loading) {
@@ -163,3 +211,7 @@ export default ContactData;
 //   We'll never share your email.
 // </FormHelperText>
 // </FormControl>
+
+// How to properly clone a javascript obj:https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
+
+// per MDZ:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
