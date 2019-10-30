@@ -31,8 +31,9 @@ export class ContactData extends Component {
         value: 'Ryu Washumaru',
         validation: {
           required: true
-        }, 
-        valid:false,
+        },
+        valid: true,
+        touched: false
       },
       street: {
         elementType: 'input',
@@ -44,7 +45,8 @@ export class ContactData extends Component {
         validation: {
           required: true
         },
-         valid:false,
+        valid: true,
+        touched: false
       },
       zipCode: {
         elementType: 'input',
@@ -54,9 +56,12 @@ export class ContactData extends Component {
         },
         value: '010101',
         validation: {
-          required: true
+          required: true,
+          minLength: 5,
+          maxLength: 10
         },
-         valid:false,
+        valid: true,
+        touched: false
       },
       Country: {
         elementType: 'input',
@@ -66,9 +71,10 @@ export class ContactData extends Component {
         },
         value: 'Antarctica',
         validation: {
-          required: true // could also implement length, properties, or type. 
+          required: true // could also implement length, properties, or type.
         },
-         valid:false,
+        valid: true,
+        touched: false
       },
       email: {
         elementType: 'input',
@@ -80,7 +86,8 @@ export class ContactData extends Component {
         validation: {
           required: true
         },
-         valid:false,
+        valid: true,
+        touched: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -91,11 +98,13 @@ export class ContactData extends Component {
           ]
         },
         value: '',
+        validation:{},
         displayValue: ''
         //could implement a required of validation field.
       }
     },
-    loading: false
+    loading: false,
+    formIsValid: false
   };
 
   orderHandler = e => {
@@ -135,9 +144,29 @@ export class ContactData extends Component {
       });
   };
 
-  checkValidity = (values, rules) => {
-    //checking for required rule, could implement other rules. 
-    
+  checkValidity = (value, rules) => {
+    //checking for required rule, could implement other rules.
+    let isValid = true;
+    //setting isValid to true, using double validation on check to ensure there is no false positive or negative
+
+    if(!rules){
+      //quick check for rules. If not then return true
+      return true
+    }
+    if (rules.required) {
+      //if required
+      isValid = value.trim() !== '' && isValid; // checking true or false if the value is not empty after trimming
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+      // will only be changed if the previous check was/is true
+    }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+    // if is it not empty, meets the min and the maximum, then it is valid
+    return isValid;
   };
 
   inputChangedHandler = (e, inputIdentifier) => {
@@ -145,6 +174,7 @@ export class ContactData extends Component {
     const updatedOrderForm = { ...this.state.orderForm }; //nested objects would be mutated.
     let updatedFormElement = null;
 
+    // Checking for option tags --> if false
     if (
       e.target.childNodes.length === 0 ||
       e.target.selectedOptions.length === 0
@@ -153,6 +183,11 @@ export class ContactData extends Component {
       //pull the nested property and creates a clone
       //now properties can be updated safely
       updatedFormElement.value = e.target.value;
+      updatedFormElement.valid = this.checkValidity(
+        updatedFormElement.value,
+        updatedFormElement.validation
+      ); // passing value and validation properties to function --> true or false
+      updatedFormElement.touched = true;
     } else {
       //if target is select or option
       updatedFormElement = JSON.parse(
@@ -162,9 +197,19 @@ export class ContactData extends Component {
       updatedFormElement.displayValue = e.target.selectedOptions[0].innerHTML;
     }
     updatedOrderForm[inputIdentifier] = updatedFormElement;
+
+    const formIsValid = true;
+    // looping through all the elements
+    for (let inputIdentifier in updatedOrderForm) {
+      //skipping the options tag
+      if(updatedFormElement[inputIdentifier]){
+        formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid; //will only set to true if both inputIdentifier and formIsValid are true.
+      }
+    }
     //setting the updatedOrderForm obj with updated property
-    this.setState({ orderForm: updatedOrderForm });
+    this.setState({ orderForm: updatedOrderForm, formIsValid });
   };
+
   render() {
     const formElementArray = [];
     for (let key in this.state.orderForm) {
@@ -180,6 +225,9 @@ export class ContactData extends Component {
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
           value={formElement.config.value}
+          inValid={!formElement.config.valid} //passing the opposite
+          shouldValidate={formElement.config.validation} //this will pass undefined and check true or false under props
+          touched={formElement.config.touched} //checking for touched element
           valueChanged={e => this.inputChangedHandler(e, formElement.id)} //anonymous function to pass added args --> name, address,
         />
       );
@@ -187,7 +235,7 @@ export class ContactData extends Component {
     let form = (
       <form onSubmit={this.orderHandler}>
         {inputsArray}
-        <Button btnType='Success'>Order</Button>
+        <Button btnType='Success' disabled={!this.state.formIsValid}>Order</Button> 
       </form>
     );
     if (this.state.loading) {

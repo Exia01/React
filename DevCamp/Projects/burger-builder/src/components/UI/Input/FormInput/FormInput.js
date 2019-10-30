@@ -6,13 +6,22 @@ const formInput = props => {
   let { label } = props; //currently not being passed. Could implement feature
   // console.log(props);
 
+  //always attaching the initial classes
+  const inputClasses = [classes.InputElement];//joining on input
+
+  //check is independent of the input --> checking for isValid --> true or false
+  if(props.inValid && props.shouldValidate && props.touched){ 
+    //if is invalid, should be validated and it has been "touched" --> clicked
+    inputClasses.push(classes.Invalid)
+  }
+
   let inputTagElement = null;
   switch (props.elementType) {
     case 'input':
       //passing the props config from the input --> input type / placeholder
       inputTagElement = (
         <input
-          className={classes.InputElement}
+          className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.valueChanged}
@@ -22,7 +31,7 @@ const formInput = props => {
     case 'textarea':
       inputTagElement = (
         <textarea
-          className={classes.InputElement}
+          className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.valueChanged}
@@ -43,7 +52,7 @@ const formInput = props => {
       });
       inputTagElement = (
         <select
-          className={classes.InputElement}
+          className={inputClasses.join(" ")}
           onChange={props.valueChanged}
           value={props.value}
         >
@@ -54,7 +63,7 @@ const formInput = props => {
     default:
       inputTagElement = (
         <input
-          className={classes.InputElement}
+          className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.valueChanged}
