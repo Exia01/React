@@ -10,9 +10,9 @@ import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import {
   INCREMENT,
   DECREMENT,
-  AddIncrement,
-  SubtractIncrement
-} from '../../js/constants/action-types';
+  ADD_INCREMENT,
+  SUBTRACT_INCREMENT
+} from '../../js/constants/CounterActionTypes';
 
 class Counter extends Component {
   //could do away with this and link directly
@@ -48,11 +48,27 @@ class Counter extends Component {
           label='Decrement'
           clicked={() => this.props.onDecrementCounter(1)}
         />
-        <CounterControl label='Add 5' clicked={() => this.props.onAddCounter(5)} />
+        <CounterControl
+          label='Add 5'
+          clicked={() => this.props.onAddCounter(5)}
+        />
         <CounterControl
           label='Subtract 5'
           clicked={() => this.props.onSubtractCounter(5)}
         />
+        <hr />
+        <button onClick={this.props.onStoreResult}>Store Result</button>
+        <ul>
+          {/*inline rendering, could do constant/let too*/}
+          {this.props.storeResults.map(strResult => {
+            //store result
+            return (
+              <li key={strResult.id} onClick={()=>this.props.onDeleteResult(strResult.id)}>
+                {strResult.value}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
@@ -61,10 +77,11 @@ class Counter extends Component {
 //stores instructions on how to the state store in redux should be mapped to the props on this container
 
 const mapsStateToProps = state => {
-  console.log(state);
+  console.log("Mapping Props to State:", state);
   //stores a function which expects a state and returns a map
   return {
-    ctr: state.counter //reaching out to the state in redux and setting the property to ctr key
+    ctr: state.counter, //reaching out to the state in redux and setting the property to ctr key
+    storeResults: state.results
   };
 };
 
@@ -74,10 +91,13 @@ const mapDispatchToProps = (dispatch, func) => {
   //could reduce down to one function??
   return {
     onIncrementCounter: num => dispatch({ type: INCREMENT, payload: { num } }),
-    onAddCounter: num => dispatch({ type: AddIncrement, payload: { num } }),
+    onAddCounter: num => dispatch({ type: ADD_INCREMENT, payload: { num } }),
     onDecrementCounter: num => dispatch({ type: DECREMENT, payload: { num } }),
     onSubtractCounter: num =>
-      dispatch({ type: SubtractIncrement, payload: { num } })
+      dispatch({ type: SUBTRACT_INCREMENT, payload: { num } }),
+    //functions to results // not all dispatches have to be executed on the reducers.
+    onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
+    onDeleteResult: (id) => dispatch({ type: 'DELETE_RESULT' , resultElId:id}) //passing just id --> resultElementID
   };
 };
 
@@ -88,3 +108,4 @@ export default connect(
 
 //anonymous functions: https://en.wikibooks.org/wiki/JavaScript/Anonymous_functions
 // shorthandExplanation:https://codeburst.io/javascript-understand-arrow-function-syntax-ab4081bba85b
+// //Another Explanation:https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/8303068#questions
