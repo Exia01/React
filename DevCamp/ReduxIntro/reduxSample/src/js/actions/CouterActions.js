@@ -4,7 +4,7 @@ import {
   DECREMENT,
   SubtractIncrement,
   AddIncrement
-} from '../constants/action-types';
+} from '../constants/CounterActionTypes';
 
 export const incrementCount = payload => {
   return { type: INCREMENT, payload };
