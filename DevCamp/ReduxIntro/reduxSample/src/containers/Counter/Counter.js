@@ -57,7 +57,7 @@ class Counter extends Component {
           clicked={() => this.props.onSubtractCounter(5)}
         />
         <hr />
-        <button onClick={this.props.onStoreResult}>Store Result</button>
+        <button onClick={()=>this.props.onStoreResult(this.props.ctr)}>Store Result</button>
         <ul>
           {/*inline rendering, could do constant/let too*/}
           {this.props.storeResults.map(strResult => {
@@ -80,8 +80,8 @@ const mapsStateToProps = state => {
   console.log("Mapping Props to State:", state);
   //stores a function which expects a state and returns a map
   return {
-    ctr: state.counter, //reaching out to the state in redux and setting the property to ctr key
-    storeResults: state.results
+    ctr: state.ctr.counter, //reaching out to the state in redux and setting the property to ctr key
+    storeResults: state.res.results
   };
 };
 
@@ -96,7 +96,7 @@ const mapDispatchToProps = (dispatch, func) => {
     onSubtractCounter: num =>
       dispatch({ type: SUBTRACT_INCREMENT, payload: { num } }),
     //functions to results // not all dispatches have to be executed on the reducers.
-    onStoreResult: () => dispatch({ type: 'STORE_RESULT' }),
+    onStoreResult: (result) => dispatch({ type: 'STORE_RESULT', result}),
     onDeleteResult: (id) => dispatch({ type: 'DELETE_RESULT' , resultElId:id}) //passing just id --> resultElementID
   };
 };
