@@ -7,32 +7,28 @@ import AddPerson from '../components/AddPerson/AddPerson';
 
 //importing constant actions
 import { ADD_PERSON, REMOVE_PERSON } from '../store/constants/PersonActionType';
-
+//importing actions
+import { ADD_HANDLER, REMOVE_HANDLER } from '../store/actions/PersonAction';
 
 class Persons extends Component {
   //local state
   state = {
-    age: [],
-    persons: []
+    //local properties can go here
   };
 
   personAddedHandler = () => {
-    const newPerson = {
-      id: Math.random(), // not really unique but good enough here!
+    let newPerson = {
+      id: 1, // not really unique but good enough here!
       name: 'Yoshi',
       age: Math.floor(Math.random() * 40)
     };
-    this.setState(prevState => {
-      return { persons: prevState.persons.concat(newPerson) };
-    });
+    let test = ADD_HANDLER(newPerson);
+    // console.log(test);
+    this.props.onAddPerson(ADD_HANDLER());
   };
 
-  personDeletedHandler = personId => {
-    this.setState(prevState => {
-      return {
-        persons: prevState.persons.filter(person => person.id !== personId)
-      };
-    });
+  personDeletedHandler = id => {
+    this.props.onRemovePerson(id)
   };
 
   render() {
@@ -40,7 +36,7 @@ class Persons extends Component {
     return (
       <div>
         <AddPerson personAdded={this.personAddedHandler} />
-        {this.state.persons.map(person => (
+        {this.props.persons.map(person => (
           <Person
             key={person.id}
             name={person.name}
@@ -53,4 +49,19 @@ class Persons extends Component {
   }
 }
 
-export default Persons;
+const mapStateToProps = state => {
+  console.log('Mapping Props to State:', state);
+  return {
+    persons: state.prsn.persons
+  };
+};
+
+//Enables dispatching to redux
+const mapDispatchToProps = (dispatch, func) => {
+  return {
+    onAddPerson: obj => dispatch(obj),
+    onRemovePerson: id => dispatch({ type: REMOVE_PERSON, payload: { id } })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Persons);
