@@ -16,7 +16,7 @@ class Persons extends Component {
     //local properties can go here
   };
 
-  personAddedHandler = () => {
+  personAddedHandler = (personObj) => {
     let newPerson = {
       id: 1, // not really unique but good enough here!
       name: 'Yoshi',
@@ -24,7 +24,7 @@ class Persons extends Component {
     };
     let test = ADD_HANDLER(newPerson);
     // console.log(test);
-    this.props.onAddPerson(ADD_HANDLER());
+    this.props.onAddPerson(ADD_HANDLER(personObj));
   };
 
   personDeletedHandler = id => {

@@ -1,6 +1,6 @@
 import uuid from 'uuid';
 // import { ADD_PERSON, REMOVE_PERSON } from '../constants/PersonActionType'; // //could also import like this
-import * as actionTypes from '../constants/PersonActionType'
+import * as actionTypes from '../constants/PersonActionType';
 const initialState = {
   persons: []
 };
@@ -9,11 +9,11 @@ export const personReducer = (state = initialState, action) => {
   console.log('Action in Person Reducer: ', action);
 
   switch (action.type) {
-    case  actionTypes.ADD_PERSON:
+    case actionTypes.ADD_PERSON:
       const newPerson = {
-        id: uuid.v4(), // not really unique but good enough here!
-        name: 'Yoshi',
-        age: Math.floor(Math.random() * 40)
+        id: uuid.v4(), // seems to work enough?
+        name: action.payload.person.name ? action.payload.person.name : 'Yoshi',
+        age: action.payload.person.age || Math.floor(Math.random() * 40)
       };
       return {
         ...state,
@@ -25,7 +25,7 @@ export const personReducer = (state = initialState, action) => {
       const updatedArray = state.persons.filter(
         person => person.id !== action.payload.id
       );
-      console.log(updatedArray)
+      console.log(updatedArray);
       return { ...state, persons: updatedArray };
 
     default:
