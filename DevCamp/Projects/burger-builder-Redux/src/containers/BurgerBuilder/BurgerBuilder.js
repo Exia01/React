@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'; //using fragment instead of auxiliary hoc
-
+import { connect } from 'react-redux';
 import axios from '../../axios-orders'; //using axios instance
 
 import Burger from '../../components/Burger/Burger';
@@ -10,19 +10,15 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Modal from '../../components/UI/Modal/Modal';
 
-//Global constant (shouldnt it be let since it might be changed?)
-const INGREDIENT_PRICES = {
-  salad: 0.35,
-  cheese: 0.5,
-  meat: 1.45,
-  bacon: 1.0
-};
+//importing actionTypes
+import {
+  ADD_ING_HANDLER,
+  REMOVE_ING_HANDLER
+} from '../../store/actions/burger_actions';
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
-    totalPrice: 1,
-    purchaseable: false,
+    // Local UI State
     purchasing: false, //if on the checkout screen --> pressed "Order now" btn
     loading: false,
     error: false
@@ -30,19 +26,18 @@ class BurgerBuilder extends Component {
 
   //reaching out to firebase for the ingredients and setting state
   componentDidMount() {
-    
-    axios
-      .get(
-        'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
-      )
-      .then(response => {
-        const ingredients = response.data;
-        this.setState({ ingredients });
-      })
-      .catch(err => {
-        //the hoc will catch the error and render the modal component??? -> i'm so lost by this point
-        this.setState({ error: true });
-      });
+    // axios
+    //   .get(
+    //     'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
+    //   )
+    //   .then(response => {
+    //     const ingredients = response.data;
+    //     this.setState({ ingredients });
+    //   })
+    //   .catch(err => {
+    //     //the hoc will catch the error and render the modal component??? -> i'm so lost by this point
+    //     this.setState({ error: true });
+    //   });
   }
 
   updatePurchaseState(ingredientsList) {
@@ -69,54 +64,8 @@ class BurgerBuilder extends Component {
       }, 0);
     // console.log('Ingredients: ', ingredients);
     // console.log('Total ingredients: ', ingredientTotal);
-    this.setState({ purchaseable: ingredientTotal > 0 });
+    return ingredientTotal > 0;
   }
-
-  addIngredientHandler = type => {
-    const oldCount = this.state.ingredients[type];
-    //obtaining the count from the state
-    const updatedCount = oldCount + 1;
-    const ingredients = {
-      //distributing old properties from state using spread
-      ...this.state.ingredients
-    };
-
-    ingredients[type] = updatedCount;
-    //setting that ingredient on that count
-    const priceAddition = INGREDIENT_PRICES[type];
-    const oldPrice = this.state.totalPrice;
-    const newPrice = oldPrice + priceAddition;
-    // this.setState({ totalPrice: newPrice, ingredients });
-    this.setState(
-      { ingredients, totalPrice: newPrice },
-      this.updatePurchaseState
-    ); //callback after updating state
-  };
-
-  removeIngredientHandler = type => {
-    let oldCount = this.state.ingredients[type]; //obtaining the count from the state
-    if (oldCount <= 0) {
-      // can't create an array to render from negative value
-      return; //quick break
-    }
-    const updatedCount = oldCount - 1; //increasing count
-    const updatedIngredients = {
-      //distributing old properties from state using map
-      ...this.state.ingredients
-    };
-
-    // console.log(updatedIngredients);
-    updatedIngredients[type] = updatedCount; // salad:number
-    //setting that ingredient on that count
-    const priceDeduction = INGREDIENT_PRICES[type];
-    const oldPrice = this.state.totalPrice;
-    const newPrice = oldPrice - priceDeduction;
-    this.setState({
-      totalPrice: newPrice,
-      ingredients: updatedIngredients
-    });
-    this.updatePurchaseState(updatedIngredients);
-  };
 
   //modal handler
   purchaseHandler = () => {
@@ -129,11 +78,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   };
 
+  ////local function to set local UI
   purchaseContinueHandler = () => {
-    let ingredientsAndTotalParam = new URLSearchParams(
-      this.state.ingredients 
-    );//
-    ingredientsAndTotalParam.set("price",this.state.totalPrice)
+    let ingredientsAndTotalParam = new URLSearchParams(this.state.ingredients); //
+    ingredientsAndTotalParam.set('price', this.state.totalPrice);
     let checkoutLocation = {
       hash: '#order',
       pathname: `${this.props.match.url}checkout`,
@@ -144,9 +92,10 @@ class BurgerBuilder extends Component {
   };
 
   render() {
+    console.log('Props on burgerBuilder', this.props);
     const disabledInfo = {
       //copying state and creating a true or false
-      ...this.state.ingredients
+      ...this.props.ings
     };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
@@ -163,27 +112,28 @@ class BurgerBuilder extends Component {
       <Spinner />
     );
     //when state changes, this will recheck and render the burger component
-    if (this.state.ingredients) {
+    if (this.props.ings) {
       burger = (
         <React.Fragment>
-          <Burger ingredients={this.state.ingredients} />
+          <Burger ingredients={this.props.ings} />
           <BuildControls
-            ingredientAdded={this.addIngredientHandler}
-            ingredientRemoved={this.removeIngredientHandler}
+            ingredientAdded={this.props.onIngredientAdded}
+            ingredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
             //reverting
-            purchaseable={this.state.purchaseable}
+            purchaseable={this.updatePurchaseState(this.props.ings)}
             ordered={this.purchaseHandler}
-            price={this.state.totalPrice}
+            I
+            price={this.props.price}
           />
         </React.Fragment>
       );
       orderSumary = (
         <OrderSumary
-          ingredients={this.state.ingredients}
+          ingredients={this.props.ings}
           purchaseCanceled={this.purchaseCancelHandler}
           purchaseContinued={this.purchaseContinueHandler}
-          price={this.state.totalPrice}
+          price={this.props.price}
         />
       );
     }
@@ -193,7 +143,7 @@ class BurgerBuilder extends Component {
       //while the state is "loading"
       orderSumary = <Spinner />;
     }
- 
+
     return (
       <Fragment>
         <Modal
@@ -207,8 +157,25 @@ class BurgerBuilder extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    ings: state.brg.ingredients,
+    price: state.brg.totalPrice
+  };
+};
 
-export default withErrorHandler(BurgerBuilder, axios); //axios is expected on the withError hoc
+const mapDispatchToProps = dispatch => {
+  return {
+    onIngredientAdded: ingName => dispatch(ADD_ING_HANDLER(ingName)),
+    onIngredientRemoved: ingName => dispatch(REMOVE_ING_HANDLER(ingName))
+  };
+};
+
+//connecting to store and then passing another hoc onto the hoc
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(BurgerBuilder, axios)); //axios is expected on the withError hoc
 // Turning obj into queryStringParam: https://howchoo.com/g/nwywodhkndm/how-to-turn-an-object-into-query-string-parameters-in-javascript
 //another param solution:https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 //Setting URLSearchParams: https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/set || https://stackoverflow.com/questions/8737615/append-a-param-onto-the-current-url
