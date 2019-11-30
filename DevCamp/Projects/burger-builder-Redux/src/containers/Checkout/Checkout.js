@@ -1,37 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
-
 class Checkout extends Component {
-  state = {
-    ingredients: null,
-    totalPrice: 0
-  };
-  // no need to use componentDidMount since this is separate and accessed by url
-  componentDidMount() {
-    this.fetchIngredientsData();
-  }
-
-  fetchIngredientsData = paramSearchTerm => {
-    // console.log('Fetching Ingredients Data in Checkout');
-    // console.log(this.props)
-    let ingredientsIteratorObj = new URLSearchParams(
-      this.props.location.search
-    );
-
-    let tempStateObj = {};
-    let tempPrice = 0;
-    for (const [key, value] of ingredientsIteratorObj.entries()) {
-      if (key === 'price') {
-        tempPrice = value;
-      } else {
-        tempStateObj[key] = value || 0;
-      }
-    }
-
-    this.setState({ ingredients: tempStateObj, totalPrice: tempPrice });
-  };
   checkoutCancelledHandler = () => {
     //since loaded with the route component
     this.props.history.goBack();
@@ -39,26 +11,24 @@ class Checkout extends Component {
   checkoutContinuedHandler = () => {
     this.props.history.push(`${this.props.match.url}/contact-data`); //could use replace too
   };
+  componentDidMount() {
+    console.log('Checkout Component Loaded');
+  }
 
   render() {
     let checkoutSummaryComponent =
-      this.state.ingredients != null ? (
+      this.props.ings != null ? (
         <React.Fragment>
           <CheckoutSummary
-            ingredients={this.state.ingredients}
+            ingredients={this.props.ings}
             checkoutCancelled={this.checkoutCancelledHandler}
             checkoutContinued={this.checkoutContinuedHandler}
           />
           <Route
             path={`${this.props.match.path}/contact-data`}
-            render={props => (
-              <ContactData
-                ingredients={this.state.ingredients}
-                totalPrice={this.state.totalPrice}
-                {...props} //passing props including history obj
-              />
-            )}
+            component={ContactData}
           />
+          )}
         </React.Fragment>
       ) : null;
 
@@ -66,8 +36,19 @@ class Checkout extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    ings: state.brg.ingredients
+  };
+};
+
+//not really needed, left just in case
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
 //iterate through dictionary:https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript/34913701
 
-export default Checkout;
+export default connect(mapStateToProps, null)(Checkout);
 
 //For Route, using render instead of component

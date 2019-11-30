@@ -80,13 +80,8 @@ class BurgerBuilder extends Component {
 
   ////local function to set local UI
   purchaseContinueHandler = () => {
-    let ingredientsAndTotalParam = new URLSearchParams(this.state.ingredients); //
-    ingredientsAndTotalParam.set('price', this.state.totalPrice);
     let checkoutLocation = {
-      hash: '#order',
-      pathname: `${this.props.match.url}checkout`,
-      search: `?${ingredientsAndTotalParam}`,
-      ingredientsParams: `?${ingredientsAndTotalParam}`
+      pathname: `${this.props.match.url}checkout`
     };
     this.props.history.push(checkoutLocation);
   };

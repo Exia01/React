@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-orders'; //using axios instance
+import { connect } from 'react-redux';
 
 import uuid from 'uuid';
 import Input from '../../../components/UI/Input/FormInput/FormInput';
@@ -98,7 +99,7 @@ export class ContactData extends Component {
           ]
         },
         value: '',
-        validation:{},
+        validation: {},
         displayValue: ''
         //could implement a required of validation field.
       }
@@ -121,8 +122,8 @@ export class ContactData extends Component {
     }
     const burgerOrder = {
       orderId: uuid.v4(),
-      ingredients: this.props.ingredients,
-      price: this.props.totalPrice, //would do this on the db,
+      ingredients: this.props.ings,
+      price: this.props.price, //would do this on the db,
       orderData: formData
     };
     const orderObj = {
@@ -149,9 +150,9 @@ export class ContactData extends Component {
     let isValid = true;
     //setting isValid to true, using double validation on check to ensure there is no false positive or negative
 
-    if(!rules){
+    if (!rules) {
       //quick check for rules. If not then return true
-      return true
+      return true;
     }
     if (rules.required) {
       //if required
@@ -202,7 +203,7 @@ export class ContactData extends Component {
     // looping through all the elements
     for (let inputIdentifier in updatedOrderForm) {
       //skipping the options tag
-      if(updatedFormElement[inputIdentifier]){
+      if (updatedFormElement[inputIdentifier]) {
         formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid; //will only set to true if both inputIdentifier and formIsValid are true.
       }
     }
@@ -235,7 +236,9 @@ export class ContactData extends Component {
     let form = (
       <form onSubmit={this.orderHandler}>
         {inputsArray}
-        <Button btnType='Success' disabled={!this.state.formIsValid}>Order</Button> 
+        <Button btnType='Success' disabled={!this.state.formIsValid}>
+          Order
+        </Button>
       </form>
     );
     if (this.state.loading) {
@@ -251,7 +254,14 @@ export class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    ings: state.brg.ingredients,
+    price: state.brg.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(ContactData);
 // <FormControl>
 // <InputLabel htmlFor='my-input'>Email address</InputLabel>
 // <Input id='my-input' aria-describedby='my-helper-text' />
