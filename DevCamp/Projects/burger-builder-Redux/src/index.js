@@ -6,7 +6,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import burgerReducer from './store/reducers/burger_reducer';
 
@@ -14,7 +14,29 @@ const rootReducer = combineReducers({
   brg: burgerReducer
 });
 
-const store = createStore(rootReducer); //if single reducer, can pass directly here
+//simple middleware --logs every action
+const logActionsMiddleware = store => {
+  //func returns another func
+  return next => {
+    //this is a function that lets the action continue onto the reducer
+    return action => {
+      console.log('[Middleware] Dispatching', action);
+      const result = next(action);
+      console.log('[Middleware] next state', store.getState());
+      return result;
+      //lets the action continue onto the reducer
+    };
+  };
+};
+
+//REACT DEV TOOL ENHANCER, conmpose allows us to combine enhacers
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+//can pass multiple middleware, will be execd in order
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(logActionsMiddleware))
+); //if single reducer, can pass directly here
 
 // wrapping on const ad passing back
 const app = (
