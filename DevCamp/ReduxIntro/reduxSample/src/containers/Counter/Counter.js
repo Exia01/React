@@ -14,6 +14,10 @@ import {
   SUBTRACT_INCREMENT
 } from '../../js/constants/CounterActionTypes';
 
+//importing StoreResult Action Creator could include above..?
+import { storeResult as storeResultActionCreator} from '../../js/constants/CounterActionTypes';
+import {decrementCount } from '../../js/actions/CouterActions'
+
 class Counter extends Component {
   //could do away with this and link directly
   counterChangedHandler = (action, value) => {
@@ -57,13 +61,18 @@ class Counter extends Component {
           clicked={() => this.props.onSubtractCounter(5)}
         />
         <hr />
-        <button onClick={()=>this.props.onStoreResult(this.props.ctr)}>Store Result</button>
+        <button onClick={() => this.props.onStoreResult(this.props.ctr)}>
+          Store Result
+        </button>
         <ul>
           {/*inline rendering, could do constant/let too*/}
           {this.props.storeResults.map(strResult => {
             //store result
             return (
-              <li key={strResult.id} onClick={()=>this.props.onDeleteResult(strResult.id)}>
+              <li
+                key={strResult.id}
+                onClick={() => this.props.onDeleteResult(strResult.id)}
+              >
                 {strResult.value}
               </li>
             );
@@ -77,7 +86,7 @@ class Counter extends Component {
 //stores instructions on how to the state store in redux should be mapped to the props on this container
 
 const mapsStateToProps = state => {
-  console.log("Mapping Props to State:", state);
+  console.log('Mapping Props to State:', state);
   //stores a function which expects a state and returns a map
   return {
     ctr: state.ctr.counter, //reaching out to the state in redux and setting the property to ctr key
@@ -92,12 +101,12 @@ const mapDispatchToProps = (dispatch, func) => {
   return {
     onIncrementCounter: num => dispatch({ type: INCREMENT, payload: { num } }),
     onAddCounter: num => dispatch({ type: ADD_INCREMENT, payload: { num } }),
-    onDecrementCounter: num => dispatch({ type: DECREMENT, payload: { num } }),
+    onDecrementCounter: num => dispatch(decrementCount(num)),
     onSubtractCounter: num =>
       dispatch({ type: SUBTRACT_INCREMENT, payload: { num } }),
     //functions to results // not all dispatches have to be executed on the reducers.
-    onStoreResult: (result) => dispatch({ type: 'STORE_RESULT', result}),
-    onDeleteResult: (id) => dispatch({ type: 'DELETE_RESULT' , resultElId:id}) //passing just id --> resultElementID
+    onStoreResult: result => dispatch(storeResultActionCreator(result)),
+    onDeleteResult: id => dispatch({ type: 'DELETE_RESULT', resultElId: id }) //passing just id --> resultElementID
   };
 };
 

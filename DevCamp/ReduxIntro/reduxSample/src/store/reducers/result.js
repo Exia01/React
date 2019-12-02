@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         //arrays are passed by reference
         //concat is an immutable way of updating an array --> returns a new array.
-        results: state.results.concat({ id: new Date(), value: action.result })
+        results: state.results.concat({ id: new Date(), value: action.payload.result })
       };
 
     case 'DELETE_RESULT':
