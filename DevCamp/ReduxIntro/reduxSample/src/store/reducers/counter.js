@@ -3,7 +3,7 @@ import {
   DECREMENT,
   SUBTRACT_INCREMENT,
   ADD_INCREMENT
-} from '../../js/constants/CounterActionTypes';
+} from '../../js/constants/index';
 
 const initialState = {
   counter: 0,

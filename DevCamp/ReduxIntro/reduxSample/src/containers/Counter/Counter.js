@@ -9,14 +9,13 @@ import CounterOutput from '../../components/CounterOutput/CounterOutput';
 //importing constant actions
 import {
   INCREMENT,
-  DECREMENT,
   ADD_INCREMENT,
   SUBTRACT_INCREMENT
-} from '../../js/constants/CounterActionTypes';
+} from '../../js/constants/index';
 
 //importing StoreResult Action Creator could include above..?
-import { storeResult as storeResultActionCreator} from '../../js/constants/CounterActionTypes';
-import {decrementCount } from '../../js/actions/CouterActions'
+import { storeResult as storeResultActionCreator} from '../../js/actions/ResultActions';
+import {decrementCount, decrementCountByNum, incrementCountByNum, incrementCount } from '../../js/actions/CouterActions'
 
 class Counter extends Component {
   //could do away with this and link directly
@@ -100,10 +99,10 @@ const mapDispatchToProps = (dispatch, func) => {
   //could reduce down to one function??
   return {
     onIncrementCounter: num => dispatch({ type: INCREMENT, payload: { num } }),
-    onAddCounter: num => dispatch({ type: ADD_INCREMENT, payload: { num } }),
+    onAddCounter: num => dispatch(incrementCountByNum(num)),
     onDecrementCounter: num => dispatch(decrementCount(num)), //utilizing action creator 
     onSubtractCounter: num =>
-      dispatch({ type: SUBTRACT_INCREMENT, payload: { num } }),
+      dispatch(decrementCount(num)),
     //functions to results // not all dispatches have to be executed on the reducers.
     onStoreResult: result => dispatch(storeResultActionCreator(result)),
     onDeleteResult: id => dispatch({ type: 'DELETE_RESULT', resultElId: id }) //passing just id --> resultElementID

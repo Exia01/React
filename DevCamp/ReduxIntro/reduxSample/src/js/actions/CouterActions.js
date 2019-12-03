@@ -5,18 +5,18 @@ import {
   SUBTRACT_INCREMENT
 } from '../constants/CounterActionTypes';
 
-export const incrementCount = payload => {
-  return { type: INCREMENT, payload };
+export const incrementCount = num => {
+  return { type: INCREMENT, payload:{num} };
 };
 
 export const decrementCount = num => {
   return { type: DECREMENT, payload: { num } };
 };
 
-export const incrementCountBy5 = payload => {
-  return { type: INCREMENT, payload };
+export const incrementCountByNum= num => {
+  return { type: ADD_INCREMENT, payload:{num} };
 };
 
-export const decrementCountBy5 = payload => {
-  return { type: SUBTRACT_INCREMENT, payload };
+export const decrementCountByNum = num => {
+  return { type: SUBTRACT_INCREMENT, payload:{num} };
 };
