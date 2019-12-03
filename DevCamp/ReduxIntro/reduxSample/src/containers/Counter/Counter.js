@@ -101,7 +101,7 @@ const mapDispatchToProps = (dispatch, func) => {
   return {
     onIncrementCounter: num => dispatch({ type: INCREMENT, payload: { num } }),
     onAddCounter: num => dispatch({ type: ADD_INCREMENT, payload: { num } }),
-    onDecrementCounter: num => dispatch(decrementCount(num)),
+    onDecrementCounter: num => dispatch(decrementCount(num)), //utilizing action creator 
     onSubtractCounter: num =>
       dispatch({ type: SUBTRACT_INCREMENT, payload: { num } }),
     //functions to results // not all dispatches have to be executed on the reducers.
