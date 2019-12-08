@@ -5,12 +5,14 @@ import {
   ADD_INCREMENT
 } from '../../js/constants/index';
 
+import {updateObj} from '../utilities'
 const initialState = {
   counter: 0,
 };
 
 const reducer = (state = initialState, action) => {
   console.log('Action in Reducer: ', action);
+  let counterObj
   //setting up reducer with initial state. Will be used wth index.js
   const newState = Object.assign({}, state); // copying initialState first layer deep. need to use json.parse if multiple layers
   switch (action.type) {
@@ -18,12 +20,15 @@ const reducer = (state = initialState, action) => {
       newState.counter = state.counter + action.payload.num;
       return newState;
     case ADD_INCREMENT:
-      newState.counter = state.counter + action.payload.num;
-      return newState;
+      counterObj = {counter: state.counter + action.payload.num}
+      return updateObj(state, counterObj)
     case DECREMENT:
-      return { ...state, counter: state.counter - action.payload.num }; //another way of copying and updating an obj by passing the arg we want to override
+      counterObj = {counter: state.counter - action.payload.num}
+      return updateObj(state, counterObj)
     case SUBTRACT_INCREMENT:
-      return { ...state, counter: state.counter - action.payload.num };
+      counterObj = {counter: state.counter - action.payload.num}
+      return updateObj(state, counterObj)//passing in the state with the obj to update
+
 
     default:
       console.log('No Action Type passed!!!');
