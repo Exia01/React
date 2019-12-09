@@ -3,7 +3,6 @@ export const saveResult = result => {
     const updatedResult = result * result // logic could be exced on the reducer. the async code goes on the reducer
   return { type: 'STORE_RESULT', payload: { result } };
 };
-
 //Action Creator
 export const storeResult = result => {
   return function(dispatch, getState) { //second arg that can be passed
