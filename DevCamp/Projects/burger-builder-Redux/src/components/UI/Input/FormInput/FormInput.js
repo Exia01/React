@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './FormInput.module.css';
-import jssPluginPropsSort from 'jss-plugin-props-sort';
+
 
 const formInput = props => {
   let { label } = props; //currently not being passed. Could implement feature

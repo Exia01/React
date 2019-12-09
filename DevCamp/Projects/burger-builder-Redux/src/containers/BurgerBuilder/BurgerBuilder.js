@@ -12,9 +12,9 @@ import Modal from '../../components/UI/Modal/Modal';
 
 //importing actionTypes
 import {
-  ADD_ING_HANDLER,
-  REMOVE_ING_HANDLER
-} from '../../store/actions/burger_actions';
+  addIngredientHandler,
+  removeIngredientHandler
+} from '../../store/actions'; //importing index by default
 
 class BurgerBuilder extends Component {
   state = {
@@ -161,8 +161,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: ingName => dispatch(ADD_ING_HANDLER(ingName)),
-    onIngredientRemoved: ingName => dispatch(REMOVE_ING_HANDLER(ingName))
+    onIngredientAdded: ingName => dispatch(addIngredientHandler(ingName)),
+    onIngredientRemoved: ingName => dispatch(removeIngredientHandler(ingName))
   };
 };
 
