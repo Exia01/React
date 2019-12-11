@@ -1,6 +1,7 @@
 export {
   addIngredientHandler,
-  removeIngredientHandler
+  removeIngredientHandler,
+  initFetchIngredientsHandler
 } from './burger_actions';
 export {} from './order_actions';
 // initFetchIngredientHandler

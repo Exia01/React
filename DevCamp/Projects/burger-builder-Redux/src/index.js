@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import burgerReducer from './store/reducers/burger_reducer';
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   brg: burgerReducer
@@ -35,7 +36,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //can pass multiple middleware, will be execd in order
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(logActionsMiddleware))
+  //compose enhacers is essentially compose
+  composeEnhancers(applyMiddleware(logActionsMiddleware, thunk))
 ); //if single reducer, can pass directly here
 
 // wrapping on const ad passing back

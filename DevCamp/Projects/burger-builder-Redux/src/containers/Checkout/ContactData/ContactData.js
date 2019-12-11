@@ -199,7 +199,7 @@ export class ContactData extends Component {
     }
     updatedOrderForm[inputIdentifier] = updatedFormElement;
 
-    const formIsValid = true;
+    let formIsValid = true;
     // looping through all the elements
     for (let inputIdentifier in updatedOrderForm) {
       //skipping the options tag
@@ -218,7 +218,6 @@ export class ContactData extends Component {
       formElementArray.push({ id: key, config: this.state.orderForm[key] });
     }
     let inputsArray = formElementArray.map(formElement => {
-      let selected = null;
       // formElement.config.options.value != formElement.value
       return (
         <Input

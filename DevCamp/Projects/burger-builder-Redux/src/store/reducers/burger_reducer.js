@@ -8,13 +8,10 @@ const INGREDIENT_PRICES = {
 }; //could even fetch prices from db
 
 const initialState = {
-  ingredients: {
-    salad: 0,
-    bacon: 0,
-    cheese: 0,
-    meat: 0
-  },
+  ingredients: null,
   totalPrice: 1,
+  error: false,
+  loading: false,
   purchaseable: false //could implement it here
 };
 
@@ -49,6 +46,20 @@ const burgerReducer = (state = initialState, action) => {
           state.totalPrice - INGREDIENT_PRICES[action.payload.ingredientName]
       };
       return stateObj;
+
+    case burgerActionTypes.SET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: action.payload.ingredients,
+        error: false
+      };
+
+    case burgerActionTypes.FETCH_INGREDIENTS_FAILED:
+      return {
+        ...state,
+        error: true
+      };
+
     default:
       console.log('No Action Type passed!');
       return state;

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'; //using fragment instead of auxiliary hoc
 import { connect } from 'react-redux';
-import axios from '../../axios-orders'; //using axios instance
+
+import axios from '../../axios-orders'; //using axios instance, being used for W/errors HOC
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -13,31 +14,19 @@ import Modal from '../../components/UI/Modal/Modal';
 //importing actionTypes
 import {
   addIngredientHandler,
-  removeIngredientHandler
+  removeIngredientHandler,
+  initFetchIngredientsHandler
 } from '../../store/actions'; //importing index by default
 
 class BurgerBuilder extends Component {
   state = {
     // Local UI State
-    purchasing: false, //if on the checkout screen --> pressed "Order now" btn
-    loading: false,
-    error: false
+    purchasing: false //if on the checkout screen --> pressed "Order now" btn
   };
 
   //reaching out to firebase for the ingredients and setting state
   componentDidMount() {
-    // axios
-    //   .get(
-    //     'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
-    //   )
-    //   .then(response => {
-    //     const ingredients = response.data;
-    //     this.setState({ ingredients });
-    //   })
-    //   .catch(err => {
-    //     //the hoc will catch the error and render the modal component??? -> i'm so lost by this point
-    //     this.setState({ error: true });
-    //   });
+    this.props.onInitIngredients();
   }
 
   updatePurchaseState(ingredientsList) {
@@ -101,7 +90,7 @@ class BurgerBuilder extends Component {
     let orderSumary = null;
 
     //before we get the data from firebase, show spinner
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients Can't be loaded!!</p>
     ) : (
       <Spinner />
@@ -133,12 +122,6 @@ class BurgerBuilder extends Component {
       );
     }
 
-    //checking after ingredients set
-    if (this.state.loading) {
-      //while the state is "loading"
-      orderSumary = <Spinner />;
-    }
-
     return (
       <Fragment>
         <Modal
@@ -155,14 +138,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   return {
     ings: state.brg.ingredients,
-    price: state.brg.totalPrice
+    price: state.brg.totalPrice,
+    error: state.brg.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingName => dispatch(addIngredientHandler(ingName)),
-    onIngredientRemoved: ingName => dispatch(removeIngredientHandler(ingName))
+    onIngredientRemoved: ingName => dispatch(removeIngredientHandler(ingName)),
+    onInitIngredients: () => dispatch(initFetchIngredientsHandler())
   };
 };
 
