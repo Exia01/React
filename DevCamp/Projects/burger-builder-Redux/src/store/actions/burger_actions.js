@@ -31,12 +31,13 @@ export const initFetchIngredientsHandler = () => {
         'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
       )
       .then(response => {
-        const ingredients = response.data;
+        let sortedIngrdientsObj = {};
+        let ingredients = response.data;
         dispatch(setIngredients(ingredients));
       })
       .catch(err => {
         //the hoc will catch the error and render the modal component??? -> i'm so lost by this point
-        dispatch(fetchIngredientsFailedHandler())
+        dispatch(fetchIngredientsFailedHandler());
       });
   };
 };

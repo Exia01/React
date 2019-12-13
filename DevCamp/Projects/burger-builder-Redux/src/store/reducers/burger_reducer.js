@@ -48,9 +48,25 @@ const burgerReducer = (state = initialState, action) => {
       return stateObj;
 
     case burgerActionTypes.SET_INGREDIENTS:
+      // obtaining position and ing from DB
+      let sortedIngrdientsObj = {};
+      for (const [ingKey, propKey] of Object.entries(
+        action.payload.ingredients
+      )) {
+        sortedIngrdientsObj[propKey.position] = {
+          qty: propKey.qty,
+          ing: ingKey
+        };
+      }
+      let ings = {};
+      for (let [ingPosition, ingredientsPropr] of Object.entries(
+        sortedIngrdientsObj
+      )) {
+        ings[ingredientsPropr.ing] = ingredientsPropr.qty;
+      }
       return {
         ...state,
-        ingredients: action.payload.ingredients,
+        ingredients: ings,//could map individually, one by one 
         error: false
       };
 
