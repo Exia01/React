@@ -3,5 +3,6 @@ export {
   removeIngredientHandler,
   initFetchIngredientsHandler
 } from './burger_actions';
-export {} from './order_actions';
+
+export { purchaseBurger } from './order_actions';
 // initFetchIngredientHandler
