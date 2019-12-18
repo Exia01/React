@@ -131,18 +131,7 @@ export class ContactData extends Component {
     };
     console.log(`Order Obj from order continue ${orderObj}`);
     //baseURL and sub route.
-    axios
-      .post('/online-orders/orders.json', burgerOrder) //using .json to target the endpoint
-      .then(response => {
-        console.log(response);
-        this.setState({ loading: false, ingredients: null });
-        alert('Success! ');
-        this.props.history.push('/');
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ loading: false });
-      });
+   
   };
 
   checkValidity = (value, rules) => {
