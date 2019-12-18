@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Route, Redirect} from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 class Checkout extends Component {
@@ -13,6 +13,7 @@ class Checkout extends Component {
   };
   componentDidMount() {
     console.log('Checkout Component Loaded');
+    console.log(this.props)
   }
 
   render() {
@@ -30,7 +31,7 @@ class Checkout extends Component {
           />
           )}
         </React.Fragment>
-      ) : null;
+      ) : <Redirect to="/" />;
 
     return <div>{checkoutSummaryComponent}</div>;
   }

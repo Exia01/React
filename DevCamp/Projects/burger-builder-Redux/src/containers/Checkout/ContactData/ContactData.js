@@ -6,6 +6,7 @@ import uuid from 'uuid';
 import Input from '../../../components/UI/Input/FormInput/FormInput';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 //Styling
 import classes from './ContactData.module.css';
@@ -18,6 +19,7 @@ import classes from './ContactData.module.css';
 // import Button from '@material-ui/core/Button';
 // import TextField from '@material-ui/core/TextField';
 
+import * as actions from '../../../store/actions'; //using index
 export class ContactData extends Component {
   state = {
     orderForm: {
@@ -104,14 +106,13 @@ export class ContactData extends Component {
         //could implement a required of validation field.
       }
     },
-    loading: false,
     formIsValid: false
   };
 
   orderHandler = e => {
     e.preventDefault();
     // console.log(this.props);
-    this.setState({ loading: true }); //showing loading spinner
+    // this.setState({ loading: true }); //showing loading spinner
     const formData = {}; //extracting top level and specific values --> name: value
     for (let formElementIdentifier in this.state.orderForm) {
       // for of does not work.
@@ -126,12 +127,10 @@ export class ContactData extends Component {
       price: this.props.price, //would do this on the db,
       orderData: formData
     };
-    const orderObj = {
-      ...this.state.ingredients
-    };
-    console.log(`Order Obj from order continue ${orderObj}`);
-    //baseURL and sub route.
    
+    console.log(`Order Obj from order continue ${burgerOrder}`);
+    //baseURL and sub route.
+    this.props.onOrderBurger(burgerOrder);
   };
 
   checkValidity = (value, rules) => {
@@ -229,7 +228,7 @@ export class ContactData extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       //if true
       form = <Spinner />;
     }
@@ -246,10 +245,20 @@ const mapStateToProps = state => {
   return {
     ings: state.brg.ingredients,
     price: state.brg.totalPrice,
+    loading: state.order.loading
   };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: orderData => dispatch(actions.purchaseBurger(orderData))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactData, axios));
 // <FormControl>
 // <InputLabel htmlFor='my-input'>Email address</InputLabel>
 // <Input id='my-input' aria-describedby='my-helper-text' />

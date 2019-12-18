@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 
 import burgerReducer from './store/reducers/burger_reducer';
+import orderReducer from './store/reducers/order_reducer';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
-  brg: burgerReducer
+  brg: burgerReducer,
+  order: orderReducer,
 });
 
 //simple middleware --logs every action
