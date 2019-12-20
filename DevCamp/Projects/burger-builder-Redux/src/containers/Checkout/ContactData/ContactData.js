@@ -100,7 +100,7 @@ export class ContactData extends Component {
             { value: 'cheapest', displayValue: 'No rush!' }
           ]
         },
-        value: '',
+        value: 'fastest',
         validation: {},
         displayValue: ''
         //could implement a required of validation field.
