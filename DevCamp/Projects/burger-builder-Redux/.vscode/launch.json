@@ -11,3 +11,9 @@
         "webRoot": "${workspaceFolder}/src/index.js"
     }]
 }
+
+
+// "runtimeArgs": [
+//     "--disable-infobars --disable-session-crashed-bubble"
+// ],
+// "runtimeExecutable": "/usr/bin/google-chrome"
