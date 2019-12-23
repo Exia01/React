@@ -15,7 +15,8 @@ import Modal from '../../components/UI/Modal/Modal';
 import {
   addIngredientHandler,
   removeIngredientHandler,
-  initFetchIngredientsHandler
+  initFetchIngredientsHandler,
+  purchaseInit,
 } from '../../store/actions'; //importing index by default
 
 class BurgerBuilder extends Component {
@@ -72,6 +73,7 @@ class BurgerBuilder extends Component {
     let checkoutLocation = {
       pathname: `${this.props.match.url}checkout`
     };
+    this.props.onInitPurchase(); //sets purchasing state on order rdcr to false
     this.props.history.push(checkoutLocation);
   };
 
@@ -147,7 +149,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingName => dispatch(addIngredientHandler(ingName)),
     onIngredientRemoved: ingName => dispatch(removeIngredientHandler(ingName)),
-    onInitIngredients: () => dispatch(initFetchIngredientsHandler())
+    onInitIngredients: () => dispatch(initFetchIngredientsHandler()),
+    onInitPurchase: () => dispatch(purchaseInit()),
   };
 };
 
