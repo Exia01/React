@@ -4,5 +4,5 @@ export {
   initFetchIngredientsHandler
 } from './burger_actions';
 
-export { purchaseBurger } from './order_actions';
+export { purchaseBurger, purchaseInit } from './order_actions';
 // initFetchIngredientHandler

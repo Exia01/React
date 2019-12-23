@@ -1,6 +1,13 @@
 import * as orderActionConstant from '../constants/orderActionType';
 import axios from '../../axios-orders';
 
+export const purchaseInit = () => {
+  return {
+    type: orderActionConstant.PURCHASE_INIT
+  };
+};
+
+
 export const purchaseBurgerSuccess = (id, orderData) => {
   return {
     type: orderActionConstant.PURCHASE_BURGER_ORDER_SUCCESS,
