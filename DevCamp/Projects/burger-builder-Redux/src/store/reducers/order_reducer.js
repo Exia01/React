@@ -8,7 +8,7 @@ import {
   FETCH_ORDERS_FAIL
 } from '../constants/orderActionType';
 
-import {updateObject} from '../utility'
+import { updateObject } from '../utility';
 const initialState = {
   orders: [],
   loading: false,
@@ -18,10 +18,7 @@ const initialState = {
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case PURCHASE_INIT:
-      return {
-        ...state,
-        purchased: false
-      };
+      return updateObject(state, { purchased: false });
 
     case PURCHASE_BURGER_START:
       return {
@@ -29,6 +26,7 @@ const orderReducer = (state = initialState, action) => {
         loading: true
       };
     case PURCHASE_BURGER_ORDER_SUCCESS:
+      //could use update obj func here
       const newOrderObj = {
         ...action.payload.orderData,
         id: action.payload.orderId
@@ -42,16 +40,10 @@ const orderReducer = (state = initialState, action) => {
       };
 
     case PURCHASE_BURGER_ORDER_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
+      return updateObject(state, { loading: false });
 
     case FETCH_ORDERS_START:
-      return {
-        ...state,
-        loading: true
-      };
+      return updateObject(state, { loading: true });
 
     case FETCH_ORDERS_SUCCESS:
       return {
@@ -61,10 +53,7 @@ const orderReducer = (state = initialState, action) => {
       };
 
     case FETCH_ORDERS_FAIL:
-      return {
-        ...state,
-        loading: false
-      };
+      return updateObject(state, { loading: false });
 
     default:
       console.log('No Valid Action Type passed!');
