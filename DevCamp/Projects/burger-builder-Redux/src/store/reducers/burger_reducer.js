@@ -1,4 +1,4 @@
-import * as burgerActionTypes from '../constants//BurgerActionType';
+import * as burgerActionTypes from '../constants/BurgerActionType';
 //Global constant (shouldn't it be let since it might be changed?)
 const INGREDIENT_PRICES = {
   salad: 0.35,
@@ -66,7 +66,8 @@ const burgerReducer = (state = initialState, action) => {
       }
       return {
         ...state,
-        ingredients: ings,//could map individually, one by one 
+        ingredients: ings, //could map individually, one by one ,
+        totalPrice: 1, //could obtain from server
         error: false
       };
 
