@@ -31,9 +31,16 @@ export const initFetchIngredientsHandler = () => {
         'https://burgerbuilder-react-88618.firebaseio.com/orders/ingredients.json'
       )
       .then(response => {
-        let sortedIngrdientsObj = {};
         let ingredients = response.data;
-        dispatch(setIngredients(ingredients));
+        let sortedIngrdientsObj = {};
+        for (const [ingKey, propKey] of Object.entries(ingredients)) {
+          sortedIngrdientsObj[propKey.position] = {
+            //taking the number and setting as key
+            qty: propKey.qty,
+            ing: ingKey
+          };
+        }
+        dispatch(setIngredients(sortedIngrdientsObj));
       })
       .catch(err => {
         //the hoc will catch the error and render the modal component??? -> i'm so lost by this point

@@ -1,4 +1,5 @@
 import * as burgerActionTypes from '../constants/BurgerActionType';
+import { updateObject } from '../utility';
 //Global constant (shouldn't it be let since it might be changed?)
 const INGREDIENT_PRICES = {
   salad: 0.35,
@@ -20,19 +21,20 @@ const burgerReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case burgerActionTypes.ADD_INGREDIENT:
-      stateObj = {
-        ...state, //copying top layer
-        ingredients: {
-          ...state.ingredients, //deep copy for properties
-          //using dynamic property key
-          [action.payload.ingredientName]:
-            state.ingredients[action.payload.ingredientName] + 1
-        },
-        //first copying the state and now overriding total
+      const updatedIngredient = {
+        [action.payload.ingredientName]:
+          state.ingredients[action.payload.ingredientName] + 1
+      };
+      const updatedIngredients = updateObject(
+        state.ingredients,
+        updatedIngredient
+      );
+      const updatedState = {
+        ingredients: updatedIngredients,
         totalPrice:
           state.totalPrice + INGREDIENT_PRICES[action.payload.ingredientName]
       };
-      return stateObj;
+      return updateObject(state, updatedState);
     case burgerActionTypes.REMOVE_INGREDIENT:
       stateObj = {
         ...state, //copying top layer
@@ -49,33 +51,20 @@ const burgerReducer = (state = initialState, action) => {
 
     case burgerActionTypes.SET_INGREDIENTS:
       // obtaining position and ing from DB
-      let sortedIngrdientsObj = {};
-      for (const [ingKey, propKey] of Object.entries(
-        action.payload.ingredients
-      )) {
-        sortedIngrdientsObj[propKey.position] = {
-          qty: propKey.qty,
-          ing: ingKey
-        };
-      }
       let ings = {};
       for (let [ingPosition, ingredientsPropr] of Object.entries(
-        sortedIngrdientsObj
+        action.payload.ingredients
       )) {
         ings[ingredientsPropr.ing] = ingredientsPropr.qty;
       }
-      return {
-        ...state,
-        ingredients: ings, //could map individually, one by one ,
-        totalPrice: 1, //could obtain from server
+      return updateObject(state, {
+        ingredients: ings,
+        totalPrice: 1,
         error: false
-      };
+      });
 
     case burgerActionTypes.FETCH_INGREDIENTS_FAILED:
-      return {
-        ...state,
-        error: true
-      };
+      return updateObject(state, { error: true });
 
     default:
       console.log('No Action Type passed!');
@@ -90,3 +79,12 @@ export default burgerReducer;
 // Dynamic Object keys pt:https://www.sitepoint.com/es6-enhanced-object-literals/
 
 // ActionTypes and Contants:https://stackoverflow.com/questions/34965856/what-is-the-point-of-the-constants-in-redux
+
+/*set ingredients old code:
+    return {
+      ...state,
+      ingredients: ings, //could map individually, one by one ,
+      totalPrice: 1, //could obtain from server
+      error: false
+    };
+*/
