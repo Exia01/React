@@ -71,7 +71,6 @@ export const fetchOrders = () => {
         for (let key of Object.keys(data)) {
           tempFetchedOrdersDataArr.push({ ...data[key], id: key }); //destructuring and adding new property
         }
-        // console.log(tempFetchedOrdersDataArr);
         dispatch(fetchOrderSuccess(tempFetchedOrdersDataArr));
       })
       .catch(err => {
