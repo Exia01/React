@@ -15,6 +15,22 @@ const initialState = {
   purchased: null
 };
 
+//could do this for every case, leads to leaner code
+const purchaseOrderSuccess = (state, action) => {
+  //could use update obj func here
+  const newOrderObj = {
+    ...action.payload.orderData,
+    id: action.payload.orderId
+  };
+  return {
+    ...state,
+    loading: false,
+    purchased: true,
+    //concat returns new array ==> immutably
+    orders: state.orders.concat(newOrderObj)
+  };
+};
+
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case PURCHASE_INIT:
@@ -26,18 +42,7 @@ const orderReducer = (state = initialState, action) => {
         loading: true
       };
     case PURCHASE_BURGER_ORDER_SUCCESS:
-      //could use update obj func here
-      const newOrderObj = {
-        ...action.payload.orderData,
-        id: action.payload.orderId
-      };
-      return {
-        ...state,
-        loading: false,
-        purchased: true,
-        //concat returns new array ==> immutably
-        orders: state.orders.concat(newOrderObj)
-      };
+      return purchaseOrderSuccess(state, action);
 
     case PURCHASE_BURGER_ORDER_FAIL:
       return updateObject(state, { loading: false });

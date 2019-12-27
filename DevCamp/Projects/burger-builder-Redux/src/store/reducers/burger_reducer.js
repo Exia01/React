@@ -16,52 +16,63 @@ const initialState = {
   purchaseable: false //could implement it here
 };
 
+//Can do this for every action 
+const addIngredient = (state, action) => {
+  const updatedIngredient = {
+    [action.payload.ingredientName]:
+      state.ingredients[action.payload.ingredientName] + 1
+  };
+  const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
+  const updatedState = {
+    ingredients: updatedIngredients,
+    totalPrice:
+      state.totalPrice + INGREDIENT_PRICES[action.payload.ingredientName]
+  };
+  return updateObject(state, updatedState);
+};
+
+const removeIngredient = (state, action, stateObj) => {
+  stateObj = {
+    ...state, //copying top layer
+    ingredients: {
+      ...state.ingredients, //deep copy for properties
+      //using dynamic property key
+      [action.payload.ingredientName]:
+        state.ingredients[action.payload.ingredientName] - 1
+    },
+    totalPrice:
+      state.totalPrice - INGREDIENT_PRICES[action.payload.ingredientName]
+  };
+  return stateObj;
+};
+
+const setIngredients = (state, action) => {
+  // obtaining position and ing from DB
+  let ings = {};
+  for (let [ingPosition, ingredientsPropr] of Object.entries(
+    action.payload.ingredients
+  )) {
+    ings[ingredientsPropr.ing] = ingredientsPropr.qty;
+  }
+  return updateObject(state, {
+    ingredients: ings,
+    totalPrice: 1,
+    error: false
+  });
+};
+
 const burgerReducer = (state = initialState, action) => {
   let stateObj = {};
 
   switch (action.type) {
     case burgerActionTypes.ADD_INGREDIENT:
-      const updatedIngredient = {
-        [action.payload.ingredientName]:
-          state.ingredients[action.payload.ingredientName] + 1
-      };
-      const updatedIngredients = updateObject(
-        state.ingredients,
-        updatedIngredient
-      );
-      const updatedState = {
-        ingredients: updatedIngredients,
-        totalPrice:
-          state.totalPrice + INGREDIENT_PRICES[action.payload.ingredientName]
-      };
-      return updateObject(state, updatedState);
+      return addIngredient(state, action);
+
     case burgerActionTypes.REMOVE_INGREDIENT:
-      stateObj = {
-        ...state, //copying top layer
-        ingredients: {
-          ...state.ingredients, //deep copy for properties
-          //using dynamic property key
-          [action.payload.ingredientName]:
-            state.ingredients[action.payload.ingredientName] - 1
-        },
-        totalPrice:
-          state.totalPrice - INGREDIENT_PRICES[action.payload.ingredientName]
-      };
-      return stateObj;
+      return removeIngredient(state, action, stateObj);
 
     case burgerActionTypes.SET_INGREDIENTS:
-      // obtaining position and ing from DB
-      let ings = {};
-      for (let [ingPosition, ingredientsPropr] of Object.entries(
-        action.payload.ingredients
-      )) {
-        ings[ingredientsPropr.ing] = ingredientsPropr.qty;
-      }
-      return updateObject(state, {
-        ingredients: ings,
-        totalPrice: 1,
-        error: false
-      });
+      return setIngredients(state, action);
 
     case burgerActionTypes.FETCH_INGREDIENTS_FAILED:
       return updateObject(state, { error: true });
