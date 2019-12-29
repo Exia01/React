@@ -7,24 +7,11 @@ import Button from '../../components/UI/Button/Button';
 //Styling
 import classes from './Auth.module.css';
 
-export class Auth extends Component {
+import * as actions from '../../store/actions/';
+
+class Auth extends Component {
   state = {
     controls: {
-      name: {
-        //defining the input element tag
-        elementType: 'input',
-        //confing for html Tag
-        elementConfig: {
-          type: 'text',
-          placeholder: 'Your Name'
-        },
-        value: '',
-        validation: {
-          required: true
-        },
-        valid: true,
-        touched: false
-      },
       email: {
         elementType: 'input',
         elementConfig: {
@@ -54,7 +41,8 @@ export class Auth extends Component {
         touched: false
       }
     },
-    formIsValid: false
+    formIsValid: false,
+    isSignup:true,
   };
 
   checkValidity(value, rules) {
@@ -102,8 +90,22 @@ export class Auth extends Component {
         touched: true
       }
     };
-    this.setState({controls:updatedControlFormInput})
+    this.setState({ controls: updatedControlFormInput });
   };
+
+  submitHandler = e => {
+    e.preventDefault();
+    let  email, password;
+    email = this.state.controls.email.value;
+    password = this.state.controls.password.value;
+    this.props.onAuth(email, password, this.state.isSignup);
+  };
+
+  switchAuthModeHandler=()=>{
+    this.setState(prevState=>{
+      return {isSignup:!prevState.isSignup}
+    })
+  }
 
   render() {
     const formElementArray = [];
@@ -111,7 +113,6 @@ export class Auth extends Component {
       //creating obj from keys in orderform
       formElementArray.push({ id: key, config: this.state.controls[key] });
     }
-    console.log(formElementArray);
 
     let formInputs = formElementArray.map(formElement => {
       // formElement.config.options.value != formElement.value
@@ -124,27 +125,35 @@ export class Auth extends Component {
           inValid={!formElement.config.valid} //passing the opposite
           shouldValidate={formElement.config.validation} //this will pass undefined and check true or false under props
           touched={formElement.config.touched} //checking for touched element
-          valueChanged={e => this.inputChangedHandler(e, formElement.id)} //anonymous function to pass added args --> name, address,
+          valueChanged={e => this.inputChangedHandler(e, formElement.id)} //,
         />
       );
     });
+
+    let buttonOption = this.state.isSignup ?'SignIn': 'SignUp'
     return (
       <React.Fragment>
         <div className={classes.Auth}>
-          <form>
+          <form onSubmit={this.submitHandler}>
             {formInputs}
             <Button btnType='Success' disabled={this.state.formIsValid}>
               Submit
             </Button>
           </form>
+          <Button clicked={this.switchAuthModeHandler} btnType="Danger">Switch TO {buttonOption}</Button>
         </div>
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => ({}); //not being used. Just setup in case of expansion
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password, isSignup) =>
+      dispatch(actions.auth(email, password, isSignup))
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(null, mapDispatchToProps)(Auth);
