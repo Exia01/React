@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Input/FormInput/FormInput';
 import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 //Styling
 import classes from './Auth.module.css';
@@ -42,7 +43,7 @@ class Auth extends Component {
       }
     },
     formIsValid: false,
-    isSignup:true,
+    isSignup: true
   };
 
   checkValidity(value, rules) {
@@ -95,59 +96,76 @@ class Auth extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-    let  email, password;
+    let email, password;
     email = this.state.controls.email.value;
     password = this.state.controls.password.value;
     this.props.onAuth(email, password, this.state.isSignup);
   };
 
-  switchAuthModeHandler=()=>{
-    this.setState(prevState=>{
-      return {isSignup:!prevState.isSignup}
-    })
-  }
+  switchAuthModeHandler = () => {
+    this.setState(prevState => {
+      return { isSignup: !prevState.isSignup };
+    });
+  };
 
   render() {
-    const formElementArray = [];
+    let buttonOption = this.state.isSignup ? 'SignIn' : 'SignUp';
+    let errorMessage = null;
+    let formElementArray = [];
+    let formInputs = null;
     for (let key in this.state.controls) {
       //creating obj from keys in orderform
       formElementArray.push({ id: key, config: this.state.controls[key] });
     }
+    if (this.props.loading) {
+      formInputs = <Spinner />;
+    } else {
+      formInputs = formElementArray.map(formElement => {
+        // formElement.config.options.value != formElement.value
+        return (
+          <Input
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            inValid={!formElement.config.valid} //passing the opposite
+            shouldValidate={formElement.config.validation} //this will pass undefined and check true or false under props
+            touched={formElement.config.touched} //checking for touched element
+            valueChanged={e => this.inputChangedHandler(e, formElement.id)} //,
+          />
+        );
+      });
+    }
 
-    let formInputs = formElementArray.map(formElement => {
-      // formElement.config.options.value != formElement.value
-      return (
-        <Input
-          key={formElement.id}
-          elementType={formElement.config.elementType}
-          elementConfig={formElement.config.elementConfig}
-          value={formElement.config.value}
-          inValid={!formElement.config.valid} //passing the opposite
-          shouldValidate={formElement.config.validation} //this will pass undefined and check true or false under props
-          touched={formElement.config.touched} //checking for touched element
-          valueChanged={e => this.inputChangedHandler(e, formElement.id)} //,
-        />
-      );
-    });
+    if (this.props.error) {
+      errorMessage = <p>{this.props.error}</p>;
+    }
 
-    let buttonOption = this.state.isSignup ?'SignIn': 'SignUp'
     return (
       <React.Fragment>
         <div className={classes.Auth}>
+          {errorMessage}
           <form onSubmit={this.submitHandler}>
             {formInputs}
             <Button btnType='Success' disabled={this.state.formIsValid}>
               Submit
             </Button>
           </form>
-          <Button clicked={this.switchAuthModeHandler} btnType="Danger">Switch TO {buttonOption}</Button>
+          <Button clicked={this.switchAuthModeHandler} btnType='Danger'>
+            Switch TO {buttonOption}
+          </Button>
         </div>
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -156,4 +174,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -15,8 +15,8 @@ import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   brg: burgerReducer,
-  order: orderReducer
-  // auth: authReducer,
+  order: orderReducer,
+  auth: authReducer
 });
 
 //simple middleware --logs every action

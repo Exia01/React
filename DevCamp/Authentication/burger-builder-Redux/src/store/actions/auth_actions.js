@@ -9,15 +9,15 @@ export const authStart = () => {
 export const authSuccess = authData => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    payload: { authData }
+    payload: { ...authData } //spreading properties and passing all
   };
 };
 
 export const authFail = err => {
-    console.log(err)
+  console.log(err);
   return {
     type: actionTypes.AUTH_FAIL,
-    err
+    payload: { err }
   };
 };
 
@@ -30,15 +30,14 @@ export const auth = (email, password, isSignup) => {
       password,
       returnSecureToken: true
     };
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAOXV5GV-geBsKNWgv9dVl2Wl7DueOjHKw'//signupUrl
-    if(!isSignup){
-        url ='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAOXV5GV-geBsKNWgv9dVl2Wl7DueOjHKw'
+    let url =
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAOXV5GV-geBsKNWgv9dVl2Wl7DueOjHKw'; //signupUrl
+    if (!isSignup) {
+      url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAOXV5GV-geBsKNWgv9dVl2Wl7DueOjHKw';
     }
     axios
-      .post(
-        url,
-        authData
-      )
+      .post(url, authData)
       .then(response => {
         console.log(response);
         dispatch(authSuccess(response.data));
