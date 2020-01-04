@@ -9,7 +9,7 @@ export const authStart = () => {
 export const authSuccess = authData => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    payload: { ...authData } //spreading properties and passing all
+    payload: {...authData} //spreading properties and passing all
   };
 };
 
@@ -17,9 +17,24 @@ export const authFail = err => {
   console.log(err);
   return {
     type: actionTypes.AUTH_FAIL,
-    payload: { err }
+    payload: {err}
   };
 };
+
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  }
+}
+
+export const checkAuthTimeout = (expirationTime) => {
+  console.log('Expiration timeout is ', expirationTime)
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout())
+    }, expirationTime * 1000) //since the timeout expects milliseconds 
+  }
+}
 
 export const auth = (email, password, isSignup) => {
   return dispatch => {
@@ -41,6 +56,7 @@ export const auth = (email, password, isSignup) => {
       .then(response => {
         console.log(response);
         dispatch(authSuccess(response.data));
+        dispatch(checkAuthTimeout(response.data.expiresIn))
       })
       .catch(err => {
         console.log(err);

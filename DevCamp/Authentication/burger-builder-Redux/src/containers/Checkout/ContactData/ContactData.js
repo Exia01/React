@@ -127,10 +127,10 @@ export class ContactData extends Component {
       price: this.props.price, //would do this on the db,
       orderData: formData
     };
-   
+
     console.log(`Order Obj from order continue ${burgerOrder}`);
     //baseURL and sub route.
-    this.props.onOrderBurger(burgerOrder);
+    this.props.onOrderBurger(burgerOrder, this.props.token); //sending token along, needed for auth
   };
 
   checkValidity = (value, rules) => {
@@ -245,13 +245,15 @@ const mapStateToProps = state => {
   return {
     ings: state.brg.ingredients,
     price: state.brg.totalPrice,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.idToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: orderData => dispatch(actions.purchaseBurger(orderData))
+    onOrderBurger: (orderData, token) =>
+      dispatch(actions.purchaseBurger(orderData, token))
   };
 };
 

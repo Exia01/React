@@ -20,7 +20,7 @@ class Orders extends Component {
   componentDidMount() {
     this._isMounted = true;
     // if (this._isMounted) {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token); //could also use get state in the orderAction
     // }
   }
   componentWillUnmount() {
@@ -48,7 +48,8 @@ class Orders extends Component {
 
   render() {
     let ordersTags = <Spinner />;
-    if (!this.props.loading) { //if not loading
+    if (!this.props.loading) {
+      //if not loading
       //this.props.orders.length>0
       ordersTags = this.props.orders.map(order => {
         return (
@@ -67,13 +68,14 @@ class Orders extends Component {
 const mapStateToProps = state => {
   return {
     orders: state.order.orders,
-    loading: state.order.loading
+    loading: state.order.loading,
+    token: state.auth.idToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: () => dispatch(fetchOrders())
+    onFetchOrders: token => dispatch(fetchOrders(token))
   };
 };
 
