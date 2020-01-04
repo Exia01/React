@@ -14,7 +14,6 @@ class Checkout extends Component {
     this.props.history.push(`${this.props.match.url}/contact-data`); //could use replace too
   };
   componentDidMount() {
-    
     console.log('Checkout Component Loaded');
     console.log(this.props);
   }
@@ -34,7 +33,6 @@ class Checkout extends Component {
             path={`${this.props.match.path}/contact-data`}
             component={ContactData}
           />
-          )}
         </React.Fragment>
       ) : (
         <Redirect to='/' />
@@ -53,8 +51,7 @@ const mapStateToProps = state => {
 
 //not really needed, left just in case
 const mapDispatchToProps = dispatch => {
-  return {
-  };
+  return {};
 };
 
 //iterate through dictionary:https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript/34913701
