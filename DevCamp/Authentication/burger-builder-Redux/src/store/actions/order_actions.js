@@ -55,7 +55,7 @@ export const purchaseBurger = (orderData, token) => {
       })
       .catch(err => {
         console.log('From orderAction:', err);
-        
+
         dispatch(purchaseBurgerFail(err));
       });
   };
