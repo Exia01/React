@@ -14,7 +14,7 @@ export const authSuccess = authData => {
 };
 
 export const authFail = err => {
-  console.log("Auth fail err", err);
+  console.log('Auth fail err', err);
   return {
     type: actionTypes.AUTH_FAIL,
     payload: { err }
@@ -62,5 +62,12 @@ export const auth = (email, password, isSignup) => {
         console.log('Error in Auth Action', err);
         dispatch(authFail(err));
       });
+  };
+};
+
+export const setAuthRedirectPath = path => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    payload: { path }
   };
 };

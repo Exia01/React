@@ -13,10 +13,11 @@ const initialState = {
   totalPrice: 1,
   error: false,
   loading: false,
-  purchaseable: false //could implement it here
+  purchaseable: false, //could implement it here
+  buildingBurger: false
 };
 
-//Can do this for every action 
+//Can do this for every action
 const addIngredient = (state, action) => {
   const updatedIngredient = {
     [action.payload.ingredientName]:
@@ -26,7 +27,8 @@ const addIngredient = (state, action) => {
   const updatedState = {
     ingredients: updatedIngredients,
     totalPrice:
-      state.totalPrice + INGREDIENT_PRICES[action.payload.ingredientName]
+      state.totalPrice + INGREDIENT_PRICES[action.payload.ingredientName],
+    buildingBurger: true
   };
   return updateObject(state, updatedState);
 };
@@ -41,7 +43,8 @@ const removeIngredient = (state, action, stateObj) => {
         state.ingredients[action.payload.ingredientName] - 1
     },
     totalPrice:
-      state.totalPrice - INGREDIENT_PRICES[action.payload.ingredientName]
+      state.totalPrice - INGREDIENT_PRICES[action.payload.ingredientName],
+    buildingBurger: true
   };
   return stateObj;
 };
@@ -57,7 +60,8 @@ const setIngredients = (state, action) => {
   return updateObject(state, {
     ingredients: ings,
     totalPrice: 1,
-    error: false
+    error: false,
+    buildingBurger: false // starting from scratch
   });
 };
 
