@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
 import Layout from './hoc/Layout/Layout';
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App)); //helps passed the props down '''withRouter'''
 
 // NOTE: Only BurgerBuilder itself gets the props not the nested component
 //REact Router:https://www.freecodecamp.org/news/a-guide-to-upgrading-to-react-router-4/

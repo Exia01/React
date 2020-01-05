@@ -17,8 +17,8 @@ const authStart = (state, action) => {
 //tokens coming from db
 const authSuccess = (state, action) => {
   return updateObject(state, {
-    idToken: action.payload.idToken,
-    userId: action.payload.localId,
+    idToken: action.payload.idToken || action.payload.token, //second arg coming from the authCheckState
+    userId: action.payload.localId || action.payload.userId,
     loading: false
   });
 };

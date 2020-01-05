@@ -85,7 +85,7 @@ export const setAuthRedirectPath = path => {
   };
 };
 
-//utility action creator 
+//utility action creator
 export const authCheckState = () => {
   return dispatch => {
     //not running async code but sending multiple actions
@@ -95,17 +95,19 @@ export const authCheckState = () => {
       dispatch(logout()); //shouldn't be needed could just return but applying anyway
     } else {
       const expirationDate = new Date(localStorage.getItem('expirationDate')); //converting string to new date Obj
-      if (expirationDate > new Date()) {
-        // if passed the logged time
+      if (expirationDate <= new Date()) {
+        // if expiration date is equal or less than current date?
+        dispatch(logout());
       } else {
         const userId = localStorage.getItem('userId');
-        dispatch(authSuccess(token, userId)); // we know we are logged and time not expired
+        dispatch(authSuccess({ token,  userId })); // we know we are logged and time not expired
         dispatch(
           checkAuthTimeout(
-            expirationDate.getSeconds() - new Date().getSeconds()
+            (expirationDate.getTime() - new Date().getTime()) / 10000
           )
         ); //amount of seconds till we are logged out
-        // future date in seconds - the current seconds
+        // future date in milliseconds - the current milliseconds
+        // then dividing in seconds
       }
     }
   };
