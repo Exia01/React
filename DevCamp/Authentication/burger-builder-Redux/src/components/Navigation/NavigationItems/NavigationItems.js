@@ -6,8 +6,10 @@ const NavigationItems = props => {
   let LoginOrLogoutTag = (
     <NavigationItem link='/auth'>Authenticate</NavigationItem>
   );
+  let ordersItem = null;
   if (props.isAuthenticated) {
     LoginOrLogoutTag = <NavigationItem link='/logout'>Logout</NavigationItem>;
+    ordersItem = <NavigationItem link='/Orders'>Orders</NavigationItem>;
   }
 
   return (
@@ -15,7 +17,7 @@ const NavigationItems = props => {
       <NavigationItem link='/' exact>
         Burger Builder
       </NavigationItem>
-      <NavigationItem link='/Orders'>Orders</NavigationItem>
+      {ordersItem}
       {LoginOrLogoutTag}
     </ul>
   );

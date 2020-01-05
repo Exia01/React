@@ -170,7 +170,7 @@ const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    isAuth: state.auth.idToken
+    isAuth: state.auth.idToken != null
   };
 };
 
