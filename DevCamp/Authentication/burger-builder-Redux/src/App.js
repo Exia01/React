@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
 import Layout from './hoc/Layout/Layout';
@@ -9,9 +9,14 @@ import Logout from './containers/Auth/Logout/Logout';
 
 // import './index.css'
 
-export class App extends Component {
-  render() {
+import { connect } from 'react-redux';
+import { authCheckState } from './store/actions';
 
+export class App extends Component {
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
+  render() {
     return (
       <div>
         <Layout>
@@ -28,7 +33,13 @@ export class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(authCheckState())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);
 
 // NOTE: Only BurgerBuilder itself gets the props not the nested component
 //REact Router:https://www.freecodecamp.org/news/a-guide-to-upgrading-to-react-router-4/

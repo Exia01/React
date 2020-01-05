@@ -7,6 +7,7 @@ export const authStart = () => {
 };
 
 export const authSuccess = authData => {
+  //gets the token
   return {
     type: actionTypes.AUTH_SUCCESS,
     payload: { ...authData } //spreading properties and passing all
@@ -22,6 +23,9 @@ export const authFail = err => {
 };
 
 export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expirationDate');
+  localStorage.removeItem('userId');
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -55,6 +59,15 @@ export const auth = (email, password, isSignup) => {
       .post(url, authData)
       .then(response => {
         console.log(response);
+        //getting current date + expiration time * 1k because javascript time works in milliseconds
+        // getting current time of the date by getTime() and turning into a date Obj
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        console.log(expirationDate);
+        localStorage.setItem('token', response.data.idToken); //idToken in reducer
+        localStorage.setItem('expirationDate', expirationDate);
+        localStorage.setItem('userId', response.data.localId); //userId in reducer could fetch in apy when validating localStorage
         dispatch(authSuccess(response.data));
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
@@ -69,5 +82,31 @@ export const setAuthRedirectPath = path => {
   return {
     type: actionTypes.SET_AUTH_REDIRECT_PATH,
     payload: { path }
+  };
+};
+
+//utility action creator 
+export const authCheckState = () => {
+  return dispatch => {
+    //not running async code but sending multiple actions
+    const token = localStorage.getItem('token'); //getting the IdToken saved if any
+    if (!token) {
+      // if there is no token saved.
+      dispatch(logout()); //shouldn't be needed could just return but applying anyway
+    } else {
+      const expirationDate = new Date(localStorage.getItem('expirationDate')); //converting string to new date Obj
+      if (expirationDate > new Date()) {
+        // if passed the logged time
+      } else {
+        const userId = localStorage.getItem('userId');
+        dispatch(authSuccess(token, userId)); // we know we are logged and time not expired
+        dispatch(
+          checkAuthTimeout(
+            expirationDate.getSeconds() - new Date().getSeconds()
+          )
+        ); //amount of seconds till we are logged out
+        // future date in seconds - the current seconds
+      }
+    }
   };
 };
