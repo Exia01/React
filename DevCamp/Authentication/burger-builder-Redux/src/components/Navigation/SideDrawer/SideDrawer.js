@@ -4,13 +4,16 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './SideDrawer.module.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
+ 
 
+//redux props coming from layout.
 const sideDrawer = props => { 
   //check from the incoming prop
   let attachedClasses = [classes.SideDrawer, classes.Close];
   if (props.open) {
     attachedClasses = [classes.SideDrawer, classes.Open];
   }
+  
   
   return (
     <React.Fragment>
@@ -20,7 +23,7 @@ const sideDrawer = props => {
           <Logo/>
         </div>
         <nav>
-          <NavigationItems />
+          <NavigationItems isAuthenticated={props.isAuth} />
         </nav>
       </div>
     </React.Fragment>

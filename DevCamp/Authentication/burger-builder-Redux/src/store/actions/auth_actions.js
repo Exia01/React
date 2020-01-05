@@ -14,7 +14,7 @@ export const authSuccess = authData => {
 };
 
 export const authFail = err => {
-  console.log(err);
+  console.log("Auth fail err", err);
   return {
     type: actionTypes.AUTH_FAIL,
     payload: { err }
@@ -59,7 +59,7 @@ export const auth = (email, password, isSignup) => {
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch(err => {
-        console.log(err);
+        console.log('Error in Auth Action', err);
         dispatch(authFail(err));
       });
   };

@@ -9,6 +9,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 
 import * as actions from '../../store/actions/';
+import { Redirect } from 'react-router-dom';
 
 class Auth extends Component {
   state = {
@@ -109,6 +110,7 @@ class Auth extends Component {
   };
 
   render() {
+    let homeRedirect = null;
     let buttonOption = this.state.isSignup ? 'SignIn' : 'SignUp';
     let errorMessage = null;
     let formElementArray = [];
@@ -140,9 +142,13 @@ class Auth extends Component {
     if (this.props.error) {
       errorMessage = <p>{this.props.error}</p>;
     }
+    if (this.props.isAuth) {
+      homeRedirect = <Redirect to='/' />;
+    }
 
     return (
       <React.Fragment>
+        {homeRedirect}
         <div className={classes.Auth}>
           {errorMessage}
           <form onSubmit={this.submitHandler}>
@@ -163,7 +169,8 @@ class Auth extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    isAuth: state.auth.idToken
   };
 };
 

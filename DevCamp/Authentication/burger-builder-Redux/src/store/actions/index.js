@@ -8,4 +8,4 @@ export { purchaseBurger, purchaseInit, fetchOrders } from './order_actions';
 // initFetchIngredientHandler
 
 
-export {auth} from './auth_actions'
+export {auth, logout} from './auth_actions'
