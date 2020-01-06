@@ -61,12 +61,14 @@ export const purchaseBurger = (orderData, token) => {
   };
 };
 
-export const fetchOrders = token => {
+export const fetchOrders = (token, userId) => {
   return dispatch => {
     //could do getState here
     dispatch(fetchOrderStart());
+    //command query understood by firebase orderBy Id 
+    const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`
     axios
-      .get(`/online-orders/orders.json?auth=${token}`) //using .json to target the endpoint
+      .get(`/online-orders/orders.json${queryParams}`) //using .json to target the endpoint
       .then(response => {
         let { data } = response;
         let tempFetchedOrdersDataArr = [];

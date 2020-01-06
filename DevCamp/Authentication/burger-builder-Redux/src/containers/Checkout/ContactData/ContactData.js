@@ -125,7 +125,8 @@ export class ContactData extends Component {
       orderId: uuid.v4(),
       ingredients: this.props.ings,
       price: this.props.price, //would do this on the db,
-      orderData: formData
+      orderData: formData,
+      userId: this.props.userId
     };
 
     console.log(`Order Obj from order continue ${burgerOrder}`);
@@ -246,7 +247,8 @@ const mapStateToProps = state => {
     ings: state.brg.ingredients,
     price: state.brg.totalPrice,
     loading: state.order.loading,
-    token: state.auth.idToken
+    token: state.auth.idToken,
+    userId: state.auth.userId
   };
 };
 

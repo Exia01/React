@@ -20,31 +20,13 @@ class Orders extends Component {
   componentDidMount() {
     this._isMounted = true;
     // if (this._isMounted) {
-    this.props.onFetchOrders(this.props.token); //could also use get state in the orderAction
+    this.props.onFetchOrders(this.props.token, this.props.userId); //could also use get state in the orderAction
     // }
   }
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  // fetchOrderDataHandler = async () => {
-  //   try {
-  //     const res = await axios.get('/online-orders/orders.json');
-  //     let { data } = res;
-  //     let tempFetchedOrdersDataArr = [];
-  //     for (let key of Object.keys(data)) {
-  //       tempFetchedOrdersDataArr.push({ ...data[key], id: key }); //destructuring and adding new property
-  //     }
-  //     console.log(tempFetchedOrdersDataArr);
-  //     if (this._isMounted) {
-  //       this.setState({ loading: false, orders: tempFetchedOrdersDataArr });
-  //     }
-  //   } catch (err) {
-  //     console.log('Error!!!: ', err);
-  //     this.setState({ loading: false });
-  //     // appropriately handle the error
-  //   }
-  // };
 
   render() {
     let ordersTags = <Spinner />;
@@ -69,13 +51,14 @@ const mapStateToProps = state => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
-    token: state.auth.idToken
+    token: state.auth.idToken, 
+    userId: state.auth.userId, 
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: token => dispatch(fetchOrders(token))
+    onFetchOrders: (token, userId) => dispatch(fetchOrders(token, userId))
   };
 };
 
