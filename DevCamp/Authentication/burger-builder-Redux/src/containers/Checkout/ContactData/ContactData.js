@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-orders'; //using axios instance
 import { connect } from 'react-redux';
+import { updateObject } from '../../../shared/utility';
 
 import uuid from 'uuid';
 import Input from '../../../components/UI/Input/FormInput/FormInput';
@@ -20,6 +21,7 @@ import classes from './ContactData.module.css';
 // import TextField from '@material-ui/core/TextField';
 
 import * as actions from '../../../store/actions'; //using index
+
 export class ContactData extends Component {
   state = {
     orderForm: {
@@ -33,7 +35,8 @@ export class ContactData extends Component {
         },
         value: 'Ryu Washumaru',
         validation: {
-          required: true
+          required: true,
+          minLength:2,
         },
         valid: true,
         touched: false
@@ -138,7 +141,7 @@ export class ContactData extends Component {
     //checking for required rule, could implement other rules.
     let isValid = true;
     //setting isValid to true, using double validation on check to ensure there is no false positive or negative
-
+    
     if (!rules) {
       //quick check for rules. If not then return true
       return true;
@@ -155,6 +158,7 @@ export class ContactData extends Component {
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
     }
+    console.log(isValid)
     // if is it not empty, meets the min and the maximum, then it is valid
     return isValid;
   };
@@ -169,7 +173,7 @@ export class ContactData extends Component {
       e.target.childNodes.length === 0 ||
       e.target.selectedOptions.length === 0
     ) {
-      updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
+      /*  BEFORE   updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
       //pull the nested property and creates a clone
       //now properties can be updated safely
       updatedFormElement.value = e.target.value;
@@ -178,6 +182,16 @@ export class ContactData extends Component {
         updatedFormElement.validation
       ); // passing value and validation properties to function --> true or false
       updatedFormElement.touched = true;
+      */
+
+      updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+        value: e.target.value,
+        valid: this.checkValidity(
+          e.target.value,
+          this.state.orderForm[inputIdentifier].validation
+        ),
+        touched: true
+      });
     } else {
       //if target is select or option
       updatedFormElement = JSON.parse(
@@ -186,14 +200,18 @@ export class ContactData extends Component {
       updatedFormElement.value = e.target.selectedOptions[0].value;
       updatedFormElement.displayValue = e.target.selectedOptions[0].innerHTML;
     }
+
     updatedOrderForm[inputIdentifier] = updatedFormElement;
+
 
     let formIsValid = true;
     // looping through all the elements
     for (let inputIdentifier in updatedOrderForm) {
       //skipping the options tag
-      if (updatedFormElement[inputIdentifier]) {
+      let type =  updatedOrderForm[inputIdentifier].elementType
+      if (updatedFormElement[inputIdentifier] !== null && type !== 'select') { 
         formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid; //will only set to true if both inputIdentifier and formIsValid are true.
+        console.log(formIsValid)
       }
     }
     //setting the updatedOrderForm obj with updated property
