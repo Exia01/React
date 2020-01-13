@@ -8,6 +8,7 @@ import Input from '../../../components/UI/Input/FormInput/FormInput';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import {checkValidity} from '../../../shared/utility'
 
 //Styling
 import classes from './ContactData.module.css';
@@ -137,31 +138,31 @@ export class ContactData extends Component {
     this.props.onOrderBurger(burgerOrder, this.props.token); //sending token along, needed for auth
   };
 
-  checkValidity = (value, rules) => {
-    //checking for required rule, could implement other rules.
-    let isValid = true;
-    //setting isValid to true, using double validation on check to ensure there is no false positive or negative
+  // checkValidity = (value, rules) => {
+  //   //checking for required rule, could implement other rules.
+  //   let isValid = true;
+  //   //setting isValid to true, using double validation on check to ensure there is no false positive or negative
     
-    if (!rules) {
-      //quick check for rules. If not then return true
-      return true;
-    }
-    if (rules.required) {
-      //if required
-      isValid = value.trim() !== '' && isValid; // checking true or false if the value is not empty after trimming
-    }
+  //   if (!rules) {
+  //     //quick check for rules. If not then return true
+  //     return true;
+  //   }
+  //   if (rules.required) {
+  //     //if required
+  //     isValid = value.trim() !== '' && isValid; // checking true or false if the value is not empty after trimming
+  //   }
 
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-      // will only be changed if the previous check was/is true
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    console.log(isValid)
-    // if is it not empty, meets the min and the maximum, then it is valid
-    return isValid;
-  };
+  //   if (rules.minLength) {
+  //     isValid = value.length >= rules.minLength && isValid;
+  //     // will only be changed if the previous check was/is true
+  //   }
+  //   if (rules.maxLength) {
+  //     isValid = value.length <= rules.maxLength && isValid;
+  //   }
+  //   console.log(isValid)
+  //   // if is it not empty, meets the min and the maximum, then it is valid
+  //   return isValid;
+  // };
 
   inputChangedHandler = (e, inputIdentifier) => {
     //creating copy of state
@@ -186,7 +187,7 @@ export class ContactData extends Component {
 
       updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
         value: e.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           e.target.value,
           this.state.orderForm[inputIdentifier].validation
         ),
