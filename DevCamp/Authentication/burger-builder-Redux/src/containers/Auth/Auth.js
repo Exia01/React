@@ -11,6 +11,8 @@ import classes from './Auth.module.css';
 import * as actions from '../../store/actions/';
 import { Redirect } from 'react-router-dom';
 
+import { updateObject } from '../../shared/utility';
+
 class Auth extends Component {
   state = {
     controls: {
@@ -85,6 +87,17 @@ class Auth extends Component {
   }
 
   inputChangedHandler = (e, controlName) => {
+    /* could utilize this method but leaving out for explicit declaration*/
+    /* const updatedControls = updateObject(this.state.controls, {
+      [controlName]: updateObject(...this.state.controls[controlName], {
+        valid: this.checkValidity(
+          e.target.value,
+          this.state.controls[controlName].validation
+        ),
+        touched: true
+      })
+    });*/
+
     //creating copy of state
     const updatedControlFormInput = {
       ...this.state.controls,

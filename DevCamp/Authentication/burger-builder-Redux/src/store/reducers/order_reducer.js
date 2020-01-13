@@ -8,7 +8,7 @@ import {
   FETCH_ORDERS_FAIL
 } from '../constants/orderActionType';
 
-import { updateObject } from '../utility';
+import { updateObject } from '../../shared/utility';
 const initialState = {
   orders: [],
   loading: false,
@@ -46,7 +46,7 @@ const orderReducer = (state = initialState, action) => {
     case PURCHASE_BURGER_ORDER_FAIL:
       return updateObject(state, { loading: false });
     case FETCH_ORDERS_START:
-      return updateObject(state, {loading:true})
+      return updateObject(state, { loading: true });
     case FETCH_ORDERS_SUCCESS:
       return {
         ...state,

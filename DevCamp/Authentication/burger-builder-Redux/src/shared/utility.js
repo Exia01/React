@@ -2,7 +2,7 @@
 
 export const updateObject = (oldObject, updatedProperties) => {
      return{
-         ...oldObject,
+         ...oldObject, // spread properties and override with new obj
          ...updatedProperties, //--> new obj
      }
 }

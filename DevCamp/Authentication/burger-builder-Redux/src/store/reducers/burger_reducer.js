@@ -1,5 +1,5 @@
 import * as burgerActionTypes from '../constants/BurgerActionType';
-import { updateObject } from '../utility';
+import { updateObject } from '../../shared/utility';
 //Global constant (shouldn't it be let since it might be changed?)
 const INGREDIENT_PRICES = {
   salad: 0.35,
