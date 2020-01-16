@@ -16,7 +16,8 @@ import {
   addIngredientHandler,
   removeIngredientHandler,
   initFetchIngredientsHandler,
-  purchaseInit,
+  purchaseInit, 
+  setAuthRedirectPath,
 } from '../../store/actions'; //importing index by default
 
 class BurgerBuilder extends Component {
@@ -59,8 +60,12 @@ class BurgerBuilder extends Component {
 
   //modal handler
   purchaseHandler = () => {
-    //set is set as an event need arrow function
-    this.setState({ purchasing: true });
+    if (this.props.isAuthenticated) {
+      this.setState({ purchasing: true });
+    } else {
+      this.props.onSetAuthRedirectPath('/checkout')
+      this.props.history.push('/auth');
+    }
   };
   //closes modal
   purchaseCancelHandler = () => {
@@ -111,6 +116,7 @@ class BurgerBuilder extends Component {
             ordered={this.purchaseHandler}
             I
             price={this.props.price}
+            isAuth={this.props.isAuthenticated}
           />
         </React.Fragment>
       );
@@ -141,7 +147,8 @@ const mapStateToProps = state => {
   return {
     ings: state.brg.ingredients,
     price: state.brg.totalPrice,
-    error: state.brg.error
+    error: state.brg.error,
+    isAuthenticated: state.auth.idToken != null // boolean check 
   };
 };
 
@@ -150,7 +157,8 @@ const mapDispatchToProps = dispatch => {
     onIngredientAdded: ingName => dispatch(addIngredientHandler(ingName)),
     onIngredientRemoved: ingName => dispatch(removeIngredientHandler(ingName)),
     onInitIngredients: () => dispatch(initFetchIngredientsHandler()),
-    onInitPurchase: () => dispatch(purchaseInit()),
+    onInitPurchase: () => dispatch(purchaseInit()), 
+    onSetAuthRedirectPath:(path)=> dispatch(setAuthRedirectPath(path))
   };
 };
 

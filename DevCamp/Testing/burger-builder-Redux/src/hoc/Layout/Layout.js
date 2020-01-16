@@ -1,6 +1,7 @@
 // Typically this would the used as a wrapper around the core component we want to render to the screen
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Aux from '../Auxiliary/Auxiliary'; // using aux as a wrapper for the adjacent tags || can React Fragment.
 
 import classes from './Layout.module.css'; //module css
@@ -27,9 +28,13 @@ class Layout extends Component {
   render() {
     return (
       <Aux>
-        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+        <Toolbar
+          isAuth={this.props.isAuthenticated}
+          drawerToggleClicked={this.sideDrawerToggleHandler}
+        />
         <SideDrawer
           open={this.state.showSideDrawer}
+          isAuth={this.props.isAuthenticated}
           closed={this.sideDrawerClosedHandler}
         />
         <main className={classes.Content}>{this.props.children}</main>
@@ -37,5 +42,10 @@ class Layout extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.idToken !== null //boolean check
+  };
+};
 
-export default Layout;
+export default connect(mapStateToProps)(Layout);

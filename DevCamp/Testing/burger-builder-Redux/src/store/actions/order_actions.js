@@ -42,12 +42,12 @@ export const purchaseBurgerStart = () => {
 };
 
 // async action creators
-export const purchaseBurger = orderData => {
+export const purchaseBurger = (orderData, token) => {
   return dispatch => {
     dispatch(purchaseBurgerStart());
     //since obtaining the data from server, we can set the format changes here
     axios
-      .post('/online-orders/orders.json', orderData) //using .json to target the endpoint
+      .post(`/online-orders/orders.json?auth=${token}`, orderData) //using .json to target the endpoint
       .then(response => {
         alert('Success! ');
         console.log('From orderAction:', response, orderData);
@@ -55,16 +55,20 @@ export const purchaseBurger = orderData => {
       })
       .catch(err => {
         console.log('From orderAction:', err);
+
         dispatch(purchaseBurgerFail(err));
       });
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token, userId) => {
   return dispatch => {
+    //could do getState here
     dispatch(fetchOrderStart());
+    //command query understood by firebase orderBy Id 
+    const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`
     axios
-      .get('/online-orders/orders.json') //using .json to target the endpoint
+      .get(`/online-orders/orders.json${queryParams}`) //using .json to target the endpoint
       .then(response => {
         let { data } = response;
         let tempFetchedOrdersDataArr = [];
