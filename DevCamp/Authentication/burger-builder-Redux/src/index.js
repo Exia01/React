@@ -35,8 +35,13 @@ const logActionsMiddleware = store => {
 };
 
 //REACT DEV TOOL ENHANCER, conmpose allows us to combine enhacers
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let composeEnhancers = compose
+if (process.env.NODE_ENV === 'development') {
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+}
+// will be able to access only in development env
 
+console.log(composeEnhancers);
 //can pass multiple middleware, will be execd in order
 const store = createStore(
   rootReducer,
