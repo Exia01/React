@@ -1,0 +1,16 @@
+.Machine {
+	border: 2px dotted black;
+	background: lightblue;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.win {
+	background: green;
+	color: white;
+}
+.lose {
+	color: white;
+	background: red;
+}
