@@ -17,25 +17,21 @@ export class Pokegame extends Component {
     ]
   };
 
-  generateRandomPokemonCount = (count,pokemonList) => {
-      console.log(pokemonList)
+  generateRandomPokemonCardCount = (count,pokemonList) => {
       let newPokemonArr = []
-      while (count > 0) { //explicit just in case
+      while (count > 0) { //explicit just in case or could use a for loop
           const startIndex = Math.floor(Math.random() * pokemonList.length)
           const endIndex = startIndex+1
-          console.log(startIndex)
-          console.log(endIndex)
-          newPokemonArr.concat(pokemonList.slice(newPokemonArr, startIndex+1))
+          newPokemonArr.push(...pokemonList.slice(startIndex, endIndex))
           count--
         }
-        console.log(newPokemonArr)
         return newPokemonArr
 
   };
 
   componentDidMount() {
-      let newPokeList = this.generateRandomPokemonCount(4,this.props.initialPokemons)
-    //   console.log(newPokeList)
+      let newPokeList = this.generateRandomPokemonCardCount(4,this.props.initialPokemons)
+      console.log(newPokeList)
   }
 
   componentWillUnmount() {}
@@ -46,3 +42,6 @@ export class Pokegame extends Component {
 }
 
 export default Pokegame;
+
+
+// Mutation resource: https://doesitmutate.xyz/
