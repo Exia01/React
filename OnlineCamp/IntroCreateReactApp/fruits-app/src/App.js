@@ -1,26 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import helper from "./utils/helper"
+import foods from './utils/foods'
+import Message from './containers/Message';
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Message food={helper.choice(foods())} ></Message>
+    <Message food={helper.remove(foods(), "Tacos")} ></Message>
     </div>
   );
 }
 
-export default App;
+export default App; //when file is called, app will be exported
