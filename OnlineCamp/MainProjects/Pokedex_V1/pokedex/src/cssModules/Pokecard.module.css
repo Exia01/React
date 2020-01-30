@@ -1,11 +1,11 @@
 .PokeCard {
-    max-width: max-content;
     display: grid;
     justify-items: center;
     background-color: #cccccc;
     border-radius: 5%;
-    padding: 0% 8%;
+    /* padding: 0% 8%; */
 }
-.PokeCard h1{
-    color: blue;
+.PokeCard h2{
+    color: rgb(26, 70, 172);
 }
+

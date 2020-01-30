@@ -1,13 +1,15 @@
 .Pokedex{
-    width:max-content;
+
     display: grid;
-    justify-items: center;
     align-items: center;
+}
+.Pokedex h1{
+    justify-self: center;
 }
 
 .Pokedex .cardsSection{
-    width: max-content;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0em 5em;
+    gap: 0em 4em;
 }
