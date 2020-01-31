@@ -1,15 +1,35 @@
-.Pokedex{
-
-    display: grid;
-    align-items: center;
+.Pokedex {
+  margin-top: 10%;
+  display: grid;
+  align-items: center;
 }
-.Pokedex h1{
-    justify-self: center;
+.Pokedex h1 {
+  justify-self: center;
 }
 
-.Pokedex .cardsSection{
+.Pokedex .cardsSection {
+  display: grid;
+  grid-template-columns: repeat(1, 0.5fr);
+  grid-gap: 3em 4em;
+  justify-content: center;
+  gap: 1em 4em;
+}
 
+@media only screen and (min-width: 600px) {
+  .Pokedex .cardsSection {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0em 4em;
+    gap: 0em 2em;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Pokedex .cardsSection {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0em 2em;
+  }
+}
+
+@media only screen and (min-width: 992px) {
 }

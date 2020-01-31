@@ -1,11 +1,35 @@
 .PokeCard {
-    display: grid;
-    justify-items: center;
-    background-color: #cccccc;
-    border-radius: 5%;
-    /* padding: 0% 8%; */
+  display: grid;
+  justify-items: center;
+  background-color: #cccccc;
+  border-radius: 5%;
+  /* padding: 0% 8%; */
 }
-.PokeCard h2{
-    color: rgb(26, 70, 172);
+.PokeCard h2 {
+  color: rgb(26, 70, 172);
+}
+.PokeCard img {
+  width: 50%;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
+}
+.PokeCard img:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
 }
 
+@media only screen and (min-width: 600px) {
+  .PokeCard img {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 992px) {
+}
+
+/* Resources:https://wpdatatables.com/css-image-hover-effects/ */
