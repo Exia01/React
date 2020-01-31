@@ -3,8 +3,19 @@
   display: grid;
   align-items: center;
 }
-.Pokedex h1 {
+.Pokedex h1, p {
   justify-self: center;
+  margin-block-end: 0%;
+}
+.Pokedex p{
+  margin-block-start: 0%;
+  margin-block-end: 3%;
+}
+.Pokedex .WinMessage{
+  color: rgb(1, 155, 1);
+}
+.Pokedex .LostMessage{
+  color: rgb(190, 3, 18);
 }
 
 .Pokedex .cardsSection {
