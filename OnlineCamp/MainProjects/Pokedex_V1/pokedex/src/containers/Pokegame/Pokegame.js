@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { generateRandomPokemonCardCount, genPokesObjWithImgLinks } from '../../utils/PokemonUtils';
 
 import Pokedex from '../../components/Pokedex/Pokedex';
 
@@ -20,50 +21,25 @@ class Pokegame extends Component {
     ]
   };
   state = {
-    newPokeList1: null,
-    newPokeList2: null
+    pokesObj1: null,
+    pokesObj1: null
   };
 
-  generateRandomPokemonCardCount = (count, pokemonList) => {
-    let newPokemonArr = [];
-    while (count > 0) {
-      //explicit just in case or could use a for loop
-      const startIndex = Math.floor(Math.random() * pokemonList.length);
-      const endIndex = startIndex + 1;
-      newPokemonArr.push(...pokemonList.slice(startIndex, endIndex));
-      count--;
-    }
-    return newPokemonArr;
-  };
 
   componentDidMount() {
     this._isMounted = true; //  if (this._isMounted) { set state
-
     if (this._isMounted) {
-      let newPokemonsObj = this.props.initialPokemons.map(pokemon=>{
-        let tempPokeObj = {...pokemon}
-        let id = pokemon.id
-        if(pokemon.id<10){
-          id = `00${pokemon.id}`
-        }
-        if(pokemon.id<100 && pokemon.id > 9){
-          id = `0${pokemon.id}`
-        }
-        tempPokeObj.image=`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`
-        return tempPokeObj
-      })
-      let newPokeList1;
-      let newPokeList2;
-      newPokeList1 = this.generateRandomPokemonCardCount(
+      let newPokemonsObj = genPokesObjWithImgLinks(this.props.initialPokemons)
+
+      let pokesObj1 = generateRandomPokemonCardCount(
         4,
         newPokemonsObj
       );
-      newPokeList2 = this.generateRandomPokemonCardCount(
+      let pokesObj2 = generateRandomPokemonCardCount(
         4,
-        this.props.initialPokemons
+        newPokemonsObj
       );
-      this.setState({ newPokeList1, newPokeList2 });
-
+      this.setState({ pokesObj1, pokesObj2 });
     }
   }
 
@@ -74,15 +50,21 @@ class Pokegame extends Component {
   render() {
     let pokedexTag1;
     let pokedexTag2;
+    let gameProp1;
+    let gameProp2;
+  
 
-    if (this.state.newPokeList1 && this.state.newPokeList2) {
-      pokedexTag1 = <Pokedex pokeListObj={this.state.newPokeList1} />;
-      pokedexTag2 = <Pokedex pokeListObj={this.state.newPokeList2} />;
+
+    if (this.state.pokesObj1 && this.state.pokesObj2) {
+      this.state.pokesObj1.totalCardBaseExp > this.state.pokesObj2.totalCardBaseExp ? gameProp1 = true : gameProp2 = true
+
+      pokedexTag1 = <Pokedex pokeListObj={this.state.pokesObj1} winner={gameProp1} />;
+      pokedexTag2 = <Pokedex pokeListObj={this.state.pokesObj2} winner={gameProp2} />;
     }
 
     return (
       <div className={PokeGameClasses.PokegameContainer}>
-        {pokedexTag1} {/*pokedexTag2*/}
+        {pokedexTag1} {pokedexTag2}
       </div>
     );
   }
