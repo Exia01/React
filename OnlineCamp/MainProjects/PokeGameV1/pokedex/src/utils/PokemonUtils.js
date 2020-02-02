@@ -17,7 +17,7 @@ export const generateRandomPokemonCardCount = (count, pokemonList) => {
 
   const totalCardBaseExp = TotalExpNumbers.reduce(reducer); //add exp
 
-  const pokeCardObj={pokemonsArr,totalCardBaseExp} // extract exp and pokemon arr prop
+  const pokeCardObj = {pokemonsArr, totalCardBaseExp} // extract exp and pokemon arr prop
 
   return pokeCardObj;
 };
@@ -25,7 +25,7 @@ export const generateRandomPokemonCardCount = (count, pokemonList) => {
 export const genPokesObjWithImgLinks = pokemonList => {
   // //takes in list and add id with either 0 || 00 to num
   let newPokemonsObj = pokemonList.map(pokemon => {
-    let tempPokeObj = { ...pokemon };
+    let tempPokeObj = {...pokemon};
     let id = pokemon.id;
     if (pokemon.id < 10) {
       id = `00${pokemon.id}`;
@@ -33,6 +33,11 @@ export const genPokesObjWithImgLinks = pokemonList => {
     if (pokemon.id < 100 && pokemon.id > 9) {
       id = `0${pokemon.id}`;
     }
+    //Could also implement settings below:
+    // if less than add three number and slice 3 from end
+    let padToThree = (num) => (pokemon.id <= 999 ? `00${num}`.slice(-3) : num)
+
+    //could setup as API String 
     tempPokeObj.image = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`;
     return tempPokeObj;
   });

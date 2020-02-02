@@ -10,6 +10,8 @@ const Pokedex = props => {
     let pokeCards = props.pokeListObj.pokemonsArr.map(pokemon => {
         return <PokeCard pokemon={pokemon} key={uuid.v4()} />;
     });
+
+    //repetitive code, could combine under check 
     props.winner !== undefined
         ? (messageClass = classes.WinMessage)
         : (messageClass = classes.LostMessage);

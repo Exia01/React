@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { generateRandomPokemonCardCount, genPokesObjWithImgLinks } from '../../utils/PokemonUtils';
+import {
+  generateRandomPokemonCardCount,
+  genPokesObjWithImgLinks
+} from '../../utils/PokemonUtils';
 
 import Pokedex from '../../components/Pokedex/Pokedex';
 
@@ -25,20 +28,13 @@ class Pokegame extends Component {
     pokesObj1: null
   };
 
-
   componentDidMount() {
     this._isMounted = true; //  if (this._isMounted) { set state
     if (this._isMounted) {
-      let newPokemonsObj = genPokesObjWithImgLinks(this.props.initialPokemons)
+      let newPokemonsObj = genPokesObjWithImgLinks(this.props.initialPokemons);
 
-      let pokesObj1 = generateRandomPokemonCardCount(
-        4,
-        newPokemonsObj
-      );
-      let pokesObj2 = generateRandomPokemonCardCount(
-        4,
-        newPokemonsObj
-      );
+      let pokesObj1 = generateRandomPokemonCardCount(4, newPokemonsObj);
+      let pokesObj2 = generateRandomPokemonCardCount(4, newPokemonsObj);
       this.setState({ pokesObj1, pokesObj2 });
     }
   }
@@ -48,23 +44,25 @@ class Pokegame extends Component {
   }
 
   render() {
-    let pokedexTag1;
-    let pokedexTag2;
+    let hand1;
+    let hand2;
     let gameProp1;
     let gameProp2;
-  
-
 
     if (this.state.pokesObj1 && this.state.pokesObj2) {
-      this.state.pokesObj1.totalCardBaseExp > this.state.pokesObj2.totalCardBaseExp ? gameProp1 = true : gameProp2 = true
+      this.state.pokesObj1.totalCardBaseExp >
+      this.state.pokesObj2.totalCardBaseExp
+        ? (gameProp1 = true)
+        : (gameProp2 = true);
 
-      pokedexTag1 = <Pokedex pokeListObj={this.state.pokesObj1} winner={gameProp1} />;
-      pokedexTag2 = <Pokedex pokeListObj={this.state.pokesObj2} winner={gameProp2} />;
+      hand1 = <Pokedex pokeListObj={this.state.pokesObj1} winner={gameProp1} />;
+      hand2 = <Pokedex pokeListObj={this.state.pokesObj2} winner={gameProp2} />;
     }
 
     return (
       <div className={PokeGameClasses.PokegameContainer}>
-        {pokedexTag1} {pokedexTag2}
+        {/*could pass props indidually*/}
+        {hand1} {hand2}
       </div>
     );
   }
