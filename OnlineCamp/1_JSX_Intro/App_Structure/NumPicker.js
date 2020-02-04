@@ -2,9 +2,12 @@ function getNum() {
   return Math.floor(Math.random() * 10) + 1;
 }
 class NumPicker extends React.Component {
-  state = {
-    winingNum: 0
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      winingNum: 0
+    };
+  }
 
   testFun = () => {
     let test = 7;
