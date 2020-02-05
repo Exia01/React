@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Game />
-        <Demo />
+        <Demo color={'red'}/> {/*passing props*/ }
         <Button />
         <Rando maxNum={10} />
         <Clicker />

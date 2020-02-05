@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Demo extends Component {
 	constructor(props) {
-		super(props);
+		super(props); // this would pass the props to this.props
 		this.state = { color: 'cyan' };
 	}
 	render() {
