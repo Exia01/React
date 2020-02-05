@@ -3,9 +3,12 @@ import React, { Component } from 'react';
 class Clicker extends Component {
 	constructor(props) {
 		super(props);
+		//initializing state
 		this.state = { num: 1 };
+		// binding method
 		this.getRandom = this.getRandom.bind(this);
 	}
+
 	getRandom() {
 		let rand = Math.floor(Math.random() * 10) + 1;
 		this.setState({ num: rand, isWinner: rand === 7 });
