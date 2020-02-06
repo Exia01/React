@@ -8,8 +8,8 @@ class RollDice extends Component {
       2: 'fas fa-dice-two',
       3: 'fas fa-dice-three',
       4: 'fas fa-dice-four',
-      6: 'fas fa-dice-five',
-      7: 'fas fa-dice-six'
+      5: 'fas fa-dice-five',
+      6: 'fas fa-dice-six'
     },
     diceCount: 2,
     rollingDice: false
@@ -26,7 +26,7 @@ class RollDice extends Component {
   };
 
   randomizeRollNum = () => {
-    let randomNum = Math.floor(Math.random() * this.state.diceCount + 1);
+    let randomNum = Math.floor(Math.random() * 5) + 1  
     return randomNum;
   };
 
@@ -34,11 +34,15 @@ class RollDice extends Component {
     let diceTags = [];
     let rollingCssClass;
     for (let i = 0; i < this.state.diceCount; i++) {
+
+      let fanDiceNum = this.state.dices[this.randomizeRollNum()]
+      console.log(fanDiceNum)
       diceTags.push(
         <Die
           onClickDiceHandler={this.onClickDiceHandler}
           key={i}
           rollingDice={this.state.rollingDice}
+          faNum={fanDiceNum}
         />
       );
     }

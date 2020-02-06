@@ -1,13 +1,15 @@
 import React from 'react';
 
 const Die = props => {
-  console.log(props)
-  let rollingDiceNum = 'fas fa-dice-one';
-  let diceNumb;
+  let rollingDiceNum 
   if (props.faNum) {
-    rollingDiceNum = `fas fa-dice${props}`;
+    console.log("test")
+    rollingDiceNum = `fas fa-dice${props.faNum}`;
+  }else{
+    rollingDiceNum = 'fas fa-dice-one';
+    console.log("test")
   }
-  props.rollingDice ? (rollingDiceNum += ' shaking') : (diceNumb += ' ');
+  props.rollingDice ? (rollingDiceNum += ' shaking') : (rollingDiceNum += ' ');
 
   return (
     <article>
