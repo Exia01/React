@@ -21,11 +21,11 @@ class RollDice extends Component {
     this.setState({ rollingDice: true });
     setTimeout(() => {
       this.setState({ rollingDice: false });
-    }, 2000);
+    }, 1000);
   };
 
   randomizeRollNum = () => {
-    let randomNum = Math.floor(Math.random() * 5) + 1;
+    let randomNum = Math.floor(Math.random() * 6) + 1;
     return randomNum;
   };
 
