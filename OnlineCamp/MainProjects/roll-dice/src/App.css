@@ -40,6 +40,9 @@
   transition: all 700ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
   transform: scale(0.8, 0.8);
 }
+.dice-container button:hover {
+ cursor: pointer;
+}
 .dice-container button:disabled{
   background-color: grey;
   color: white;

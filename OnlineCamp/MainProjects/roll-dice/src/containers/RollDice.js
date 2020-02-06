@@ -18,15 +18,14 @@ class RollDice extends Component {
   componentDidMount() {}
 
   onClickDiceHandler = e => {
-      alert("Working")
     this.setState({ rollingDice: true });
     setTimeout(() => {
-        this.setState({rollingDice:false})
+      this.setState({ rollingDice: false });
     }, 2000);
   };
 
   randomizeRollNum = () => {
-    let randomNum = Math.floor(Math.random() * 5) + 1  
+    let randomNum = Math.floor(Math.random() * 5) + 1;
     return randomNum;
   };
 
@@ -34,9 +33,7 @@ class RollDice extends Component {
     let diceTags = [];
     let rollingCssClass;
     for (let i = 0; i < this.state.diceCount; i++) {
-
-      let fanDiceNum = this.state.dices[this.randomizeRollNum()]
-      console.log(fanDiceNum)
+      let fanDiceNum = this.state.dices[this.randomizeRollNum()];
       diceTags.push(
         <Die
           onClickDiceHandler={this.onClickDiceHandler}
@@ -54,7 +51,7 @@ class RollDice extends Component {
           onClick={this.onClickDiceHandler}
           disabled={this.state.rollingDice}
         >
-         {this.state.rollingDice? "Rolling.....":"Roll Dice"} 
+          {this.state.rollingDice ? 'Rolling.....' : 'Roll Dice'}
         </button>
       </div>
     );
