@@ -12,13 +12,18 @@ class RollDice extends Component {
       6: 'fas fa-dice-six'
     },
     diceCount: 2,
-    rollingDice: false
+    rollingDice: false,
+    faNums: null
   };
 
   componentDidMount() {}
 
   onClickDiceHandler = e => {
-    this.setState({ rollingDice: true });
+    let diceTagNumsbers = [];
+    for (let i = 0; i < this.state.diceCount; i++) {
+      diceTagNumsbers.push(this.randomizeRollNum());
+    }
+    this.setState({ rollingDice: true, faNums: diceTagNumsbers });
     setTimeout(() => {
       this.setState({ rollingDice: false });
     }, 1000);
@@ -33,13 +38,14 @@ class RollDice extends Component {
     let diceTags = [];
     let rollingCssClass;
     for (let i = 0; i < this.state.diceCount; i++) {
-      let fanDiceNum = this.state.dices[this.randomizeRollNum()];
+      let numFas 
+      this.state.faNums !=null ? numFas = this.state.faNums[i] : this.randomizeRollNum()
       diceTags.push(
         <Die
           onClickDiceHandler={this.onClickDiceHandler}
           key={i}
           rollingDice={this.state.rollingDice}
-          faNum={fanDiceNum}
+          faNum={this.state.dices[numFas]}
         />
       );
     }
