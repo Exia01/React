@@ -34,7 +34,7 @@
 }
 
 .color-container .color-item {
-  min-height: 12vh;
+  min-height: 10vh;
   transition: ease-in-out 0.5s;
 }
 

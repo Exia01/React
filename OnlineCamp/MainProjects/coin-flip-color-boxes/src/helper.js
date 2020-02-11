@@ -12,9 +12,12 @@ const selectColor = arr => {
 
 const newUniqueColorGenerator = (arr, currentColor) => {
   let newColor = currentColor;
-  while (newColor === currentColor) {
+  do{
     newColor = Math.floor(Math.random() * arr.length);
   }
+  while (newColor === currentColor) {
+  }
+  console.log(currentColor,arr[newColor])
   return  arr[newColor];
 };
 
