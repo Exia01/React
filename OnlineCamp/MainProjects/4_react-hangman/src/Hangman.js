@@ -25,7 +25,9 @@ class Hangman extends Component {
       nWrong: 0,
       guessed: new Set(),
       answer: 'apple',
-      wonGame: null
+      wonGame: null,
+      lostGame: null,
+      currentGuessedWord: ''
     };
     this.handleGuess = this.handleGuess.bind(this);
   }
@@ -35,11 +37,7 @@ class Hangman extends Component {
   /** guessedWord: show current-state of word:
     if guessed letters are {a,p,e}, show "app_e" for "apple"
   */
-  guessedWord() {
-    return this.state.answer
-      .split('') // Looping through answer and checking for guessed leters
-      .map(ltr => (this.state.guessed.has(ltr) ? ltr : '_'));
-  }
+  guessedWord() {}
 
   /** handleGuest: handle a guessed letter:
     - add to guessed letters
@@ -47,12 +45,32 @@ class Hangman extends Component {
   */
   handleGuess(evt) {
     let ltr = evt.target.value;
-    this.setState(st => ({
-      guessed: st.guessed.add(ltr),
-      nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1), //adding 1 or 0 depending on answer
-      lostGame: false, //exec logic here
-      wonGame:true, 
-    }));
+    let clonedSet = new Set(this.state.guessed).add(ltr)
+    let currentGuessedWord = this.state.answer
+      .split('') // Looping through answer and checking for guessed leters
+      .map(ltr => {
+        return clonedSet.has(ltr) ? ltr : '_';
+      }).join("");
+    let NumberWrong =
+      this.state.nWrong + (this.state.answer.includes(ltr) ? 0 : 1);
+
+    console.log(currentGuessedWord);
+    console.log(this.state.currentGuessWord === this.state.answer);
+
+
+    if (currentGuessedWord === this.state.answer) {
+      this.setState({ wonGame: true, currentGuessedWord});
+    } else {
+      if (this.state.nWrong <= this.props.maxWrong) {
+        this.setState(st => ({
+          guessed: st.guessed.add(ltr),
+          nWrong: NumberWrong, //adding 1 or 0 depending on answer
+          wonGame: false,
+          lostGame: NumberWrong >= this.props.maxWrong, //exec logic here
+          currentGuessedWord
+        }));
+      }
+    }
   }
 
   /** generateButtons: return array of letter buttons to render */
@@ -62,7 +80,11 @@ class Hangman extends Component {
         <button
           value={ltr}
           onClick={this.handleGuess}
-          disabled={this.state.guessed.has(ltr)}
+          disabled={
+            this.state.guessed.has(ltr) ||
+            this.state.wonGame ||
+            this.state.lostGame
+          }
           key={uuid.v4()}
         >
           {ltr}
@@ -80,9 +102,12 @@ class Hangman extends Component {
     return (
       <div className='Hangman'>
         <h1>Hangman</h1>
-        <img src={this.props.images[this.state.nWrong]} />
+        <img
+          src={this.props.images[this.state.nWrong]}
+          alt={`${this.state.nWrong} wrong answers out of ${this.props.maxWrong}`}
+        />
         {messageTag}
-        <p className='Hangman-word'>{this.guessedWord()}</p>
+        <p className='Hangman-word'>{this.state.currentGuessedWord}</p>
         <p className='Hangman-btns'>{this.generateButtons()}</p>
       </div>
     );
