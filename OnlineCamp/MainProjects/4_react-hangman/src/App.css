@@ -2,6 +2,8 @@
   text-align: center;
   height: 100vh;
   display: flex;
+  width: 600px;
+  margin: 0 auto;
   align-items: center;
   justify-content: center;
   background: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/intermediary/f/61f7685f-47e5-49a0-b5cb-ca6b8cab4228/drok89-a7a2a550-ba87-40a6-9701-b635550d55b3.jpg");
@@ -21,4 +23,8 @@
   font-style: normal;
   font-weight: bold;
   color: rgb(29, 129, 29)
+}
+
+.Hangman .Hangman-restart-game-button button{
+  width:  fit-content;
 }
