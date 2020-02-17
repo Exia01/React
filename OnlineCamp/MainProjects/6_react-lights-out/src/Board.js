@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Cell from "./Cell";
-import "./Board.css";
+import React, { Component } from 'react';
+import Cell from './Cell';
+import './Board.css';
 
 /** Game board of Lights out.
  *
@@ -64,16 +64,15 @@ class Board extends Component {
   flipCellsAround(coord) {
     let { ncols, nrows } = this.props;
     let board = this.state.board;
-    let [y, x] = coord.split("-").map(Number);
+    let [y, x] = coord.split('-').map(Number);
 
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
-
       if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
         board[y][x] = !board[y][x];
       }
     }
-    // TODO: flip this cell and the cells around it
+    // TODO: flip this cell and the cells around it based on
     flipCell(y, x); //Flip initial cell
     flipCell(y, x - 1); //flip left
     flipCell(y, x + 1); //flip right
@@ -82,6 +81,7 @@ class Board extends Component {
 
     // win when every cell is turned off
     // TODO: determine is the game has been won
+    // using instead of every, and checking that every cell is not false; return true to the first every
     let hasWon = board.every(row => row.every(cell => !cell));
 
     this.setState({ board: board, hasWon: hasWon });
@@ -112,7 +112,8 @@ class Board extends Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
+      {/*ternary operator for rendering */}
         {this.state.hasWon ? (
           <div className='winner'>
             <span className='neon-orange'>YOU</span>
@@ -127,7 +128,7 @@ class Board extends Component {
             {this.makeTable()}
           </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

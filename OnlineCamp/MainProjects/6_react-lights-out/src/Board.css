@@ -1,21 +1,28 @@
 .Board {
   margin: 0 auto;
   border-radius: 10px;
-  /* box-shadow: 10px 10px 0 red; */
+  /* box-shadow: 10px 10px 0 red;  3 different shadows */
   box-shadow: 0 0 50px #fff, -10px 0 80px #f0f, 10px 0 80px #0ff;
+
 }
 
+
+/* Fixing border radius for box  */
 table tr:first-child td:first-child {
-  border-radius: 10px 0 0 0 !important;
+  border-radius: 10px 0 0 0 !important; 
+  /* Top left */
 }
 table tr:first-child td:last-child {
   border-radius: 0 10px 0 0 !important;
+  /* Top Right */
 }
 table tr:last-child td:first-child {
   border-radius: 0 0 0 10px !important;
+  /* Bottom Right */
 }
 table tr:last-child td:last-child {
   border-radius: 0 0 10px 0 !important;
+  /* Bottom Left */
 }
 
 @font-face {
@@ -34,9 +41,10 @@ table tr:last-child td:last-child {
   color: #fb4264;
   font-size: 80px;
   text-shadow: 0 0 3vw #f40a35;
-  animation: neon-orange 1s ease infinite;
-  -moz-animation: neon-orange 1s ease infinite;
-  -webkit-animation: neon-orange 1s ease infinite;
+  /* Animation Name */
+  animation: neon-orange 2.5s ease infinite;
+  -moz-animation: neon-orange 2.5s ease infinite;
+  -webkit-animation: neon-orange 2.5s ease infinite;
 }
 
 .neon-blue {
@@ -44,6 +52,7 @@ table tr:last-child td:last-child {
   color: #426dfb;
   font-size: 80px;
   text-shadow: 0 0 3vw #2356ff;
+  /* Animation Name */
   animation: neon-blue 2s linear infinite;
   -moz-animation: neon-blue 2s linear infinite;
   -webkit-animation: neon-blue 2s linear infinite;
@@ -82,3 +91,6 @@ table tr:last-child td:last-child {
     color: #146c80;
   }
 }
+
+
+/* https://codepen.io/Trinca/pen/NAvpWa */
