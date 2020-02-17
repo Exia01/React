@@ -1,19 +1,25 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class MultipleForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", email: "", password: "" };
+    this.state = { username: '', email: '', password: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value });
+    //input agnostic, passes value to target
+    this.setState(
+      // passing dynamic key evnt.target.nameOfInput
+      { [evt.target.name]: evt.target.value }
+    );
   }
+
   handleSubmit(evt) {
     evt.preventDefault();
     alert(`You typed: ${this.state.username}`);
-    this.setState({ username: "" });
+    this.setState({ username: '' });
   }
   render() {
     return (
