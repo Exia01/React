@@ -1,7 +1,29 @@
 .App {
   width: 70vw;
-  margin: 0 auto;
+  margin: 10% auto;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
+.App .title {
+  flex: 100%;
+  text-align: center;
+}
+
+.ColorBox {
+  margin: 2%;
+  border: 1px dashed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  margin: 2%;
+}
