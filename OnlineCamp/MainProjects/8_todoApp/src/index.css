@@ -5,7 +5,8 @@
 }
 html,
 body {
-  background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db);
+  /* Top down? */
+  background: linear-gradient(90deg, #69b7eb, #b3dbd3, #f4d6db); 
   font-size: 1.1rem;
   font-family: "Quicksand", sans-serif;
   height: 100%;

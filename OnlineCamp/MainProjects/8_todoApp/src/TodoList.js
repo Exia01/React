@@ -41,6 +41,7 @@ class TodoList extends Component {
   toggleCompletion(id) {
     const updatedTodos = this.state.todos.map(todo => {
       if (todo.id === id) {
+        // Override property and spreading the ones we need
         return { ...todo, completed: !todo.completed };
       }
       return todo;

@@ -4,7 +4,8 @@
   max-width: 600px;
   background: #ff6666;
   color: #fff;
-  box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, 0.1);
+  /* Black very low opacity */
+  box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, 0.1); 
   overflow: hidden;
 }
 .TodoList ul {
@@ -84,3 +85,7 @@
   position: absolute;
   transition: all 500ms cubic-bezier(0.39, 0.575, 0.565, 1);
 }
+
+
+
+/* https://codepen.io/saawsan */

@@ -24,7 +24,8 @@
   /* opacity: 0.6; */
 }
 .Todo.completed .Todo-task:before {
-  content: "";
+/* draws the line through */
+  content: ""; /* here be dragons*/
   position: absolute;
   top: 50%;
   left: -0.5rem;
