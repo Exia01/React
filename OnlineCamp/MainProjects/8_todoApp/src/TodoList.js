@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import NewTodoForm from "./NewTodoForm";
-import Todo from "./Todo";
-import "./TodoList.css";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import React, { Component } from 'react';
+import NewTodoForm from './NewTodoForm';
+import Todo from './Todo';
+import './TodoList.css';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class TodoList extends Component {
   constructor(props) {
@@ -17,23 +17,27 @@ class TodoList extends Component {
   }
   create(newTodo) {
     this.setState({
-      todos: [...this.state.todos, newTodo]
+      todos: [...this.state.todos, newTodo] //spreading and combining since it is one layer deep
     });
   }
   remove(id) {
     this.setState({
+      //not using callback method, no need to wait for it
       todos: this.state.todos.filter(t => t.id !== id)
     });
   }
   update(id, updatedTask) {
+    //without mutating state. Map creates new Obj
     const updatedTodos = this.state.todos.map(todo => {
       if (todo.id === id) {
+        //existing with updated task, take existing stuff but override task
         return { ...todo, task: updatedTask };
       }
       return todo;
     });
     this.setState({ todos: updatedTodos });
   }
+
   toggleCompletion(id) {
     const updatedTodos = this.state.todos.map(todo => {
       if (todo.id === id) {

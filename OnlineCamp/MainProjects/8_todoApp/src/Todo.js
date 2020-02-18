@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import "./Todo.css";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import React, { Component } from 'react';
+import './Todo.css';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isEditing: false,
-      task: this.props.task
+      task: this.props.task // when loading get task
     };
     this.handleRemove = this.handleRemove.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
@@ -15,28 +15,32 @@ class Todo extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
   }
-  handleRemove() {
-    this.props.removeTodo(this.props.id);
-  }
   toggleForm() {
-    this.setState({ isEditing: !this.state.isEditing });
+    this.setState({ isEditing: !this.state.isEditing }); //opposite of state
   }
-  handleUpdate(evt) {
-    evt.preventDefault();
-    //take new task data and pass up to parent
-    this.props.updateTodo(this.props.id, this.state.task);
-    this.setState({ isEditing: false });
+  handleToggle(evt) {
+    this.props.toggleTodo(this.props.id);
   }
+
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     });
   }
-  handleToggle(evt) {
-    this.props.toggleTodo(this.props.id);
+  handleUpdate(evt) {
+    evt.preventDefault();
+    //take new task data and pass up to parent //no need to pass id as a param
+    this.props.updateTodo(this.props.id, this.state.task); //using task from two way binding
+    this.setState({ isEditing: false }); // show the task back up
   }
+  handleRemove() {
+    this.props.removeTodo(this.props.id);
+  }
+
   render() {
     let result;
+
+    //if editing show a form, otherwise show task
     if (this.state.isEditing) {
       result = (
         <CSSTransition key='editing' timeout={500} classNames='form'>
@@ -62,9 +66,10 @@ class Todo extends Component {
     }
     return (
       <TransitionGroup
-        className={this.props.completed ? "Todo completed" : "Todo"}
+        className={this.props.completed ? 'Todo completed' : 'Todo'}
       >
         {result}
+        {/* handles delete or edit for "This" task */}
         <div className='Todo-buttons'>
           <button onClick={this.toggleForm}>
             <i class='fas fa-pen' />

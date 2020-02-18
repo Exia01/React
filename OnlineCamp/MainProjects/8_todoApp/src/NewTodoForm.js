@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import uuid from "uuid/v4";
-import "./NewTodoForm.css";
+import React, { Component } from 'react';
+import uuid from 'uuid/v4'; //could do uuid and call it uuid.v4()
+import './NewTodoForm.css';
 
 class NewTodoForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { task: "" };
+    this.state = { task: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -16,8 +16,9 @@ class NewTodoForm extends Component {
   }
   handleSubmit(evt) {
     evt.preventDefault();
+    //spreading state and combining other props
     this.props.createTodo({ ...this.state, id: uuid(), completed: false });
-    this.setState({ task: "" });
+    this.setState({ task: '' });
   }
   render() {
     return (
