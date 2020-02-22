@@ -67,19 +67,19 @@ class Game extends Component {
 
   render() {
     return (
-      <div className='Game'>
-        <header className='Game-header'>
-          <h1 className='App-title'>Yahtzee!</h1>
+      <div className="Game">
+        <header className="Game-header">
+          <h1 className="App-title">Yahtzee!</h1>
 
-          <section className='Game-dice-section'>
+          <section className="Game-dice-section">
             <Dice
               dice={this.state.dice}
               locked={this.state.locked}
               handleClick={this.toggleLocked}
             />
-            <div className='Game-button-wrapper'>
+            <div className="Game-button-wrapper">
               <button
-                className='Game-reroll'
+                className="Game-reroll"
                 disabled={this.state.locked.every(x => x)}
                 onClick={this.roll}
               >
