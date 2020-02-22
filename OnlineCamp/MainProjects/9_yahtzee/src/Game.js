@@ -31,6 +31,7 @@ class Game extends Component {
     };
     this.roll = this.roll.bind(this);
     this.doScore = this.doScore.bind(this);
+    this.toggleLocked = this.toggleLocked.bind(this);
   }
 
   roll(evt) {
@@ -45,12 +46,14 @@ class Game extends Component {
   }
 
   toggleLocked(idx) {
-    // toggle whether idx is in locked or not
+    console.log(idx);
+    
+    //using callback for state
     this.setState(st => ({
       locked: [
-        ...st.locked.slice(0, idx),
-        !st.locked[idx],
-        ...st.locked.slice(idx + 1)
+        ...st.locked.slice(0, idx), //keep everyting the same, from before that index
+        !st.locked[idx], //at the index flip it
+        ...st.locked.slice(idx + 1) //take the rest of the array and keep it the same
       ]
     }));
   }
