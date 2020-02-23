@@ -4,14 +4,18 @@ import "./App.css";
 
 class GithubUserInfo extends Component {
   constructor(props) {
+    console.log("Inside Contructor");
+
     super(props);
     this.state = {
-      user: {},// declaring, better than setting null on renders 
+      user: {}, // declaring, better than setting null on renders
       isLoaded: false
     };
   }
   //async version
   async componentDidMount() {
+    console.log("Component Mounted");
+
     setTimeout(async () => {
       const url = `https://api.github.com/users/${this.props.username}`;
       let response = await axios.get(url);
@@ -27,6 +31,11 @@ class GithubUserInfo extends Component {
   //          });
   //    }
 
+  // after update, send to database or something
+  componentDidUpdate() {
+    console.log("component updated");
+  }
+
   render() {
     let userInfoDiv;
     this.state.isLoaded
@@ -37,7 +46,7 @@ class GithubUserInfo extends Component {
             <img src={this.state.user.avatar_url} />
           </div>
         ))
-      : (userInfoDiv = <div class="sbl-circ-path"></div>);
+      : (userInfoDiv = <div className="sbl-circ-path"></div>);
     return <React.Fragment>{userInfoDiv}</React.Fragment>;
   }
 }
