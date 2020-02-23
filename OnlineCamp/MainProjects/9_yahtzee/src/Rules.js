@@ -22,7 +22,7 @@ class Rule {
   freq(dice) {
     // frequencies of dice values
     const freqs = new Map();
-    for (let d of dice) freqs.set(d, (freqs.get(d) || 0) + 1);
+    for (let d of dice) freqs.set(d, (freqs.get(d) || 0) + 1); //updating the val in the freq map
     return Array.from(freqs.values());
   }
 
@@ -56,15 +56,29 @@ class SumDistro extends Rule {
 }
 
 /** Check if full house (3-of-kind and 2-of-kind) */
-
-class FullHouse {
-  // TODO
+// [1, 2, 2, 2, 1];
+class FullHouse extends Rule {
+  evalRoll = dice => {
+    const frequencies = this.freq(dice); //getting freq of dice and checking if 2 and 3
+    return frequencies.includes(2) && frequencies.includes(3) ? this.score : 0;
+  };
 }
 
 /** Check for small straights. */
-
-class SmallStraight {
-  // TODO
+// checks for 4 numbers in a a row
+class SmallStraight extends Rule {
+  evalRoll = dice => {
+    const d = new Set(dice);
+    // straight can be 234 + either 1 or 5
+    if (d.has(2) && d.has(3) && d.has(4) && (d.has(1) || d.has(5))) {
+      return this.score;
+    }
+    // straight can be 345 + either 2 or 6
+    if (d.has(3) && d.has(4) && d.has(5) && (d.has(2) || d.has(6))) {
+      return this.score;
+    }
+    return 0;
+  };
 }
 
 /** Check for large straights. */
@@ -88,6 +102,7 @@ class Yahtzee extends Rule {
 }
 
 // ones, twos, etc score as sum of that value
+//Creating instances of the the classes?
 const ones = new TotalOneNumber({ val: 1 });
 const twos = new TotalOneNumber({ val: 2 });
 const threes = new TotalOneNumber({ val: 3 });
@@ -100,10 +115,10 @@ const threeOfKind = new SumDistro({ count: 3 });
 const fourOfKind = new SumDistro({ count: 4 });
 
 // full house scores as flat 25
-const fullHouse = "TODO";
+const fullHouse = new FullHouse({ score: 25 });
 
 // small/large straights score as 30/40
-const smallStraight = "TODO";
+const smallStraight = new SmallStraight({ score: 30 });
 const largeStraight = new LargeStraight({ score: 40 });
 
 // yahtzee scores as 50

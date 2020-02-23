@@ -46,26 +46,27 @@ class Game extends Component {
   }
 
   toggleLocked(idx) {
-    console.log(idx);
-    
     //using callback for state
-    this.setState(st => ({
-      locked: [
-        ...st.locked.slice(0, idx), //keep everyting the same, from before that index
-        !st.locked[idx], //at the index flip it
-        ...st.locked.slice(idx + 1) //take the rest of the array and keep it the same
-      ]
-    }));
+    if (this.state.rollsLeft > 0) {
+      this.setState(st => ({
+        locked: [
+          ...st.locked.slice(0, idx), //keep everyting the same, from before that index
+          !st.locked[idx], //at the index flip it
+          ...st.locked.slice(idx + 1) //take the rest of the array and keep it the same
+        ]
+      }));
+    }
   }
 
   doScore(rulename, ruleFn) {
     // evaluate this ruleFn with the dice and score this rulename
     this.setState(st => ({
+      // dynamic key to determine obj func like ["fourOFAKind"]:0
       scores: { ...st.scores, [rulename]: ruleFn(this.state.dice) },
-      rollsLeft: NUM_ROLLS,
-      locked: Array(NUM_DICE).fill(false)
+      rollsLeft: NUM_ROLLS, //resets the ammount of rolls
+      locked: Array(NUM_DICE).fill(false) //fills the dice array with false, to make clickable
     }));
-    this.roll();
+    this.roll(); //gets new dice
   }
 
   render() {
@@ -83,7 +84,9 @@ class Game extends Component {
             <div className="Game-button-wrapper">
               <button
                 className="Game-reroll"
-                disabled={this.state.locked.every(x => x)}
+                disabled={
+                  this.state.locked.every(x => x) || this.state.rollsLeft === 0
+                }
                 onClick={this.roll}
               >
                 {this.state.rollsLeft} Rerolls Left
