@@ -7,7 +7,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <GithubUserInfo username="Elie"/>
+        <GithubUserInfo username="exia01"/>
+        <GithubUserInfo username="facebook"/>
       </div>
     );
   }
