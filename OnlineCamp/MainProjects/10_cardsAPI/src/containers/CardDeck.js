@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { uuid } from "uuid/v4";
+import uuid from "uuid/v4";
 import axios from "axios";
 import Card from "../components/Card";
 
-export class CardsContainer extends Component {
+// Global Constant
+const API_URL = "https://deckofcardsapi.com/api/deck/new/shuffle";
+
+export class CardDeck extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +31,7 @@ export class CardsContainer extends Component {
   }
   componentWillUnmount() {
     localStorage.clear();
+    axios.Cancel()
   }
 
   fetchCard() {
@@ -37,9 +41,7 @@ export class CardsContainer extends Component {
   async fetchGameID() {
     console.log("Running API Call Setup Call");
     try {
-      let res = await axios.get(
-        "https://deckofcardsapi.com/api/deck/new/shuffle"
-      );
+      let res = await axios.get(API_URL);
       let { data } = res; //would separate here if it came in different obj
       localStorage.setItem("deck_id", data.deck_id);
     } catch (error) {
@@ -79,7 +81,7 @@ export class CardsContainer extends Component {
     let cardTags;
     this.state.cards.length > 0
       ? (cardTags = this.state.cards.map(indCard => {
-          return <Card cardProps={indCard} />;
+          return <Card cardProps={indCard} key={uuid()} />;
         }))
       : (cardTags = <p>No cards played</p>);
 
@@ -99,6 +101,6 @@ export class CardsContainer extends Component {
   }
 }
 
-export default CardsContainer;
+export default CardDeck;
 
 // Working with arrays:https://www.robinwieruch.de/react-state-array-add-update-remove
