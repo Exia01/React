@@ -11,6 +11,7 @@ export class CardDeck extends Component {
     super(props);
     this.state = {
       cards: [],
+      error:null,
       test: {
         suit: "DIAMONDS",
         value: "5",
@@ -26,8 +27,8 @@ export class CardDeck extends Component {
     this.fetchGameID = this.fetchGameID.bind(this);
     this.onButtonClickHandler = this.onButtonClickHandler.bind(this);
   }
-  componentDidMount() {
-    this.fetchGameID();
+ async componentDidMount() {
+    let ApiCall = this.fetchGameID();
   }
   componentWillUnmount() {
     localStorage.clear();
@@ -44,8 +45,12 @@ export class CardDeck extends Component {
       let res = await axios.get(API_URL);
       let { data } = res; //would separate here if it came in different obj
       localStorage.setItem("deck_id", data.deck_id);
+      return true
+      this.setState({error:false})
     } catch (error) {
       console.log(error);
+      this.setState(error)
+      return false
     }
     // let res = await axios.get("https://deckofcardsapi.com/api/deck/new/shuffle");
     // // let { data } = res.data;
