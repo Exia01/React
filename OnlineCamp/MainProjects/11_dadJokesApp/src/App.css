@@ -1,48 +1,74 @@
+body {
+  background: rgb(131, 58, 180);
+  background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
+}
+
 .App {
- display: grid;
- width: 85vw;
- margin: 0 auto;
- grid-template-columns: 1fr 3fr;
+  font-family: "Montserrat", sans-serif;
+
+  display: grid;
+  width: 85vw;
+  height: 100vh;
+  margin: 0 auto;
+  grid-template-columns: 1fr 3fr;
+  justify-content: center;
+  align-items: center;
 }
 
-
-.joke-list .indiv-joke{
-    background-color: lightgreen;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+.sidebar {
+  background: #9575cd;
+  display: grid;
+  justify-content: center;
 }
+.sidebar .sidebar-title{
 
-.indiv-joke .indiv-joke-buttons{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
 }
-
-.indiv-joke .indiv-joke-text{
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-}
-.indiv-joke .indiv-joke-text .indiv-joke-emoji{
+.sidebar img{
     justify-self: center;
+    width: 75%;
+}
+.sidebar button{
+    padding: 2%;
+    margin: 5% 0;
 }
 
+.joke-list .indiv-joke {
+  background-color: lightgreen;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+}
+
+.indiv-joke .indiv-joke-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-content: center;
+}
+
+.indiv-joke .indiv-joke-text {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+.indiv-joke .indiv-joke-text .indiv-joke-emoji {
+  justify-self: center;
+  align-self: center;
+}
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {  
- 
+@media (min-width: 576px) {
 }
- 
+
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {  
- 
+@media (min-width: 768px) {
 }
- 
+
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
- 
+@media (min-width: 992px) {
 }
- 
+
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  
-    
+@media (min-width: 1200px) {
 }
- 
+
+/* CSS Gradient:https://cssgradient.io/ */

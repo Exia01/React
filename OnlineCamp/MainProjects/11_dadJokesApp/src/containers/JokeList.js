@@ -12,7 +12,7 @@ const API_URL = " https://icanhazdadjoke.com/";
 
 export class JokeList extends Component {
   static defaultProps = {
-    initialJokesCount: 1,
+    numOfJokes: 1,
   };
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ export class JokeList extends Component {
       jokeFetchErrMsg: "",
       isLoaded: true
     };
-    this.fetchTenOriginalJokes = this.fetchTenOriginalJokes.bind(this);
+    this.fetchJoke = this.fetchJoke.bind(this);
     this.onAddJokeScoreClickHandler = this.onAddJokeScoreClickHandler.bind(
       this
     );
@@ -32,12 +32,12 @@ export class JokeList extends Component {
 
   async componentDidMount() {
     //load jokes
-    this.fetchTenOriginalJokes();
+    this.fetchJoke(this.props.numOfJokes);
   }
   async componentWillUnmount() {
     axios.Cancel();
   }
-  async fetchTenOriginalJokes() {
+  async fetchJoke(num) {
     const config = {
       headers: { Accept: "application/json" }
       //   'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ export class JokeList extends Component {
     let newJokes = [];
     try {
       //set state
-      for (let index = 0; index < this.props.initialJokesCount; index++) {
+      while(newJokes.length < this.props.numOfJokes){
         let res = await axios.get(API_URL, config);
         let { id, joke } = res.data;
         const score = 0;
