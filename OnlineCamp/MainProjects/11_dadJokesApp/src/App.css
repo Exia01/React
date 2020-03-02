@@ -1,4 +1,48 @@
 .App {
-  text-align: center;
+ display: grid;
+ width: 85vw;
+ margin: 0 auto;
+ grid-template-columns: 1fr 3fr;
 }
 
+
+.joke-list .indiv-joke{
+    background-color: lightgreen;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.indiv-joke .indiv-joke-buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.indiv-joke .indiv-joke-text{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+.indiv-joke .indiv-joke-text .indiv-joke-emoji{
+    justify-self: center;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {  
+ 
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+ 
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+ 
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    
+}
+ 
