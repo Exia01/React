@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import Joke from './Joke';
 import axios from 'axios';
+
 import uuid from 'uuid/v4';
+import Joke from './Joke';
 import './JokeList.css';
+
+// Global Variable
+const API_URL = 'https://icanhazdadjoke.com/';
+const API_CONFIG = { headers: { Accept: 'application/json' } };
 
 class JokeList extends Component {
   static defaultProps = {
@@ -19,16 +24,14 @@ class JokeList extends Component {
     console.log(this.seenJokes);
     this.handleClick = this.handleClick.bind(this);
   }
-  componentDidMount() {
+  async componentDidMount() {
     if (this.state.jokes.length === 0) this.getJokes();
   }
   async getJokes() {
     try {
       let jokes = [];
       while (jokes.length < this.props.numJokesToGet) {
-        let res = await axios.get('https://icanhazdadjoke.com/', {
-          headers: { Accept: 'application/json' }
-        });
+        let res = await axios.get(API_URL, API_CONFIG);
         let newJoke = res.data.joke;
         if (!this.seenJokes.has(newJoke)) {
           jokes.push({ id: uuid(), text: newJoke, votes: 0 });
@@ -51,6 +54,7 @@ class JokeList extends Component {
     }
   }
   handleVote(id, delta) {
+    // Here be dragons
     this.setState(
       st => ({
         jokes: st.jokes.map(j =>
@@ -102,3 +106,7 @@ class JokeList extends Component {
   }
 }
 export default JokeList;
+// https://www.reddit.com/r/learnjavascript/comments/f1kagj/cors_when_using_one_api_but_not_another/
+// https://stackoverflow.com/questions/45389073/javascript-search-for-an-object-key-in-a-set
+// uudi: https://www.npmjs.com/package/uuid
+// https://stackoverflow.com/questions/45389073/javascript-search-for-an-object-key-in-a-set
