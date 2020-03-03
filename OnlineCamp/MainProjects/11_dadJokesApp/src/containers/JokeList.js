@@ -12,7 +12,7 @@ const API_URL = " https://icanhazdadjoke.com/";
 
 export class JokeList extends Component {
   static defaultProps = {
-    numOfJokes: 1,
+    numOfJokes: 1
   };
   constructor(props) {
     super(props);
@@ -22,12 +22,8 @@ export class JokeList extends Component {
       isLoaded: true
     };
     this.fetchJoke = this.fetchJoke.bind(this);
-    this.onAddJokeScoreClickHandler = this.onAddJokeScoreClickHandler.bind(
-      this
-    );
-    this.onRemoveJokeScoreClickHandler = this.onRemoveJokeScoreClickHandler.bind(
-      this
-    );
+    this.onJokeScoreClickHandler = this.onJokeScoreClickHandler.bind(this);
+    this.onGetSingleJokeHandler = this.onGetSingleJokeHandler.bind(this);
   }
 
   async componentDidMount() {
@@ -46,7 +42,7 @@ export class JokeList extends Component {
     let newJokes = [];
     try {
       //set state
-      while(newJokes.length < this.props.numOfJokes){
+      while (newJokes.length < this.props.numOfJokes) {
         let res = await axios.get(API_URL, config);
         let { id, joke } = res.data;
         const score = 0;
@@ -63,16 +59,12 @@ export class JokeList extends Component {
       console.log(err);
     }
   }
-  onAddJokeScoreClickHandler(id, operator) {
+  onJokeScoreClickHandler(id, operator) {
     let jokes = this.state.jokes;
     const newObjArr = updateJokeScore(jokes, id, operator);
-    this.setState({jokes:newObjArr})
+    this.setState({ jokes: newObjArr });
   }
-  onRemoveJokeScoreClickHandler(id, operator) {
-    let jokes = this.state.jokes;
-    const newObjArr = updateJokeScore(jokes, id, operator);
-    console.log(newObjArr)
-  }
+  onGetSingleJokeHandler() {}
 
   render() {
     let jokeList = <Loading />;
@@ -83,7 +75,7 @@ export class JokeList extends Component {
             <Joke
               joke={jokeOBj}
               key={uuidv4()}
-              clicked={this.onAddJokeScoreClickHandler}
+              clicked={this.onJokeScoreClickHandler}
             />
           );
         });
@@ -91,9 +83,10 @@ export class JokeList extends Component {
     }
 
     return (
-      <div className="joke-list">
-        {jokeList}
-      </div>
+      <React.Fragment>
+        <div className="joke-list">{jokeList}</div>
+        <button className="joke-list-button">New Joke</button>
+      </React.Fragment>
     );
   }
 }

@@ -27,7 +27,7 @@ body {
     justify-self: center;
     width: 75%;
 }
-.sidebar button{
+.joke-list-button{
     padding: 2%;
     margin: 5% 0;
 }
