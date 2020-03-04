@@ -16,7 +16,8 @@
 }
 
 .Joke-text {
-  width: 75%;
+  /* even distribution */
+  width: 75%; 
   font-size: 1.2rem;
 }
 
@@ -28,6 +29,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: 300;
+  /* Gives the ring */
   border: 3px solid red;
   box-shadow: 0 10px 38px rgba(0, 0, 0, 0.2), 0 10px 12px rgba(0, 0, 0, 0.1);
 }
@@ -79,6 +81,7 @@
 .Joke-smiley {
   font-size: 3rem;
   margin-left: auto;
+  /* Circle around */
   border-radius: 50%;
   box-shadow: 0 10px 38px rgba(0, 0, 0, 0.2), 0 10px 12px rgba(0, 0, 0, 0.1);
 }
