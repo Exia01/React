@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import Joke from './Joke';
 import './JokeList.css';
 
@@ -30,11 +30,13 @@ class JokeList extends Component {
   async getJokes() {
     try {
       let jokes = [];
+      //while the array of state is empty
       while (jokes.length < this.props.numJokesToGet) {
         let res = await axios.get(API_URL, API_CONFIG);
         let newJoke = res.data.joke;
         if (!this.seenJokes.has(newJoke)) {
-          jokes.push({ id: uuid(), text: newJoke, votes: 0 });
+          let jokeObj = { id: uuid(), text: newJoke, votes: 0 };
+          jokes.push(jokeObj);
         } else {
           console.log('FOUND A DUPLICATE!');
           console.log(newJoke);
@@ -54,17 +56,30 @@ class JokeList extends Component {
     }
   }
   handleVote(id, delta) {
-    // Here be dragons
+    // Using callback for setState
     this.setState(
       st => ({
-        jokes: st.jokes.map(j =>
-          j.id === id ? { ...j, votes: j.votes + delta } : j
+        jokes: st.jokes.map((
+          j //creating a new array with map
+        ) =>
+          // if the joke matches the if it is, spreading and updating
+          j.id === id ? { ...j, votes: j.votes + delta } : j //return untouched joke
         )
       }),
       () =>
         window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes))
     );
+
+    // Another way of doing this:
+    /* 
+    const otherJokes = words.filter(j => j.id !== id);
+    const UpdatedJoke = this.state.jokes.find(j => {
+      return j.id == id ;
+    });
+    // this.setState({ logic}, set Storage here);
+   */
   }
+
   handleClick() {
     this.setState({ loading: true }, this.getJokes);
   }
@@ -84,7 +99,10 @@ class JokeList extends Component {
           <h1 className='JokeList-title'>
             <span>Dad</span> Jokes
           </h1>
-          <img src='https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg' />
+          <img
+            src='https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg'
+            alt='MainEmojiIcon'
+          />
           <button className='JokeList-getmore' onClick={this.handleClick}>
             Fetch Jokes
           </button>
@@ -96,7 +114,8 @@ class JokeList extends Component {
               key={j.id}
               votes={j.votes}
               text={j.text}
-              upvote={() => this.handleVote(j.id, 1)}
+              id={j.id}
+              upVote={() => this.handleVote(j.id, 1)}
               downvote={() => this.handleVote(j.id, -1)}
             />
           ))}
@@ -110,3 +129,5 @@ export default JokeList;
 // https://stackoverflow.com/questions/45389073/javascript-search-for-an-object-key-in-a-set
 // uudi: https://www.npmjs.com/package/uuid
 // https://stackoverflow.com/questions/45389073/javascript-search-for-an-object-key-in-a-set
+// Json Parser : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+//Using Callback with SetState: https://upmostly.com/tutorials/how-to-use-the-setstate-callback-in-react#:~:text=setState%20Callback%20in%20a%20Functional,is%20an%20array%20of%20dependencies.

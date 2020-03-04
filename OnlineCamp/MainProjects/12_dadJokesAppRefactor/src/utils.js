@@ -1,45 +1,45 @@
 export const getColor = votes => {
   if (!votes) {
-    return "#FF9800";
+    return '#FF9800';
   }
   if (votes >= 15) {
-    return "#4CAF50";
+    return '#4CAF50';
   } else if (votes >= 12) {
-    return "#8BC34A";
+    return '#8BC34A';
   } else if (votes >= 9) {
-    return "#CDDC39";
+    return '#CDDC39';
   } else if (votes >= 6) {
-    return "#FFEB3B";
+    return '#FFEB3B';
   } else if (votes >= 3) {
-    return "#FFC107";
+    return '#FFC107';
   } else if (votes >= 0) {
-    return "#FF9800";
+    return '#FF9800';
   } else {
-    return "#f44336";
+    return '#f44336';
   }
 };
 export const getEmoji = votes => {
-  console.log(votes);
-  
-  if (!votes) {
-    return "em em-neutral_face";
+  if (votes === undefined || votes === null) {
+    console.log("No Votes");
+    return 'em em-neutral_face';
   }
+  console.log(votes);
   if (votes >= 15) {
-    return "em em-rolling_on_the_floor_laughing";
+    return 'em em-rolling_on_the_floor_laughing';
   } else if (votes >= 12) {
-    return "em em-laughing";
+    return 'em em-laughing';
   } else if (votes >= 9) {
-    return "em em-smiley";
+    return 'em em-smiley';
   } else if (votes >= 6) {
-    return "em em-slightly_smiling_face";
+    return 'em em-slightly_smiling_face';
   } else if (votes >= 3) {
-    return "em em-neutral_face";
+    console.log("Neutral Face?");
+    return 'em em-neutral_face';
   } else if (votes >= 0) {
-    return "em em-confused";
+    return 'em em-confused';
   } else {
-    return "em em-angry";
+    return 'em em-angry';
   }
 };
-
 
 // Emojis lists:https://github.com/afeld/emoji-css
