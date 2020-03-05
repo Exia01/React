@@ -1,6 +1,6 @@
 import React from 'react';
 import './Joke.css';
-import { getColor, getEmoji } from './utils';
+import { getColor, getEmoji } from '../utils';
 
 const Joke = props => {
   // could create as arrow func handlers as well

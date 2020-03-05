@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { v4 as uuid } from 'uuid';
-import Joke from './Joke';
+import Joke from '../components/Joke';
 import './JokeList.css';
 
 // Global Variable
@@ -16,11 +16,13 @@ class JokeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //set empty array if empty json.parse, parses through the string of array and sets array. 
+      //set empty array if empty json.parse, parses through the string of array and sets array.
       jokes: JSON.parse(window.localStorage.getItem('jokes') || '[]'),
       loading: false
     };
-    this.seenJokes = new Set(this.state.jokes.map(j => j.text)); //existing jokes
+
+    // Local variable tied to the "this" instance [ "Joke Here", "Joke There", "Joke Over there" ]
+    this.seenJokes = new Set(this.state.jokes.map(j => j.text)); //existing jokes, text only
     console.log(this.seenJokes);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -35,7 +37,7 @@ class JokeList extends Component {
       while (jokes.length < this.props.numJokesToGet) {
         let res = await axios.get(API_URL, API_CONFIG);
         let newJoke = res.data.joke;
-        if (!this.seenJokes.has(newJoke)) {
+        if (!this.seenJokes.has(newJoke)) { //if it doesn't have that joke then add it
           let jokeObj = { id: uuid(), text: newJoke, votes: 0 };
           jokes.push(jokeObj);
         } else {
@@ -47,11 +49,11 @@ class JokeList extends Component {
         st => ({
           loading: false,
           //jokes is one layer deep, no nested objs so we can spread
-          jokes: [...st.jokes, ...jokes] //spreading current 
+          jokes: [...st.jokes, ...jokes] //spreading current
         }),
         () =>//wait till state is updated
-        // Can only store strings in localStorage, key is jokes for string of arrays of jokes
-          window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes)) //turns json into strings 
+          // Can only store strings in localStorage, key is jokes for string of arrays of jokes
+          window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes)) //turns json into strings
       );
     } catch (e) {
       alert(e);
@@ -74,7 +76,7 @@ class JokeList extends Component {
     );
 
     // Another way of doing this:
-    /* 
+    /*
     const otherJokes = words.filter(j => j.id !== id);
     const UpdatedJoke = this.state.jokes.find(j => {
       return j.id == id ;
@@ -84,7 +86,7 @@ class JokeList extends Component {
   }
 
   handleClick() {
-    this.setState({ loading: true }, this.getJokes);
+    this.setState({ loading: true }, this.getJokes); //callback get jokes after updating state
   }
   render() {
     if (this.state.loading) {
@@ -96,6 +98,7 @@ class JokeList extends Component {
       );
     }
     let jokes = this.state.jokes.sort((a, b) => b.votes - a.votes);
+    //we will then map afterwards
     return (
       <div className='JokeList'>
         <div className='JokeList-sidebar'>

@@ -22,7 +22,7 @@ export const getEmoji = votes => {
   if (votes === undefined || votes === null) {
     return 'em em-neutral_face';
   }
-  console.log(votes);
+  
   if (votes >= 15) {
     return 'em em-rolling_on_the_floor_laughing';
   } else if (votes >= 12) {
