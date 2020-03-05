@@ -20,7 +20,6 @@ export const getColor = votes => {
 };
 export const getEmoji = votes => {
   if (votes === undefined || votes === null) {
-    console.log("No Votes");
     return 'em em-neutral_face';
   }
   console.log(votes);
@@ -33,7 +32,6 @@ export const getEmoji = votes => {
   } else if (votes >= 6) {
     return 'em em-slightly_smiling_face';
   } else if (votes >= 3) {
-    console.log("Neutral Face?");
     return 'em em-neutral_face';
   } else if (votes >= 0) {
     return 'em em-confused';

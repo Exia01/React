@@ -16,7 +16,7 @@ class JokeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //set empty array if empty
+      //set empty array if empty json.parse, parses through the string of array and sets array. 
       jokes: JSON.parse(window.localStorage.getItem('jokes') || '[]'),
       loading: false
     };
@@ -25,6 +25,7 @@ class JokeList extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   async componentDidMount() {
+    //if no jokes then fetch
     if (this.state.jokes.length === 0) this.getJokes();
   }
   async getJokes() {
@@ -45,10 +46,12 @@ class JokeList extends Component {
       this.setState(
         st => ({
           loading: false,
-          jokes: [...st.jokes, ...jokes]
+          //jokes is one layer deep, no nested objs so we can spread
+          jokes: [...st.jokes, ...jokes] //spreading current 
         }),
-        () =>
-          window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes))
+        () =>//wait till state is updated
+        // Can only store strings in localStorage, key is jokes for string of arrays of jokes
+          window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes)) //turns json into strings 
       );
     } catch (e) {
       alert(e);
@@ -65,7 +68,7 @@ class JokeList extends Component {
           // if the joke matches the if it is, spreading and updating
           j.id === id ? { ...j, votes: j.votes + delta } : j //return untouched joke
         )
-      }),
+      }), //explicit, run after the jokes arr is updated
       () =>
         window.localStorage.setItem('jokes', JSON.stringify(this.state.jokes))
     );
