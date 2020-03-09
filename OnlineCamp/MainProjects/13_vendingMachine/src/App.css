@@ -1,71 +1,33 @@
 .App {
-  width: 100vw;
-}
-.vending-machine {
-  height: 100vh;
-  width: 80vw;
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.vending-machine .vending-machine-message {
-  font-size: 1.5rem;
+  text-align: center;
 }
 
-.vending-machine-option-links {
-  display: grid;
-  justify-content: center;
-  /* grid-template-columns: 1fr; */
-  gap: 2em 0em;
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
 }
 
-.sardines {
-  height: 100vh;
-  object-fit: fill;
-  background: url('https://svbrightwater.files.wordpress.com/2016/12/sardines-loop.gif');
-  background-repeat: repeat;
-  background-repeat: no-repeat;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
-  background-position: center;
-}
-.sardines-content-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
+  flex-direction: column;
   align-items: center;
-  justify-self: center;
-  margin-inline: auto;
-  margin-block: 10%;
-  width: 50%;
-  height: 50%;
-  /* border: 2px dashed #a44232; */
-  box-shadow: 0px 0px 11px 5px rgba(0, 0, 0, 0.34);
-  padding: 0 15px;
-  background-color: #555454;
-  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
   color: white;
 }
-.sardines-content-grid > p {
-  align-self: end;
-}
-.sardines-content-grid .sardines-button-grid-item {
-  align-self: start;
-}
-.sardines-content-grid .sardines-button-grid-item button {
-  width: 110%;
-  -webkit-box-shadow: inset -1px 3px 8px 5px #1f87ff, 2px 5px 16px 0px #0b325e,
-    5px 5px 15px 5px rgba(102, 99, 98, 0);
-  box-shadow: inset -1px 3px 8px 5px #1f87ff, 2px 5px 16px 0px #0b325e,
-    5px 5px 15px 5px rgba(102, 99, 98, 0);
+
+.App-link {
+  color: #61dafb;
 }
 
-.soda {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.soda .soda-image {
-  max-width: 250px;
-}
-.soda .soda-image img {
-  width: 100%;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
