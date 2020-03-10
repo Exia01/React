@@ -20,8 +20,10 @@ class App extends Component {
         <Switch>
           <Route
             exact
+            /*Colon indicates url parameter*/
             path='/food/:name'
-            render={routeProps => <Food {...routeProps} />}
+            /*routeprops could be named anything props are being spread and passed individually*/
+            render={routeProps => <Food {...routeProps}  isAuthenticated="true"/>}
           />
           <Route
             exact
