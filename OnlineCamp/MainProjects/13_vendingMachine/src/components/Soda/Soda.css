@@ -6,7 +6,7 @@
 }
 
 .Soda img {
-  animation: spin 1s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {

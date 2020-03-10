@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Message from "../../Message";
+import Message from "../../hoc/Message";
 import "./VendingMachine.css";
 import vendingMachineImg from "./../../VendingMachine.png";
 
@@ -11,6 +11,7 @@ class VendingMachine extends Component {
         className='VendingMachine'
         style={{ backgroundImage: `url(${vendingMachineImg})` }}
       >
+        {/* HOC, h1 being wrapped, could use react fragment?*/}
         <Message>
           <h1>hello i am a vending machine. what would you like to eat?</h1>
         </Message>

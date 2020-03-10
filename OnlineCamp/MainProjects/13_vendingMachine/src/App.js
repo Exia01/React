@@ -14,7 +14,8 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-       <Navbar/>
+        {/*since  we want it to be permanently on top */}
+        <Navbar />
         <Switch>
           <Route exact path='/' render={() => <VendingMachine />} />
           <Route exact path='/soda' render={() => <Soda />} />

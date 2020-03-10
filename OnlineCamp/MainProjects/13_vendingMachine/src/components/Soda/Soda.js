@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Message from "../../Message";
+import Message from "../../hoc/Message";
 import { Link } from "react-router-dom";
 import sodaImg from "../.././Soda.png";
 import "./Soda.css";

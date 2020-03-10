@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Message from "../../Message";
+import Message from "../../hoc/Message";
 
 import { Link } from "react-router-dom";
 import chipsImg from "../../Chips.png";
@@ -24,6 +24,7 @@ class Chips extends Component {
   }
 
   render() {
+    console.log(this.state.bags)
     const bags = this.state.bags.map((bag, i) => (
       <img
         key={i}

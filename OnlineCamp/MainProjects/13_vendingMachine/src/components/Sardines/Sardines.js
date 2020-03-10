@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Message from "../../Message";
+import Message from "../../hoc/Message";
 import "./Sardines.css";
 
 class Sardines extends Component {
