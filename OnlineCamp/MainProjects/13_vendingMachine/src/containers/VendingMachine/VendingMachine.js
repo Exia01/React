@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Message from "./Message";
+import Message from "../../Message";
 import "./VendingMachine.css";
-import vendingMachineImg from "./VendingMachine.png";
+import vendingMachineImg from "./../../VendingMachine.png";
 
 class VendingMachine extends Component {
   render() {
