@@ -38,6 +38,7 @@ class App extends Component {
             path='/'
             render={routeProps => <FoodSearch {...routeProps}/>}
           /> */}
+          {/* below wont work when needing to pass props */}
           <Route exact path='/' component={FoodSearch} />
           {/* Order matters on switch so this would be the catch all  */}
           <Route render={() => <h1>ERROR NOT FOUND!!!</h1>} />

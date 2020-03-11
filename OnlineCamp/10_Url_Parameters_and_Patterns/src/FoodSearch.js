@@ -9,13 +9,16 @@ class FoodSearch extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleChange(evt) {
-    this.setState({ query: evt.target.value });
+    let query = { query: evt.target.value }
+    this.setState(query);
   }
   handleClick() {
     //Do something
     alert("SAVED YOUR FOOD TO DB!");
     //redirect somewhere else
+    //Push, is for moving onto a new route, redirect prevents the back flow
     this.props.history.push(`/food/${this.state.query}`);
+
   }
   render() {
     return (

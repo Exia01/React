@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// Not a default export  so using curly brackets
 import { Redirect } from "react-router-dom";
 import "./Food.css";
 class Food extends Component {
@@ -7,7 +8,9 @@ class Food extends Component {
     const url = `https://source.unsplash.com/1600x900/?${name}`;
     return (
       <div className='Food'>
+        {/* Using regex to test for string, if name is num then redirect */}
         {/\d/.test(name) ? (
+          {/* */}
           <Redirect to='/' />
         ) : (
           <div>
