@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Meal extends Component {
   render() {
@@ -11,8 +11,8 @@ class Meal extends Component {
         <h1>
           THIS IS A MEAL OF {foodName} + {drinkName}
         </h1>
-        <img src={foodUrl} />
-        <img src={drinkUrl} />
+        <img src={foodUrl} alt='Food url' />
+        <img src={drinkUrl} alt='Drink url' />
       </div>
     );
   }

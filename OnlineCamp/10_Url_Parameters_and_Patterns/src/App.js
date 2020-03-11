@@ -20,14 +20,17 @@ class App extends Component {
         <Switch>
           <Route
             exact
-            /*Colon indicates url parameter*/
+            /*Colon indicates url parameter that is just food and name*/
             path='/food/:name'
             /*routeprops could be named anything props are being spread and passed individually*/
             render={routeProps => <Food {...routeProps}  isAuthenticated="true"/>}
           />
           <Route
             exact
+            // Exact is looking for all the combination of parameters
             path='/food/:foodName/drink/:drinkName'
+            props={{test:true}} 
+            // if trying to add additional props then use render props with obj will not pass
             component={Meal}
           />
           {/* <Route
@@ -36,6 +39,7 @@ class App extends Component {
             render={routeProps => <FoodSearch {...routeProps}/>}
           /> */}
           <Route exact path='/' component={FoodSearch} />
+          {/* Order matters on switch so this would be the catch all  */}
           <Route render={() => <h1>ERROR NOT FOUND!!!</h1>} />
         </Switch>
       </div>
