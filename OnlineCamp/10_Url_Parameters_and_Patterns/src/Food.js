@@ -10,7 +10,7 @@ class Food extends Component {
       <div className='Food'>
         {/* Using regex to test for string, if name is num then redirect */}
         {/\d/.test(name) ? (
-          {/* */}
+          {/* */},
           <Redirect to='/' />
         ) : (
           <div>

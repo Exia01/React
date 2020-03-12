@@ -9,6 +9,7 @@ class Navbar extends Component {
   }
   handleLogin() {
     alert("LOGGED YOU IN!");
+    // This component is not under the routes, so we wrapper it with an hoc
     this.props.history.push("/food/salmon");
   }
 
@@ -22,3 +23,4 @@ class Navbar extends Component {
   }
 }
 export default withRouter(Navbar);
+// This enables passing props to the route
