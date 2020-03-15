@@ -1,0 +1,9 @@
+ul.navbar-nav li {
+  transition: ease-in 0.2s;
+}
+ul.navbar-nav li a {
+  transition: ease-in 0.2s;
+}
+ul.navbar-nav li a:hover {
+  transform: scale(1.1);
+}
