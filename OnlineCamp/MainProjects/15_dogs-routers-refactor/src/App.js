@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Routes from "./Routes";
 import Navbar from "./Navbar";
-import whiskey from "./images/whiskey.jpg";
-import tubby from "./images/tubby.jpg";
-import hazel from "./images/hazel.jpg";
-import "./App.css";
+import Routes from "./Routes";
 
+import "./App.css";
+import hazel from "./images/hazel.jpg";
+import tubby from "./images/tubby.jpg";
+import whiskey from "./images/whiskey.jpg";
 class App extends Component {
   static defaultProps = {
     dogs: [
