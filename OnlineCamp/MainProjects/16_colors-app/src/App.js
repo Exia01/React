@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import Pallete from './containers/Pallete';
+import Pallete from './containers/Palette/Palette';
 import './App.css';
 
 import seedColors from './utils/seedColors'
@@ -9,8 +9,8 @@ import seedColors from './utils/seedColors'
 function App() {
   return (
     // <div className="App">
-    <div className="">
-      <Pallete pallete={{ ...seedColors[4] }} />
+    <div className="App">
+      <Pallete pallete={{ ...seedColors[2] }} />
     </div>
   );
 }
