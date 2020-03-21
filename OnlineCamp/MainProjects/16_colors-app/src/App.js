@@ -9,7 +9,7 @@ import seedColors from './utils/seedColors'
 function App() {
   return (
     // <div className="App">
-    <div className="App">
+    <div>
       <Pallete pallete={{ ...seedColors[2] }} />
     </div>
   );
