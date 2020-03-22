@@ -44,6 +44,7 @@ const generatePalette = starterPalette => {
     // first loop through the colors and make key with empty array 
     for (const level of levels) {
         //creating key with number and setting val to arr 
+        //colors:{50:[],100:[],}
         newPalette.colors[level] = []
     }
 
@@ -59,12 +60,12 @@ const generatePalette = starterPalette => {
             //add in to our new palette
             newPalette.colors[levels[i]].push({
                 name: `${color.name} ${levels[i]}`,
-                id: color.name.toLowerCase().replace(/ /g, '-'), //replace s[ace globally with a dash
+                id: color.name.toLowerCase().replace(/ /g, '-'), //replace space globally with a dash
                 hex: scale[i],
                 rgb: chroma(scale[i]).css(),
                 rgba: chroma(scale[i]).css().replace('rgb', 'rgba').replace(')', ',1.0)'),
             })
-            console.log(scale, newPalette.colors[levels[i]]);
+            // console.log(scale, newPalette.colors[levels[i]]);
         }
     }
 
@@ -74,7 +75,7 @@ function getRange(hexColor) {
     // Takes hex color and return an array that goes from input color
     const end = "#fff";
     // If using black, gets too many black colors, using white instead
-    return [
+    return [//creating chroma colors
         // from darker color to our hex color to white
         chroma(hexColor).darken(1.4).hex(), hexColor, end
     ];
