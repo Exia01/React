@@ -18,6 +18,7 @@ export class ColorBox extends Component {
         })
 
     }
+    
     render() {
         const { background, name } = this.props
         // When copied is true, add show call with short circuit
