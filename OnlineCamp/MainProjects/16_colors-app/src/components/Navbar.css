@@ -43,3 +43,8 @@
   margin-left: -7px;
   margin-top: -3px;
 }
+
+.select-container{
+  margin-inline-start: auto;
+  margin-inline-end: 1rem;
+}
