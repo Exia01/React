@@ -24,11 +24,12 @@ export class Palette extends Component {
     this.setState({ format: value });
   }
   render() {
-    const { colors } = this.props.palette;
+    // destructuring for easier use
+    const { colors, palette, emoji } = this.props.palette;
     const { level, format } = this.state;
-    console.log(this.props.palette.colors[300]);
+    // console.log(this.props.palette.colors[300]);
     const colorBoxes = colors[level].map(color => {
-      return <ColorBox background={color[format]} name={color.name} />; //picking rgb, rgba, etc
+      return <ColorBox background={color[format]} name={color.name} key={color.id} />; //picking rgb, rgba, etc
     });
     return (
       <div className='Palette'>
@@ -37,9 +38,11 @@ export class Palette extends Component {
           changeLevel={this.changeLevel}
           handleChange={this.changeFormat}
         />
-        {/* Navbar goes here */}
         <div className='Palette-colors'>{colorBoxes}</div>
-        {/* Footer */}
+        <footer className='Palette-footer'>
+          {palette}
+          <span className='emoji'>{emoji}</span>
+        </footer>
       </div>
     );
   }
