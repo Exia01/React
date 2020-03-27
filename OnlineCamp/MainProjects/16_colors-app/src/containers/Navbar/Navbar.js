@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Slider and css
 import Slider from 'rc-slider';
@@ -38,7 +39,7 @@ export class Navbar extends Component {
     return (
       <header className='Navbar'>
         <div className='logo'>
-          <a href='#'>React-Color-Picker</a>
+          <Link to='/'>React-Color-Picker</Link>
         </div>
         {/* min, max, val this.props with out of box func OnAfterChange  */}
         <div className='slider-container'>

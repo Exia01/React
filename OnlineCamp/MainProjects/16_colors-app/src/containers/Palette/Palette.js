@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ColorBox from '../ColorBox/ColorBox';
-import Navbar from '../../components/Navbar';
+import Navbar from '../Navbar/Navbar';
 
 import './Palette.css';
 export class Palette extends Component {
