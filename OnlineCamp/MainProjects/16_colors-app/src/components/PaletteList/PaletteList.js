@@ -7,11 +7,11 @@ const PaletteList = props => {
   return (
     <div>
       <h1>React Colors</h1>
-      <MiniPalette />
       {palettes.map(palette => {
         return (
           <p>
-            <Link to={`/palette/${palette.id}`}>{palette.paletteName}</Link>;
+            {/* Spreading or "extracting" props in palette */}
+            <MiniPalette {...palette} />
           </p>
         );
       })}
