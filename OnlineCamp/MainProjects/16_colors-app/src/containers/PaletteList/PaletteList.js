@@ -8,10 +8,10 @@ import MiniPalette from '../../components/MiniPallette/MiniPalette';
 const styles = {
   root: {
     backgroundColor: 'blue',
-    height: '100%',
+    height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center', 
   },
   container: {
     width: '50%',
