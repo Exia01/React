@@ -17,11 +17,11 @@ const styles = {
   },
   colors: {
     backgroundColor: '#dae1e4',
-    height:"150px", 
-    width:"100%", 
+    height: '150px',
+    width: '100%',
     borderRadius: '5px',
     // This hides the corners from the colors to abide by the border radius
-    overflow:"hidden",
+    overflow: 'hidden'
   },
   title: {
     display: 'flex',
@@ -49,7 +49,11 @@ const styles = {
 };
 // classes props will be passed with main included
 const MiniPalette = props => {
-  const { classes, paletteName, emoji, colors } = props;
+  const { classes, paletteName, emoji, colors, handleClick } = props;
+  const onClickHandler = id => {
+    handleClick(props.id);
+  };
+
   const miniColorBoxes = colors.map(color => {
     return (
       <div
@@ -62,7 +66,7 @@ const MiniPalette = props => {
   // console.log([props]);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={onClickHandler}>
       <div className={classes.colors}>{miniColorBoxes}</div>
       <h5 className={classes.title}>
         {paletteName} <span className={classes.emoji}>{emoji}</span>

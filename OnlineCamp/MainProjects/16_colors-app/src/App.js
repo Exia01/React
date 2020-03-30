@@ -24,7 +24,10 @@ function App() {
       <Route
         exact
         path='/'
-        component={() => <PaletteList palettes={seedColors} />}
+        // passing routeProps to enable use in PaletteList
+        component={routeProps => (
+          <PaletteList palettes={seedColors} {...routeProps} />
+        )}
       />
       {/* Passing route props and extracting param */}
       <Route
