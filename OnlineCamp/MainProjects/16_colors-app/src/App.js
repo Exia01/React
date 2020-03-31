@@ -7,6 +7,7 @@ import './App.css';
 
 import seedColors from './utils/seedColors';
 import { generatePalette } from './utils/colorHelpers';
+import SingleColorPalette from './containers/SinglePalette/SingleColorPalette';
 
 function App() {
   // Takes id from param  could move into utils
@@ -42,7 +43,7 @@ function App() {
       <Route
         exact
         path='/palette/:paletteId/:colorId'
-        render={() => <h1>Single Color Page</h1>}
+        render={() => <SingleColorPalette />}
       />
     </Switch>
     //   <div>

@@ -3,6 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import './ColorBox.css';
 import { Link } from 'react-router-dom';
 
+// This container does not have access to route props since it is being generated and rendered inside the Pallete.js
 export class ColorBox extends Component {
   constructor(props) {
     super(props);
@@ -23,14 +24,14 @@ export class ColorBox extends Component {
   }
   // will need to stop the copied animation
   evtPropagation(e) {
+    // returning function to prevent eval from react
     return function(e) {
-      // e.stopPropagation()
-      console.log(e);
+      e.stopPropagation();
     };
   }
 
   render() {
-    const { background, name } = this.props;
+    const { background, name, id, paletteId, moreUrl } = this.props;
     // When copied is true, add show call with short circuit
     const { copied } = this.state;
     return (
@@ -52,7 +53,7 @@ export class ColorBox extends Component {
             </div>
             <button className='copy-button'>Copy</button>
           </div>
-          <Link to='/' onClick={this.evtPropagation}>
+          <Link to={moreUrl} onClick={this.evtPropagation}>
             <span className='see-more'> More</span>
           </Link>
         </div>
@@ -62,6 +63,5 @@ export class ColorBox extends Component {
 }
 
 export default ColorBox;
-
 
 // function rendering on evt https://stackoverflow.com/questions/34226076/why-is-my-onclick-being-called-on-render-react-js
