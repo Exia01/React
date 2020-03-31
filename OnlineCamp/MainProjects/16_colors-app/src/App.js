@@ -43,7 +43,16 @@ function App() {
       <Route
         exact
         path='/palette/:paletteId/:colorId'
-        render={() => <SingleColorPalette />}
+        render={routeProps => (
+          <SingleColorPalette
+            // Passing that one whole palette list with all colors included
+            // Will isolate that specific color in the individual palette
+            palette={findPalette(routeProps.match.params.paletteId)}
+            //passing colorId to identify color, could also move to with router
+            colorId={routeProps.match.params.colorId}
+            //
+          />
+        )}
       />
     </Switch>
     //   <div>

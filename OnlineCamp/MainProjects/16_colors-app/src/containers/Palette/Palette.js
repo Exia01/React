@@ -36,7 +36,9 @@ export class Palette extends Component {
           key={color.id}
           id={color.id}
           paletteId={id}
-          moreUrl={`/Palete/${id}/${color.id}`}
+          moreUrl={`/Palette/${id}/${color.id}`}
+          // showlink will eval as true even though it is just empty
+          showLink
         />
       ); //picking rgb, rgba, etc
     });

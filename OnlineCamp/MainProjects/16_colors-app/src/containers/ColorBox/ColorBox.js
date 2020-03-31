@@ -31,7 +31,7 @@ export class ColorBox extends Component {
   }
 
   render() {
-    const { background, name, id, paletteId, moreUrl } = this.props;
+    const { background, name, id, paletteId, moreUrl, showLink } = this.props;
     // When copied is true, add show call with short circuit
     const { copied } = this.state;
     return (
@@ -53,9 +53,12 @@ export class ColorBox extends Component {
             </div>
             <button className='copy-button'>Copy</button>
           </div>
-          <Link to={moreUrl} onClick={this.evtPropagation}>
-            <span className='see-more'> More</span>
-          </Link>
+          {/* Short circuit eval */}
+          {showLink && (
+            <Link to={moreUrl} onClick={this.evtPropagation}>
+              <span className='see-more'> More</span>
+            </Link>
+          )}
         </div>
       </CopyToClipboard>
     );
