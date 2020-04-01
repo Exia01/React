@@ -3,6 +3,7 @@ import ColorBox from '../ColorBox/ColorBox';
 import Navbar from '../Navbar/Navbar';
 
 import './Palette.css';
+import PaletteFooter from '../../components/PaletteFooter/PaletteFooter';
 export class Palette extends Component {
   constructor(props) {
     super(props);
@@ -48,12 +49,11 @@ export class Palette extends Component {
           level={level}
           changeLevel={this.changeLevel}
           handleChange={this.changeFormat}
+          // Will eval to true
+          showingAllColors
         />
         <div className='Palette-colors'>{colorBoxes}</div>
-        <footer className='Palette-footer'>
-          {palette}
-          <span className='emoji'>{emoji}</span>
-        </footer>
+        <PaletteFooter palette={palette} emoji={emoji} />
       </div>
     );
   }

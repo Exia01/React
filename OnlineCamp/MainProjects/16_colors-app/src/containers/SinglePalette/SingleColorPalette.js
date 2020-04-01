@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ColorBox from '../ColorBox/ColorBox';
+import Navbar from '../Navbar/Navbar';
+import PaletteFooter from '../../components/PaletteFooter/PaletteFooter';
 
 class SingleColorPalette extends Component {
   constructor(props) {
@@ -7,6 +9,10 @@ class SingleColorPalette extends Component {
     //shades never changes, adding to instance to class itself?
     this._shades = this.gatherShades(this.props.palette, this.props.colorId);
     //being explicit so passing params
+    this.state = {
+      format: 'hex'
+    };
+    this.changeFormat = this.changeFormat.bind(this);
   }
 
   //could move to utils files
@@ -26,13 +32,26 @@ class SingleColorPalette extends Component {
     //return all shades of given color except for the first one. It is just white
     return shades.slice(1);
   }
+
+  changeLevel(level) {
+    // console.log(level);
+    this.setState({ level });
+  }
+
+  changeFormat(value) {
+    // value coming from the Navbar handleChange on the select
+    this.setState({ format: value });
+  }
+
   render() {
+    const { format } = this.state;
+    const {emoji, palette} = this.props.palette
     // Reusing the ColorBox Component since it only renders props
     const colorBoxes = this._shades.map(color => (
       <ColorBox
         key={color.id}
         name={color.name}
-        background={color.hex}
+        background={color[format]}
         // addresses the colorbox link
         showLink={false}
       />
@@ -40,8 +59,10 @@ class SingleColorPalette extends Component {
     return (
       <div>
         <div className='Palette'>
-          <h1>Single Color Palette</h1>
+          {/* handle change will bubble up and change the state false hides the slider toggle */}
+          <Navbar handleChange={this.changeFormat} showingAllColors={false} />
           <div className='Palette-colors'>{colorBoxes}</div>
+          <PaletteFooter palette={palette} emoji={emoji} />
         </div>
       </div>
     );
