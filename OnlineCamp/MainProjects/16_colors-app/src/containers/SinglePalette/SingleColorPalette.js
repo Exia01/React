@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ColorBox from '../ColorBox/ColorBox';
 import Navbar from '../Navbar/Navbar';
 import PaletteFooter from '../../components/PaletteFooter/PaletteFooter';
+import { Link } from 'react-router-dom';
 
 class SingleColorPalette extends Component {
   constructor(props) {
@@ -33,11 +34,6 @@ class SingleColorPalette extends Component {
     return shades.slice(1);
   }
 
-  changeLevel(level) {
-    // console.log(level);
-    this.setState({ level });
-  }
-
   changeFormat(value) {
     // value coming from the Navbar handleChange on the select
     this.setState({ format: value });
@@ -45,11 +41,11 @@ class SingleColorPalette extends Component {
 
   render() {
     const { format } = this.state;
-    const {emoji, palette} = this.props.palette
+    const { emoji, palette, id } = this.props.palette;
     // Reusing the ColorBox Component since it only renders props
     const colorBoxes = this._shades.map(color => (
       <ColorBox
-        key={color.id}
+        key={color.name}
         name={color.name}
         background={color[format]}
         // addresses the colorbox link
@@ -58,10 +54,18 @@ class SingleColorPalette extends Component {
     ));
     return (
       <div>
-        <div className='Palette'>
+        <div className='SingleColorPalette Palette'>
           {/* handle change will bubble up and change the state false hides the slider toggle */}
           <Navbar handleChange={this.changeFormat} showingAllColors={false} />
-          <div className='Palette-colors'>{colorBoxes}</div>
+          <div className='Palette-colors'>
+            {colorBoxes}
+            <div className='go-back ColorBox'>
+              <Link className='back-button' to={`/palette/${id}`}>
+                {' '}
+                Go Back
+              </Link>
+            </div>
+          </div>
           <PaletteFooter palette={palette} emoji={emoji} />
         </div>
       </div>

@@ -6,8 +6,16 @@
   position: relative;
   margin-bottom: -4px;
 }
-
-.copy-button {
+.SingleColorPalette .Color {
+  /* If the colorbox is inside a single color box component */
+  height: 50%;
+}
+.ColorBox.go-back {
+  /* changes the button reusing someClasses*/
+  background-color: black;
+}
+.copy-button,
+.back-button {
   width: 100px;
   height: 30px;
   position: absolute;
@@ -26,6 +34,9 @@
   color: white;
   text-transform: uppercase;
   border: none;
+  text-decoration: none;
+}
+.copy-button {
   opacity: 0;
 }
 
