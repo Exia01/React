@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import './ColorBox.css';
 import { Link } from 'react-router-dom';
+import chroma from 'chroma-js';
 
 // This container does not have access to route props since it is being generated and rendered inside the Pallete.js
 export class ColorBox extends Component {
@@ -34,6 +35,11 @@ export class ColorBox extends Component {
     const { background, name, id, paletteId, moreUrl, showLink } = this.props;
     // When copied is true, add show call with short circuit
     const { copied } = this.state;
+    // creating a luminance range to change text
+    const isDarkColor = chroma(background).luminance() <= 0.08;
+    const isLightColor = chroma(background).luminance() <= 0.7;
+    // changing font to white
+    const fontColor = isDarkColor && 'light-text';
     return (
       // using HOC, could be wrapped on bottom only
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
@@ -45,18 +51,23 @@ export class ColorBox extends Component {
           />
           <div className={`copy-msg ${copied && 'show'}`}>
             <h1>Copied!</h1>
-            <p>{background}</p>
+            <p className={`${isDarkColor && 'light-text'}`}>{background}</p>
           </div>
           <div className='copy-container'>
             <div className='box-content'>
-              <span>{name}</span>
+              <span className={fontColor}>{name}</span>
             </div>
-            <button className='copy-button'>Copy</button>
+            <button className={`copy-button ${isLightColor && 'dark-text'}`}>
+              Copy
+            </button>
           </div>
           {/* Short circuit eval */}
           {showLink && (
             <Link to={moreUrl} onClick={this.evtPropagation}>
-              <span className='see-more'> More</span>
+              <span className={`see-more ${isLightColor && 'dark-text'}`}>
+                {' '}
+                MORE
+              </span>
             </Link>
           )}
         </div>
