@@ -1,11 +1,11 @@
-.ColorBox {
+/* .ColorBox {
   width: 20%;
   height: 25%;
   margin: 0 auto;
   display: inline-block;
   position: relative;
   margin-bottom: -4px;
-}
+} */
 .SingleColorPalette .Color {
   /* If the colorbox is inside a single color box component */
   height: 50%;

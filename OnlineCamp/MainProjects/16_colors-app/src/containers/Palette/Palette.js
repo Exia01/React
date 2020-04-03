@@ -38,8 +38,8 @@ export class Palette extends Component {
           id={color.id}
           paletteId={id}
           moreUrl={`/Palette/${id}/${color.id}`}
-          // showlink will eval as true even though it is just empty
-          showLink
+          // showingFullPalette will eval as true even though it is just empty
+          showingFullPalette
         />
       ); //picking rgb, rgba, etc
     });

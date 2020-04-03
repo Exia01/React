@@ -49,7 +49,7 @@ class SingleColorPalette extends Component {
         name={color.name}
         background={color[format]}
         // addresses the colorbox link
-        showLink={false}
+        showingFullPalette={false}
       />
     ));
     return (

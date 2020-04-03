@@ -45,6 +45,7 @@ const styles = {
     margin: '0 auto',
     position: 'relative',
     marginBottom: '-3.5px'
+    
   }
 };
 // classes props will be passed with main included
