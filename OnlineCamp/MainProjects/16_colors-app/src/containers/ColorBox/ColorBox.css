@@ -86,8 +86,8 @@
   /* Targeting only the transform */
   /* transition: transform 0.6s ease-in-out; */
   /* Scale will start out small to encompass the center of the box and then grow out */
-  transform: scale(0.1);
-/* } */ */
+  /* transform: scale(0.1); */
+/* } */ 
 .copy-overlay.show {
   opacity: 1;
   /* Gro 50% more of its size */

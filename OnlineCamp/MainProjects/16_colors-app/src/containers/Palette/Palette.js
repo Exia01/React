@@ -4,12 +4,25 @@ import Navbar from '../Navbar/Navbar';
 
 import './Palette.css';
 import PaletteFooter from '../../components/PaletteFooter/PaletteFooter';
+import { withStyles } from '@material-ui/styles';
+
+const styles = {
+  Palette: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  colors: {
+    height: '90%',
+  },
+};
+
 export class Palette extends Component {
   constructor(props) {
     super(props);
     this.state = {
       level: 500,
-      format: 'hex'
+      format: 'hex',
     };
     this.changeLevel = this.changeLevel.bind(this);
     this.changeFormat = this.changeFormat.bind(this);
@@ -27,9 +40,10 @@ export class Palette extends Component {
   render() {
     // destructuring for easier use
     const { colors, palette, emoji, id } = this.props.palette;
+    const { classes } = this.props;
     const { level, format } = this.state;
     // console.log(this.props.palette.colors[300]);
-    const colorBoxes = colors[level].map(color => {
+    const colorBoxes = colors[level].map((color) => {
       return (
         <ColorBox
           background={color[format]}
@@ -44,7 +58,7 @@ export class Palette extends Component {
       ); //picking rgb, rgba, etc
     });
     return (
-      <div className='Palette'>
+      <div className={classes.Palette}>
         <Navbar
           level={level}
           changeLevel={this.changeLevel}
@@ -52,13 +66,14 @@ export class Palette extends Component {
           // Will eval to true
           showingAllColors
         />
-        <div className='Palette-colors'>{colorBoxes}</div>
+        <div className={classes.colors}>{colorBoxes}</div>
         <PaletteFooter palette={palette} emoji={emoji} />
       </div>
     );
   }
 }
 
-export default Palette;
+// wrapping styles constant and passing props for styles as classes
+export default withStyles(styles)(Palette);
 
 // React slider resources: https://github.com/react-component/slider
