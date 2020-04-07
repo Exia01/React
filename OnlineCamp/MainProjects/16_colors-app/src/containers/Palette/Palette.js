@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import ColorBox from '../ColorBox/ColorBox';
 import Navbar from '../Navbar/Navbar';
-
-import './Palette.css';
 import PaletteFooter from '../../components/PaletteFooter/PaletteFooter';
 import { withStyles } from '@material-ui/styles';
 
-const styles = {
-  Palette: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  colors: {
-    height: '90%',
-  },
-};
+import styles from '../../styles/PaletteStyles';
 
 export class Palette extends Component {
   constructor(props) {
@@ -37,6 +26,7 @@ export class Palette extends Component {
     // value coming from the Navbar handleChange on the select
     this.setState({ format: value });
   }
+
   render() {
     // destructuring for easier use
     const { colors, palette, emoji, id } = this.props.palette;
