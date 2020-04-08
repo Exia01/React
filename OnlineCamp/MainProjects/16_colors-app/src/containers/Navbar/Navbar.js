@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// Slider and css
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-
-//imported after to override the previous on index css
-import './Navbar.css';
-
 // Material ui imports
 import Select from '@material-ui/core/Select';
 import { MenuItem } from '@material-ui/core';
@@ -15,6 +8,15 @@ import { MenuItem } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { withStyles } from '@material-ui/styles';
+
+// Slider and css
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
+//imported after to override the previous on index css
+// import './Navbar.css';
+import styles from '../../styles/NavbarStyles'
 
 export class Navbar extends Component {
   constructor(props) {
@@ -33,19 +35,19 @@ export class Navbar extends Component {
   }
 
   render() {
-    const { level, changeLevel, showingAllColors } = this.props;
+    const { level, changeLevel, showingAllColors, classes } = this.props;
     const { format } = this.state;
 
     return (
-      <header className='Navbar'>
-        <div className='logo'>
+      <header className={classes.Navbar}>
+        <div className={classes.logo}>
           <Link to='/'>React-Color-Picker</Link>
         </div>
         {showingAllColors && (
-          <div className='slider-container'>
+          <div>
             {/* min, max, val this.props with out of box func OnAfterChange  */}
             <span>Level:{level}</span>
-            <div className='slider'>
+            <div className={classes.slider}>
               {/* Tradeoff is overriding the style of library */}
               <Slider
                 defaultValue={level}
@@ -57,7 +59,7 @@ export class Navbar extends Component {
             </div>
           </div>
         )}
-        <div className='select-container'>
+        <div className={classes.selectContainer}>
           {/* Out of the box built in css and javascript imports up top separate */}
 
           <Select
@@ -105,4 +107,4 @@ export class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withStyles(styles)(Navbar);
