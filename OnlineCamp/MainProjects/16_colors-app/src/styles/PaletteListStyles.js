@@ -16,7 +16,19 @@ export default {
     nav: {
         display: "flex",
         width: "100%",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: 'center',
+        color: 'white',
+        '& a': {
+            color: 'white',
+            textDecoration: 'none',
+            transition: '1s',
+        },
+        '& a:hover': {
+            cursor: 'pointer',
+            transform: 'scale(1.1)',
+            color: 'orange'
+        }
     },
     palettes: {
         boxSizing: "border-box",

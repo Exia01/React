@@ -8,11 +8,12 @@ import './App.css';
 import seedColors from './utils/seedColors';
 import { generatePalette } from './utils/colorHelpers';
 import SingleColorPalette from './containers/SinglePalette/SingleColorPalette';
+import NewPaletteForm from './containers/NewPaletteForm/NewPaletteForm';
 
 function App() {
   // Takes id from param  could move into utils
-  const findPalette = id => {
-    const foundPalette = seedColors.find(palette => {
+  const findPalette = (id) => {
+    const foundPalette = seedColors.find((palette) => {
       return palette.id === id;
     });
     // console.log(foundPalette);
@@ -22,11 +23,13 @@ function App() {
 
   return (
     <Switch>
+      {/* leaving on top to prevent the second route triggering */}
+      <Route exact path='/palette/new' render={() => <NewPaletteForm />} />
       <Route
         exact
         path='/'
         // passing routeProps to enable use in PaletteList
-        component={routeProps => (
+        component={(routeProps) => (
           <PaletteList palettes={seedColors} {...routeProps} />
         )}
       />
@@ -35,7 +38,7 @@ function App() {
         exact
         path='/palette/:id'
         // route props enables the usage of the props from route
-        render={routeProps => (
+        render={(routeProps) => (
           <Palette palette={findPalette(routeProps.match.params.id)} />
         )}
       />
@@ -43,7 +46,7 @@ function App() {
       <Route
         exact
         path='/palette/:paletteId/:colorId'
-        render={routeProps => (
+        render={(routeProps) => (
           <SingleColorPalette
             // Passing that one whole palette list with all colors included
             // Will isolate that specific color in the individual palette
