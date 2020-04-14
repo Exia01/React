@@ -12,10 +12,16 @@ class ThemeContextProvider extends Component {
     // font color, ui elements, background
     dark: { syntax: '#ddd', ui: '#333', bg: '#555' },
   };
+  toggleTheme = () => {
+    //reverse whatever the state of isLightTheme is by using callback
+    this.setState((prevState) => ({ isLightTheme: !prevState.isLightTheme }));
+  };
   render() {
     //   contains the ThemeContextProvider tag value property takes in the data we want to provide
     return (
-      <ThemeContext.Provider value={{ ...this.state }}>
+      <ThemeContext.Provider
+        value={{ ...this.state, toggleTheme: this.toggleTheme }}
+      >
         {/* spreading out the properties into  */}
         {/* this for this component props children refers to the component the component wraps */}
         {this.props.children}
