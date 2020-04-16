@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v1 as uuidv1 } from 'uuid';
 import NewSongForm from './NewSongForm';
 
@@ -10,6 +10,16 @@ const SongList = () => {
     { title: 'memory gospel', id: 2 },
     { title: 'this wild darkness', id: 3 },
   ]);
+
+  const [age, setAge] = useState(20); //can have more than one 'useState'
+
+  // useEffect takes a callback function, runs every time it re renders(data changes) or originally renders
+  useEffect(() => {
+    console.log('useEffect hook ran', songs);
+  }, [songs]); //second arg is arr of data we want to watch and only run when the data inside of it changes
+  useEffect(() => {
+    console.log('useEffect hook ran', age);
+  }, [age]);//only run this useEffect when age state changes
 
   const addSongClickHandler = (title) => {
     //taking title from newForm
@@ -26,6 +36,8 @@ const SongList = () => {
         })}
       </ul>
       <NewSongForm addSongClickHandler={addSongClickHandler} />
+      {/* clicking the button will update the age state but not the songs, will still run the use effect */}
+      <button onClick={() => setAge(age + 1)}>Add 1 to Age: {age}</button>
     </div>
   );
 };
