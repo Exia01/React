@@ -4,9 +4,9 @@ import { BookContext } from '../contexts/BookContext';
 const BookDetails = (props) => {
   // could also destructure right when we recieve the props
   const { book } = props;
-  const { removeBook } = useContext(BookContext);
+  const { dispatch } = useContext(BookContext);
   const removeBookClickHandler = () => {
-    removeBook(book.id);
+    dispatch({ type: 'REMOVE_BOOK', id: book.id });
   };
   return (
     <li onClick={removeBookClickHandler}>
