@@ -15,6 +15,7 @@ import { Button } from '@material-ui/core/';
 
 //importing the react-color picker
 import { ChromePicker } from 'react-color';
+import DraggableColorBox from './../../components/DraggableColorBox/DraggableColorBox';
 
 // Sets width
 const drawerWidth = 500;
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
+    height: 'calc(100vh - 64px)',
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
@@ -169,22 +171,16 @@ function NewPaletteForm() {
         </Button>
       </Drawer>
       <main
+        //module => give it the the classes content and give it the name contentshift if open is true
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
-        <Typography paragraph>
-          <Toolbar />
-          <ul>
-            {colors.map((color) => {
-              return (
-                <li style={{ backgroundColor: color }} key={color}>
-                  {color}
-                </li>
-              );
-            })}
-          </ul>
-        </Typography>
+        <Toolbar />
+
+        {colors.map((color) => {
+          return <DraggableColorBox color={color} key={color} />;
+        })}
       </main>
     </div>
   );
