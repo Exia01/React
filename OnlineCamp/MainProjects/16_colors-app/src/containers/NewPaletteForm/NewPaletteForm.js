@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -17,7 +17,7 @@ import { Button } from '@material-ui/core/';
 import { ChromePicker } from 'react-color';
 
 // Sets width
-const drawerWidth = 400;
+const drawerWidth = 500;
 
 // Takes in theme
 const useStyles = makeStyles((theme) => ({
@@ -78,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NewPaletteForm() {
+  //we add pairs to state. variable and a method
+  const [currentColor, setColor] = React.useState('teal');
+  const [colors, setColors] = useState(['purple', '#e15764']);
   const classes = useStyles();
   // using useState hook
   const [open, setOpen] = React.useState(false);
@@ -88,6 +91,13 @@ function NewPaletteForm() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const updateCurrentColor = (newColorObj) => {
+    setColor(newColorObj.hex);
+  };
+  const addNewColor = () => {
+    setColors([...colors, currentColor]);
   };
 
   return (
@@ -146,10 +156,15 @@ function NewPaletteForm() {
           </Button>
         </div>
         <ChromePicker
-          color='purple'
-          onChangeComplete={(newColor) => console.log(newColor)}
+          color={currentColor}
+          onChangeComplete={updateCurrentColor}
         />
-        <Button variant='contained' color='primary'>
+        <Button
+          variant='contained'
+          color='primary'
+          style={{ backgroundColor: currentColor }}
+          onClick={addNewColor}
+        >
           Add Color
         </Button>
       </Drawer>
@@ -157,7 +172,20 @@ function NewPaletteForm() {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-      ></main>
+      >
+        <Typography paragraph>
+          <Toolbar />
+          <ul>
+            {colors.map((color) => {
+              return (
+                <li style={{ backgroundColor: color }} key={color}>
+                  {color}
+                </li>
+              );
+            })}
+          </ul>
+        </Typography>
+      </main>
     </div>
   );
 }
