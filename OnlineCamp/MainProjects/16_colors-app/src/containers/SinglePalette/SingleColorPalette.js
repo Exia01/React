@@ -3,7 +3,7 @@ import ColorBox from '../ColorBox/ColorBox';
 import Navbar from '../Navbar/Navbar';
 import PaletteFooter from '../../components/PaletteFooter/PaletteFooter';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 
 import styles from '../../styles/PaletteStyles'

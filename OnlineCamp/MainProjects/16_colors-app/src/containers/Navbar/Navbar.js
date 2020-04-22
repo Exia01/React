@@ -8,8 +8,7 @@ import { MenuItem } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { withStyles } from '@material-ui/styles';
-
+import { withStyles } from '@material-ui/core/styles';
 // Slider and css
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -61,6 +60,7 @@ export class Navbar extends Component {
         )}
         <div className={classes.selectContainer}>
           {/* Out of the box built in css and javascript imports up top separate */}
+
 
           <Select
             labelId=''

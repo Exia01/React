@@ -1,6 +1,7 @@
 import React from 'react';
 // importing hoc that will pass with styles as classes
-import { withStyles } from '@material-ui/styles';
+
+import { withStyles } from '@material-ui/core/styles';
 const styles = {
   root: {
     width: '20%',
