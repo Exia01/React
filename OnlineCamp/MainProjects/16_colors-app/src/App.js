@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Palette from './containers/Palette/Palette';
@@ -11,26 +11,34 @@ import SingleColorPalette from './containers/SinglePalette/SingleColorPalette';
 import NewPaletteForm from './containers/NewPaletteForm/NewPaletteForm';
 
 function App() {
+  const [palettes, setPalettes] = useState(seedColors)
   // Takes id from param  could move into utils
   const findPalette = (id) => {
-    const foundPalette = seedColors.find((palette) => {
+    const foundPalette = palettes.find((palette) => {
       return palette.id === id;
     });
     // console.log(foundPalette);
     // generates the full spectrum of colors
     return generatePalette(foundPalette);
   };
+  const savePalette = (newPaletteOBj) => {
+    console.log('addingPallete');
+
+    setPalettes([...palettes, newPaletteOBj])
+  }
+
 
   return (
     <Switch>
       {/* leaving on top to prevent the second route triggering */}
-      <Route exact path='/palette/new' render={() => <NewPaletteForm />} />
+      {/* Passing routeProps to enable use in component */}
+      <Route exact path='/palette/new' render={(routeProps) => <NewPaletteForm savePalette={savePalette} {...routeProps} />} />
       <Route
         exact
         path='/'
         // passing routeProps to enable use in PaletteList
         component={(routeProps) => (
-          <PaletteList palettes={seedColors} {...routeProps} />
+          <PaletteList palettes={palettes} {...routeProps} />
         )}
       />
       {/* Passing route props and extracting param */}
@@ -53,7 +61,7 @@ function App() {
             palette={findPalette(routeProps.match.params.paletteId)}
             //passing colorId to identify color, could also move to with router
             colorId={routeProps.match.params.colorId}
-            //
+          //
           />
         )}
       />

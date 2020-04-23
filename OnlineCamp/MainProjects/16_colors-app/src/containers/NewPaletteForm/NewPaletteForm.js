@@ -82,9 +82,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewPaletteForm() {
+function NewPaletteForm(props) {
   //we add pairs to state. variable and a method
-  const [currentColor, setColor] = React.useState('purple');
+  const [currentColor, setColor] = React.useState('#5e4b5e');
   const [colors, setColors] = useState([]);
   const [newName, setNewName] = useState('');
   // using useState hook
@@ -105,7 +105,7 @@ function NewPaletteForm() {
         ({ color }) => color.toLowerCase() !== currentColor.toLowerCase()
       );
     });
-  }, [colors]);
+  }, [colors, currentColor]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -126,12 +126,25 @@ function NewPaletteForm() {
   const handleChange = (evt) => {
     setNewName(evt.target.value);
   };
+
+  const handleSubmit = () => {
+    let newName = 'testPaletteName';
+    let newPaletteOBj = {
+      name: 'New test palette',
+      colors,
+      // Replacing the name and spaces with a dash
+      id: newName.toLowerCase().replace(/ /g, '-'),
+    };
+    props.savePalette(newPaletteOBj);
+    props.history.push('/');
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
       {/* what we see uptop */}
       <AppBar
         position='fixed'
+        color='default'
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -150,6 +163,9 @@ function NewPaletteForm() {
           <Typography variant='h6' noWrap>
             Persistent drawer
           </Typography>
+          <Button variant='contained' color='primary' onClick={handleSubmit}>
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       {/* Drawer component takes the props that defines the way it functions */}
@@ -221,7 +237,7 @@ function NewPaletteForm() {
             <DraggableColorBox
               color={color.color}
               name={color.name}
-              key={color}
+              key={color.color}
             />
           );
         })}

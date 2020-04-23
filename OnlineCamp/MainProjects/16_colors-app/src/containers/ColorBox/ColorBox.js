@@ -15,8 +15,6 @@ export class ColorBox extends Component {
   }
 
   changeCopyState() {
-    console.log('test');
-
     //using state with callback, runs timeout reset
     this.setState({ copied: true }, () => {
       setTimeout(() => {
