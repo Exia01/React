@@ -17,7 +17,7 @@ const styles = {
     // this add the 'Hover' action to the svg icon inside the root div,
     '&:hover svg': {
       color: 'white',
-      transform:'scale(1.2)'
+      transform: 'scale(1.2)',
     },
   },
   boxContent: {
@@ -38,14 +38,20 @@ const styles = {
   },
 };
 const DraggableColorBox = (props) => {
-  const { classes, name } = props;
+  const { classes, name, onDeleteClickHandler, color } = props;
 
+  const handleClick = () => {
+    onDeleteClickHandler(name);
+  };
   return (
-    <div className={classes.root} style={{ backgroundColor: props.color }}>
+    <div className={classes.root} style={{ backgroundColor: color }}>
       <div className={classes.boxContent}>
         {' '}
         <span> {name}</span>
-        <DeleteIcon className={classes.deleteIcon} />
+        <DeleteIcon
+          className={classes.deleteIcon}
+          onClick={handleClick}
+        />
       </div>
     </div>
   );

@@ -138,8 +138,6 @@ function NewPaletteForm(props) {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-
     //handles color name or palette name changes
     setName({ ...name, [e.target.name]: e.target.value });
   };
@@ -154,6 +152,13 @@ function NewPaletteForm(props) {
     };
     props.savePalette(newPaletteOBj);
     props.history.push('/');
+  };
+
+  const removeColor = (colorName) => {
+    let newColorsArr = colors.filter((color) => {
+      return color.name !== colorName;
+    });
+    setColors(newColorsArr);
   };
   return (
     <div className={classes.root}>
@@ -229,7 +234,7 @@ function NewPaletteForm(props) {
           onChangeComplete={updateCurrentColor}
         />
 
-        <ValidatorForm onSubmit={addNewColor}>
+        <ValidatorForm onSubmit={addNewColor} instantValidate={false}>
           <TextValidator
             onChange={handleChange}
             value={name.colorName}
@@ -263,9 +268,10 @@ function NewPaletteForm(props) {
         {colors.map((color) => {
           return (
             <DraggableColorBox
+              key={color.name}
               color={color.color}
               name={color.name}
-              key={color.color}
+              onDeleteClickHandler={removeColor}
             />
           );
         })}
