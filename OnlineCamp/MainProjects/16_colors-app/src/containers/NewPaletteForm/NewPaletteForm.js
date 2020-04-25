@@ -86,7 +86,11 @@ function NewPaletteForm(props) {
   //we add pairs to state. variable and a method
   const [currentColor, setColor] = React.useState('#5e4b5e');
   const [colors, setColors] = useState([]);
-  const [newName, setNewName] = useState('');
+  const [name, setName] = useState({
+    colorName: '',
+    paletteName: '',
+  });
+
   // using useState hook
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
@@ -100,12 +104,20 @@ function NewPaletteForm(props) {
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
       );
     });
+
     ValidatorForm.addValidationRule('isColorUnique', (value) => {
       return colors.every(
         ({ color }) => color.toLowerCase() !== currentColor.toLowerCase()
       );
     });
   }, [colors, currentColor]);
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
+      return props.palettes.every(
+        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+      );
+    });
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -119,18 +131,23 @@ function NewPaletteForm(props) {
     setColor(newColorObj.hex);
   };
   const addNewColor = () => {
-    const newColorObj = { color: currentColor, name: newName };
+    const newColorObj = { color: currentColor, name: name.colorName };
+    console.log(newColorObj);
     setColors([...colors, newColorObj]);
-    setNewName('');
+    setName({ ...name, colorName: '' });
   };
-  const handleChange = (evt) => {
-    setNewName(evt.target.value);
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+
+    //handles color name or palette name changes
+    setName({ ...name, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    let newName = 'testPaletteName';
+    let newName = name.paletteName;
     let newPaletteOBj = {
-      name: 'New test palette',
+      name: newName,
       colors,
       // Replacing the name and spaces with a dash
       id: newName.toLowerCase().replace(/ /g, '-'),
@@ -163,9 +180,19 @@ function NewPaletteForm(props) {
           <Typography variant='h6' noWrap>
             Persistent drawer
           </Typography>
-          <Button variant='contained' color='primary' onClick={handleSubmit}>
-            Save Palette
-          </Button>
+          <ValidatorForm onSubmit={handleSubmit}>
+            <TextValidator
+              label='Palette Name'
+              value={name.paletteName}
+              name='paletteName'
+              onChange={handleChange}
+              validators={['required', 'isPaletteNameUnique']}
+              errorMessages={['Enter Palette Name', 'Name already used']}
+            ></TextValidator>
+            <Button variant='contained' color='primary' type='submit'>
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       {/* Drawer component takes the props that defines the way it functions */}
@@ -205,7 +232,8 @@ function NewPaletteForm(props) {
         <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
             onChange={handleChange}
-            value={newName}
+            value={name.colorName}
+            name='colorName'
             // Order matters, required goes in 0 position
             validators={['required', 'isColorNameUnique', 'isColorUnique']}
             errorMessages={[

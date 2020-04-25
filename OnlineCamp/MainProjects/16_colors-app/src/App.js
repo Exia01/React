@@ -23,6 +23,7 @@ function App() {
   };
   const savePalette = (newPaletteOBj) => {
     console.log('addingPallete');
+    console.log(newPaletteOBj);
 
     setPalettes([...palettes, newPaletteOBj])
   }
@@ -32,7 +33,7 @@ function App() {
     <Switch>
       {/* leaving on top to prevent the second route triggering */}
       {/* Passing routeProps to enable use in component */}
-      <Route exact path='/palette/new' render={(routeProps) => <NewPaletteForm savePalette={savePalette} {...routeProps} />} />
+      <Route exact path='/palette/new' render={(routeProps) => <NewPaletteForm savePalette={savePalette} palettes={palettes} {...routeProps} />} />
       <Route
         exact
         path='/'
