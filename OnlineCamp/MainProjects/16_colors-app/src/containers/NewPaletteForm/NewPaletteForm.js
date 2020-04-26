@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,11 +15,14 @@ import { Button } from '@material-ui/core/';
 
 //importing the react-color picker
 import { ChromePicker } from 'react-color';
-import DraggableColorBox from './../../components/DraggableColorBox/DraggableColorBox';
+
+import DraggableColorList from './../../components/draggableColorList/DraggableColorList';
 
 // Importing Form Validator
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+//Needed for draggable color box
+import arrayMove from 'array-move';
 // Sets width
 const drawerWidth = 500;
 
@@ -132,7 +135,6 @@ function NewPaletteForm(props) {
   };
   const addNewColor = () => {
     const newColorObj = { color: currentColor, name: name.colorName };
-    console.log(newColorObj);
     setColors([...colors, newColorObj]);
     setName({ ...name, colorName: '' });
   };
@@ -159,6 +161,11 @@ function NewPaletteForm(props) {
       return color.name !== colorName;
     });
     setColors(newColorsArr);
+  };
+
+  // function for sorting ColorBoxes
+  let onSortEnd = ({ oldIndex, newIndex }) => {
+    setColors(arrayMove(colors, oldIndex, newIndex));
   };
   return (
     <div className={classes.root}>
@@ -264,17 +271,13 @@ function NewPaletteForm(props) {
         })}
       >
         <Toolbar />
-
-        {colors.map((color) => {
-          return (
-            <DraggableColorBox
-              key={color.name}
-              color={color.color}
-              name={color.name}
-              onDeleteClickHandler={removeColor}
-            />
-          );
-        })}
+        {/* axis enables dragging feature across the x and y axis */}
+        <DraggableColorList
+          colors={colors}
+          removeColor={removeColor}
+          axis='xy'
+          onSortEnd={onSortEnd}
+        />
       </main>
     </div>
   );
