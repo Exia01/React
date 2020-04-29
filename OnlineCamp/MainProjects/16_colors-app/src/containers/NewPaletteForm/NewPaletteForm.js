@@ -18,29 +18,12 @@ import DraggableColorList from './../../components/draggableColorList/DraggableC
 import arrayMove from 'array-move';
 import PaletteFormNav from '../../components/PaletteFormNav/PaletteFormNav';
 import ColorPickerForm from './../../components/ColorPickerForm/ColorPickerForm';
-// Sets width
+// if width needs to be in central place, could import it somewhere
 const drawerWidth = 500;
 // Takes in theme
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   hide: {
     display: 'none',
@@ -156,7 +139,6 @@ function NewPaletteForm(props) {
       {/* Passing classes as to not rework the component to hoc */}
       <PaletteFormNav
         open={open}
-        classes={classes}
         palettes={palettes}
         handleSubmit={handleSubmit}
         handleDrawerOpen={handleDrawerOpen}

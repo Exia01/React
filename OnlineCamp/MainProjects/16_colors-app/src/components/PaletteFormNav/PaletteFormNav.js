@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,12 +13,44 @@ import { Button } from '@material-ui/core/';
 // Importing Form Validator
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+
+const drawerWidth = 400;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex"
+  },
+  appBar: {
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    // positions it in one row separates content    
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: "64px"
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 20
+  },
+  navBtns: {}
+}))
+
 const PaletteFormNav = (props) => {
   const [newPaletteName, setNewPaletteName] = useState({
     paletteName: '',
   });
-  const { classes, open, palettes, handleSubmit } = props;
-
+  const { open, palettes, handleSubmit } = props;
+  // Enables use of styles 
+  const classes = useStyles();
   useEffect(() => {
     ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
       return palettes.every(
@@ -35,7 +68,7 @@ const PaletteFormNav = (props) => {
     handleSubmit(newPaletteName.paletteName);
   };
   return (
-    <div>
+    <div className={classes.root}>
       <CssBaseline />
       {/* what we see uptop */}
       <AppBar
@@ -57,8 +90,10 @@ const PaletteFormNav = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' noWrap>
-            Persistent drawer
+            Create A Palette
           </Typography>
+        </Toolbar>
+        <div className={classes.navBtns}>
           <ValidatorForm onSubmit={onSubmitHandler}>
             <TextValidator
               label='Palette Name'
@@ -71,17 +106,18 @@ const PaletteFormNav = (props) => {
             <Button variant='contained' color='primary' type='submit'>
               Save Palette
             </Button>
-            <Link to='/'>
-              <Button variant='contained' color='secondary'>
-                {' '}
+          </ValidatorForm>
+          <Link to='/'>
+            <Button variant='contained' color='secondary'>
+              {' '}
                 Go back
               </Button>
-            </Link>
-          </ValidatorForm>
-        </Toolbar>
+          </Link>
+        </div>
       </AppBar>
     </div>
   );
 };
 
-export default PaletteFormNav;
+
+export default PaletteFormNav
