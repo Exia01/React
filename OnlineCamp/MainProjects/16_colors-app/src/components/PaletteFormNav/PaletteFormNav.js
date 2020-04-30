@@ -12,6 +12,7 @@ import { Button } from '@material-ui/core/';
 
 // Importing Form Validator
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import PaletteMetaForm from '../PaletteMetaForm/PaletteMetaForm';
 
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
@@ -44,27 +45,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PaletteFormNav = (props) => {
-  const [newPaletteName, setNewPaletteName] = useState({
-    paletteName: '',
-  });
   const { open, palettes, handleSubmit } = props;
   // Enables use of styles
   const classes = useStyles();
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
-      return palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      );
-    });
-  }, [newPaletteName, palettes]);
 
-  const handleChange = (e) => {
-    //handles color name or palette name changes
-    setNewPaletteName({ [e.target.name]: e.target.value });
-  };
-
-  const onSubmitHandler = () => {
-    handleSubmit(newPaletteName.paletteName);
+  const onSubmitHandler = (name) => {
+    handleSubmit(name); //paletteName
   };
   return (
     <div className={classes.root}>
@@ -93,19 +79,10 @@ const PaletteFormNav = (props) => {
           </Typography>
         </Toolbar>
         <div className={classes.navBtns}>
-          <ValidatorForm onSubmit={onSubmitHandler}>
-            <TextValidator
-              label='Palette Name'
-              value={newPaletteName.paletteName}
-              name='paletteName'
-              onChange={handleChange}
-              validators={['required', 'isPaletteNameUnique']}
-              errorMessages={['Enter Palette Name', 'Name already used']}
-            ></TextValidator>
-            <Button variant='contained' color='primary' type='submit'>
-              Save Palette
-            </Button>
-          </ValidatorForm>
+          <PaletteMetaForm
+            palettes={palettes}
+            onSubmitHandler={onSubmitHandler}
+          />
           <Link to='/'>
             <Button variant='contained' color='secondary'>
               {' '}
