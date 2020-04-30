@@ -13,43 +13,42 @@ import { Button } from '@material-ui/core/';
 // Importing Form Validator
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
-
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: 'flex',
   },
   appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
-    // positions it in one row separates content    
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: "64px"
+    // positions it in one row separates content
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: '64px',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
     marginLeft: 12,
-    marginRight: 20
+    marginRight: 20,
   },
-  navBtns: {}
-}))
+  navBtns: {},
+}));
 
 const PaletteFormNav = (props) => {
   const [newPaletteName, setNewPaletteName] = useState({
     paletteName: '',
   });
   const { open, palettes, handleSubmit } = props;
-  // Enables use of styles 
+  // Enables use of styles
   const classes = useStyles();
   useEffect(() => {
     ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
@@ -110,8 +109,8 @@ const PaletteFormNav = (props) => {
           <Link to='/'>
             <Button variant='contained' color='secondary'>
               {' '}
-                Go back
-              </Button>
+              Go back
+            </Button>
           </Link>
         </div>
       </AppBar>
@@ -119,5 +118,4 @@ const PaletteFormNav = (props) => {
   );
 };
 
-
-export default PaletteFormNav
+export default PaletteFormNav;
