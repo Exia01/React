@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     // positions it in one row separates content
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     height: '64px',
   },
   appBarShift: {
@@ -41,16 +42,35 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 12,
     marginRight: 20,
   },
-  navBtns: {},
+  navBtns: {
+    marginRight: '1rem',
+    '& a': {
+      textDecoration: 'none',
+    },
+  },
+  button: {
+    margin: '0 0.5rem',
+    // If a tag inside button
+    '& a': {
+      textDecoration: 'none',
+    },
+  },
 }));
 
 const PaletteFormNav = (props) => {
+  const [formShowing, setFormShowing] = useState(false);
   const { open, palettes, handleSubmit } = props;
   // Enables use of styles
   const classes = useStyles();
 
   const onSubmitHandler = (name) => {
     handleSubmit(name); //paletteName
+  };
+
+  const showForm = () => {
+    console.log('clicked');
+
+    setFormShowing(true);
   };
   return (
     <div className={classes.root}>
@@ -79,16 +99,30 @@ const PaletteFormNav = (props) => {
           </Typography>
         </Toolbar>
         <div className={classes.navBtns}>
-          <PaletteMetaForm
-            palettes={palettes}
-            onSubmitHandler={onSubmitHandler}
-          />
           <Link to='/'>
-            <Button variant='contained' color='secondary'>
+            <Button
+              variant='contained'
+              color='secondary'
+              className={classes.button}
+            >
               {' '}
               Go back
             </Button>
           </Link>
+          <Button
+            variant='contained'
+            color='primary'
+            className={classes.button}
+            onClick={showForm}
+          >
+            Save
+          </Button>
+          {formShowing && (
+            <PaletteMetaForm
+              palettes={palettes}
+              onSubmitHandler={onSubmitHandler}
+            />
+          )}
         </div>
       </AppBar>
     </div>
