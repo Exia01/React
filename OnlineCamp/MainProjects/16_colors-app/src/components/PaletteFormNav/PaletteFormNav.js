@@ -72,6 +72,9 @@ const PaletteFormNav = (props) => {
 
     setFormShowing(true);
   };
+  const hideForm = () => {
+    setFormShowing(false);
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -121,6 +124,7 @@ const PaletteFormNav = (props) => {
             <PaletteMetaForm
               palettes={palettes}
               onSubmitHandler={onSubmitHandler}
+              hideForm={hideForm}
             />
           )}
         </div>
