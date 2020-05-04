@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // Material UI
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -61,7 +60,7 @@ export default function PaletteMetaForm({
   return (
     <React.Fragment>
       <Dialog open={stage === 'emoji'} onClose={hideForm}>
-      <DialogTitle>Choose a Palette Emooji</DialogTitle>
+        <DialogTitle>Choose a Palette Emooji</DialogTitle>
         <Picker set='apple' title='Pick emoji' onSelect={savePalette} />
       </Dialog>
       {/* onClose will handle outside of the modal click */}
