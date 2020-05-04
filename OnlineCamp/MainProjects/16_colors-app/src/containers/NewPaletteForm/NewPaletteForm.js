@@ -87,7 +87,7 @@ function NewPaletteForm(props) {
   const [colors, setColors] = useState(props.palettes[0].colors);
   const [name, setName] = useState({});
   const isPaletteFull = colors.length >= maxColors;
-  const { palettes } = props;
+  const { palettes, savePalette } = props;
 
   // using useState hook
   const [open, setOpen] = React.useState(false);
@@ -112,14 +112,10 @@ function NewPaletteForm(props) {
     setName({ ...name, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (newPaletteName) => {
-    let newPaletteOBj = {
-      paletteName: newPaletteName,
-      colors,
-      // Replacing the name and spaces with a dash
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-    };
-    props.savePalette(newPaletteOBj);
+  const handleSubmit = (newPalette) => {
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, '-');
+    newPalette.colors = colors;
+    savePalette(newPalette);
     props.history.push('/');
   };
 

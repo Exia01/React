@@ -63,8 +63,8 @@ const PaletteFormNav = (props) => {
   // Enables use of styles
   const classes = useStyles();
 
-  const onSubmitHandler = (name) => {
-    handleSubmit(name); //paletteName
+  const onSubmitHandler = (obj) => {
+    handleSubmit(obj); //paletteName
   };
 
   const showForm = () => {
@@ -75,6 +75,7 @@ const PaletteFormNav = (props) => {
   const hideForm = () => {
     setFormShowing(false);
   };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
