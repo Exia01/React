@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Palette from './containers/Palette/Palette';
@@ -11,7 +11,8 @@ import SingleColorPalette from './containers/SinglePalette/SingleColorPalette';
 import NewPaletteForm from './containers/NewPaletteForm/NewPaletteForm';
 
 function App() {
-  const [palettes, setPalettes] = useState(seedColors)
+  const savedPalettes = JSON.parse(window.localStorage.getItem('palettes')); //parsing from string
+  const [palettes, setPalettes] = useState(savedPalettes || seedColors);
   // Takes id from param  could move into utils
   const findPalette = (id) => {
     const foundPalette = palettes.find((palette) => {
@@ -24,16 +25,28 @@ function App() {
   const savePalette = (newPaletteOBj) => {
     console.log('addingPallete');
     console.log(newPaletteOBj);
-
-    setPalettes([...palettes, newPaletteOBj])
-  }
-
+    setPalettes([...palettes, newPaletteOBj]);
+  };
+  // To then save to local storage after the state has been saved we need to use the "useEffect" hook:
+  React.useEffect(() => {
+    window.localStorage.setItem('palettes', JSON.stringify(palettes));
+  }, [palettes]);
 
   return (
     <Switch>
       {/* leaving on top to prevent the second route triggering */}
       {/* Passing routeProps to enable use in component */}
-      <Route exact path='/palette/new' render={(routeProps) => <NewPaletteForm savePalette={savePalette} palettes={palettes} {...routeProps} />} />
+      <Route
+        exact
+        path='/palette/new'
+        render={(routeProps) => (
+          <NewPaletteForm
+            savePalette={savePalette}
+            palettes={palettes}
+            {...routeProps}
+          />
+        )}
+      />
       <Route
         exact
         path='/'
@@ -62,7 +75,7 @@ function App() {
             palette={findPalette(routeProps.match.params.paletteId)}
             //passing colorId to identify color, could also move to with router
             colorId={routeProps.match.params.colorId}
-          //
+            //
           />
         )}
       />
@@ -77,3 +90,5 @@ export default App;
 
 // Shows what is being passed
 // console.log(generatePalette(seedColors[4]))
+// useCallback hook
+// https://medium.com/@infinitypaul/reactjs-useeffect-usecallback-simplified-91e69fb0e7a3

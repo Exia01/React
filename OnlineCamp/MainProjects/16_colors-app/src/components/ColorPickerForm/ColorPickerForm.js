@@ -48,8 +48,6 @@ const ColorPickerForm = (props) => {
     setNewColor({ name: '' });
   };
 
-
-  console.log(classes)
   return (
 
     <div>
