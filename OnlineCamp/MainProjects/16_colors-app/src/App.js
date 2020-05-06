@@ -27,6 +27,12 @@ function App() {
     console.log(newPaletteOBj);
     setPalettes([...palettes, newPaletteOBj]);
   };
+  const deletePalette = (paletteId) => {
+    let tempPalettesOj = palettes.filter((palette) => {
+      return palette.id !== paletteId;
+    });
+    setPalettes(tempPalettesOj);
+  };
   // To then save to local storage after the state has been saved we need to use the "useEffect" hook:
   React.useEffect(() => {
     window.localStorage.setItem('palettes', JSON.stringify(palettes));
@@ -52,7 +58,11 @@ function App() {
         path='/'
         // passing routeProps to enable use in PaletteList
         component={(routeProps) => (
-          <PaletteList palettes={palettes} {...routeProps} />
+          <PaletteList
+            palettes={palettes}
+            deletePalette={deletePalette}
+            {...routeProps}
+          />
         )}
       />
       {/* Passing route props and extracting param */}
