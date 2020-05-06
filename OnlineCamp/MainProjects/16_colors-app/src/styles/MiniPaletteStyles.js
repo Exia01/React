@@ -7,8 +7,9 @@ export default {
         padding: "0.5rem",
         position: "relative",
         overflow: "hidden",
-        "&:hover": {
-            cursor: "pointer"
+        cursor: "pointer",
+        "&:hover svg": {//can't access dynamic classes like root and colors
+            opacity: 1
         }
     },
     colors: {
@@ -39,5 +40,22 @@ export default {
         margin: "0 auto",
         position: "relative",
         marginBottom: "-3.5px"
+    },
+    delete: {
+
+    },
+    deleteICon: {
+        color: 'white',
+        backgroundColor: '#eb3d30',
+        width: '20px',
+        height: '20px',
+        position: 'absolute',
+        right: '0px',
+        top: '0px',
+        padding: '1rem',
+        zIndex: 10,
+        opacity: 0,
+        borderRadius: '.2rem',
+        transition: 'all .3s ease-in-out'
     }
 };
