@@ -18,12 +18,13 @@ export default {
         // lg sizes and below
         [sizes.down('lg')]: {
             width: '25%',
-            height: (props) => (props.showingFullPalette ? '20%' : '50%'),
+            // props to determine which pallete we are using
+            height: (props) => (props.showingFullPalette ? '20%' : '33.33%'),
         },
         // md sizes and below
         [sizes.down('md')]: {
             width: '50%',
-            height: (props) => (props.showingFullPalette ? '10%' : '50%'),
+            height: (props) => (props.showingFullPalette ? '10%' : '20%'),
         },
         [sizes.down('xs')]: {
             width: '100%',
@@ -135,6 +136,9 @@ export default {
             marginBottom: '0',
             padding: '1rem',
             textTransform: 'uppercase',
+            [sizes.down('xs')]: {
+                fontSize: '5rem',
+            },
         },
         // Targetting all P tags inside copyMessage
         '& p': {
