@@ -1,3 +1,6 @@
+import sizes from '../styles/Sizes'
+
+
 export default {
     root: {
         backgroundColor: "blue",
@@ -11,7 +14,13 @@ export default {
         display: "flex",
         alignItems: "flex-start",
         flexDirection: "column",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        [sizes.down('xl')]: {
+            width: '80%'
+        },
+        [sizes.down('xs')]: {
+            width: '70%'
+        },
     },
     nav: {
         display: "flex",
@@ -35,6 +44,13 @@ export default {
         width: "100%",
         display: "grid",
         gridTemplateColumns: "repeat(3, 30%)",
-        gridGap: "5%"
+        gridGap: "1.5rem",
+
+        [sizes.down('md')]: {
+            gridTemplateColumns: "repeat(2, 1fr)",
+        },
+        [sizes.down('xs')]: {
+            gridTemplateColumns: "repeat(1, 1fr)",
+        },
     }
 };
