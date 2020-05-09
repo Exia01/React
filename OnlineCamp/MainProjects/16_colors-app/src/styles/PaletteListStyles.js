@@ -3,8 +3,29 @@ import sizes from '../styles/Sizes'
 
 import bg from './bg.svg'
 export default {
-    root: {
+    '@global': {
+        // anything defined inside here will not get unique prefixes. Stays global css meaning unchanged
+        '.fade-enter': {
+            opacity: 0,
+            transform: 'scale(0.9)',
+            height: '2300px'
+        },
+        '.fade-enter-active': {
+            opacity: 1,
+            transform: ' translateX(0)',
+            transition: 'opacity 300ms, transform 300ms',
+        },
+        '.fade-exit': {
+            opacity: 1,
+        },
+        '.fade-exit-active ': {
+            opacity: 0,
+            transform: ' scale(0.9)',
+            transition: ' opacity 500ms, transform 300ms ease-out',
+        }
 
+    },
+    root: {
         height: "100vh",
         display: "flex",
         alignItems: "flex-start",
