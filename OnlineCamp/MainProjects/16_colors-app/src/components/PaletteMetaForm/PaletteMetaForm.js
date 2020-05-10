@@ -56,6 +56,7 @@ export default function PaletteMetaForm({
     };
 
     onSubmitHandler(tempPaletteOBj);
+    setStage('');
   };
   return (
     <React.Fragment>
