@@ -25,6 +25,9 @@ class PaletteList extends Component {
       deletingId: '',
     };
     this.goToPalette = this.goToPalette.bind(this);
+    this.openDeleteDialog = this.openDeleteDialog.bind(this)
+    this.closeDeleteDialog = this.closeDeleteDialog.bind(this)
+    this.deleteConfirm = this.deleteConfirm.bind(this)
   }
 
   // shouldComponentUpdate() {
@@ -36,13 +39,13 @@ class PaletteList extends Component {
   }
 
   //could also implement a toggle
-  openDeleteDialog = (id) => {
+  openDeleteDialog(id) {
     this.setState({ openDeleteDialog: true, deletingId: id });
   };
-  closeDeleteDialog = () => {
+  closeDeleteDialog() {
     this.setState({ openDeleteDialog: false, deletingId: '' });
   };
-  deleteConfirm = () => {
+  deleteConfirm() {
     this.props.deletePalette(this.state.deletingId);
     this.closeDeleteDialog();
   };
