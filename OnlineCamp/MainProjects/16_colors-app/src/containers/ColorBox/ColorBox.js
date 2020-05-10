@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-
+import clsx from 'clsx';
 import styles from '../../styles/ColoBoxStyles';
 
 // This container does not have access to route props since it is being generated and rendered inside the Pallete.js
@@ -34,8 +34,8 @@ export class ColorBox extends Component {
     const {
       background,
       name,
-      id,
-      paletteId,
+      // id,
+      // paletteId,
       moreUrl,
       showingFullPalette,
       classes,
@@ -51,15 +51,16 @@ export class ColorBox extends Component {
         <div style={{ background }} className={classes.ColorBox}>
           {/* When using scale, it will not only grow the div but the content/text as well. Separating the div is best */}
           <div
-            className={`${classes.copyOverlay} ${
-              copied && classes.showOverlay
-            }`}
+            className={clsx(classes.copyOverlay, {
+              [classes.showOverlay]: copied,
+            })}
             style={{ background }}
           />
+          {/* // using clsx and always  copyOverlay, and adding showOverlay if copied is true  */}
           <div
-            className={`${classes.copyMessage} ${
-              copied && classes.showMessage
-            }`}
+            className={clsx(classes.copyMessage, {
+              [classes.showMessage]: copied,
+            })}
           >
             <h1>Copied!</h1>
             <p className={classes.copyText}>{background}</p>
