@@ -2,3 +2,9 @@
   height: 100vh;
 }
 
+.page {
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  
+}
