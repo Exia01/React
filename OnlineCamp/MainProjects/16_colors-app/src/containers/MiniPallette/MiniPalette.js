@@ -4,14 +4,20 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from '../../styles/MiniPaletteStyles';
 
 class MiniPalette extends Component {
+  constructor(props) {
+    super(props);
+    this.deletePalette = this.deletePalette.bind(this)
+  }
+
   onClickHandler = (id) => {
     this.props.handleClick(this.props.id);
   };
-  deletePalette = (e) => {
-    
+
+  deletePalette(e) {
     e.stopPropagation(); //will stop the bubbling event and prevent the navigation to another page
-    this.props.deletePalette(this.props.id);
-  };
+    this.props.openDialog(this.props.id)
+  }
+
   render() {
     const { classes, paletteName, emoji, colors } = this.props;
     const miniColorBoxes = colors.map((color) => {

@@ -28,10 +28,12 @@ function App() {
     setPalettes([...palettes, newPaletteOBj]);
   };
   const deletePalette = (paletteId) => {
-    let tempPalettesOj = palettes.filter((palette) => {
-      return palette.id !== paletteId;
-    });
-    setPalettes(tempPalettesOj);
+    setTimeout(() => {
+      let tempPalettesOj = palettes.filter((palette) => {
+        return palette.id !== paletteId;
+      });
+      setPalettes(tempPalettesOj);
+    }, 500);
   };
   // To then save to local storage after the state has been saved we need to use the "useEffect" hook:
   React.useEffect(() => {
@@ -85,7 +87,7 @@ function App() {
             palette={findPalette(routeProps.match.params.paletteId)}
             //passing colorId to identify color, could also move to with router
             colorId={routeProps.match.params.colorId}
-            //
+          //
           />
         )}
       />
