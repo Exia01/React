@@ -161,6 +161,8 @@ function NewPaletteForm(props) {
           removeColor={removeColor}
           axis='xy'
           onSortEnd={onSortEnd}
+          // Drag will not be counted if not moved more for than 10pxs 
+          distance={10}
         />
       </main>
     </div>
