@@ -8,6 +8,8 @@ function CounterHooks() {
     let tempNum = count + 1;
     setCount(tempNum);
   }
+
+
   return (
     <React.Fragment>
       <h1>The Count is {count}</h1>
