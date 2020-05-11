@@ -110,7 +110,19 @@ function App() {
                       palette={findPalette(routeProps.match.params.paletteId)}
                       //passing colorId to identify color, could also move to with router
                       colorId={routeProps.match.params.colorId}
-                      //
+                    //
+                    />
+                  </PageComponent>
+                )}
+              />
+              <Route
+                // passing routeProps to enable use in PaletteList
+                component={(routeProps) => (
+                  <PageComponent>
+                    <PaletteList
+                      palettes={palettes}
+                      deletePalette={deletePalette}
+                      {...routeProps}
                     />
                   </PageComponent>
                 )}

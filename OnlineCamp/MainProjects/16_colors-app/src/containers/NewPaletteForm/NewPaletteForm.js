@@ -77,10 +77,24 @@ function NewPaletteForm(props) {
         return palette.colors;
       })
       .flat(); //pulls the arrs from imbedded;
-    let randomNum = Math.floor(Math.random() * allColors.length); //generating a color up to length of colors
     // console.log(allColors);
-    const randomColor = allColors[randomNum];
-    setColors([...colors, randomColor]);
+    let isDuplicateColor = true;
+    let newRandColor = (() => {
+      do {
+        let randomColor = ""
+        let randomNum = ""
+        randomNum = Math.floor(Math.random() * allColors.length); //generating a color up to length of colors
+        randomColor = allColors[randomNum];
+        isDuplicateColor = colors.some(color => color.name === randomColor.name)
+        console.log('running while loop');
+        if (!isDuplicateColor) {
+          return randomColor
+        }
+      } while (isDuplicateColor)
+    })
+
+    let randomColorResult = newRandColor()
+    setColors([...colors, randomColorResult]);
   };
 
   // function for sorting ColorBoxes
