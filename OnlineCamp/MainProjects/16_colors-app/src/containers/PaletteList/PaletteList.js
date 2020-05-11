@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import Dialog from '@material-ui/core/Dialog';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,11 +13,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import { green } from '@material-ui/core/colors';
 import { grey } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core/styles';
-// 3rd party library to handle transitions
+
 import MiniPalette from '../MiniPallette/MiniPalette';
-import styles from '../../styles/PaletteListStyles';
-import { Link } from 'react-router-dom';
+
+// 3rd party library to handle transitions
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import styles from '../../styles/PaletteListStyles';
 
 class PaletteList extends Component {
   constructor(props) {
@@ -25,9 +28,9 @@ class PaletteList extends Component {
       deletingId: '',
     };
     this.goToPalette = this.goToPalette.bind(this);
-    this.openDeleteDialog = this.openDeleteDialog.bind(this)
-    this.closeDeleteDialog = this.closeDeleteDialog.bind(this)
-    this.deleteConfirm = this.deleteConfirm.bind(this)
+    this.openDeleteDialog = this.openDeleteDialog.bind(this);
+    this.closeDeleteDialog = this.closeDeleteDialog.bind(this);
+    this.deleteConfirm = this.deleteConfirm.bind(this);
   }
 
   // shouldComponentUpdate() {
@@ -41,14 +44,14 @@ class PaletteList extends Component {
   //could also implement a toggle
   openDeleteDialog(id) {
     this.setState({ openDeleteDialog: true, deletingId: id });
-  };
+  }
   closeDeleteDialog() {
     this.setState({ openDeleteDialog: false, deletingId: '' });
-  };
+  }
   deleteConfirm() {
     this.props.deletePalette(this.state.deletingId);
     this.closeDeleteDialog();
-  };
+  }
 
   render() {
     const { palettes, classes } = this.props;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,12 +12,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Button } from '@material-ui/core/';
 
 import PaletteMetaForm from '../PaletteMetaForm/PaletteMetaForm';
-
 import useStyles from '../../styles/PaletteFormNavStyles';
 
 const PaletteFormNav = (props) => {
   const [formShowing, setFormShowing] = useState(false);
-  const { open, palettes, handleSubmit } = props;
+  const { open, palettes, handleSubmit, handleDrawerOpen } = props;
   // Enables use of styles
   const classes = useStyles();
 
@@ -48,7 +49,7 @@ const PaletteFormNav = (props) => {
           <IconButton
             color='inherit'
             aria-label='open drawer'
-            onClick={props.handleDrawerOpen}
+            onClick={handleDrawerOpen}
             edge='start'
             // apply hide class if open is true
             className={clsx(classes.menuButton, { [classes.hide]: open })}

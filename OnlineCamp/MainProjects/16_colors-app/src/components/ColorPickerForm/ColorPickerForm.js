@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@material-ui/core/';
 //importing the react-color picker
 import { ChromePicker } from 'react-color';
 // Importing Form Validator
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
-
+import { Button } from '@material-ui/core/';
 import useStyles from '../../styles/ColorPickerFormStyles';
 
 const ColorPickerForm = (props) => {
@@ -49,7 +48,6 @@ const ColorPickerForm = (props) => {
   };
 
   return (
-
     <div>
       <ChromePicker
         color={currentColor}

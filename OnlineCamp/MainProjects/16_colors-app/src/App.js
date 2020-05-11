@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import './App.css';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import './App.css';
 import Palette from './containers/Palette/Palette';
 import PaletteList from './containers/PaletteList/PaletteList';
 import SingleColorPalette from './containers/SinglePalette/SingleColorPalette';
@@ -10,7 +11,6 @@ import PageComponent from './components/PageComponent/PageComponent';
 
 import seedColors from './utils/seedColors';
 import { generatePalette } from './utils/colorHelpers';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 function App() {
   const savedPalettes = JSON.parse(window.localStorage.getItem('palettes')); //parsing from string

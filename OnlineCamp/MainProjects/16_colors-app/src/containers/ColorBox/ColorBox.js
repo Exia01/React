@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
+
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import clsx from 'clsx';
+import { withStyles } from '@material-ui/core/styles';
+
 import styles from '../../styles/ColoBoxStyles';
 
 // This container does not have access to route props since it is being generated and rendered inside the Pallete.js
