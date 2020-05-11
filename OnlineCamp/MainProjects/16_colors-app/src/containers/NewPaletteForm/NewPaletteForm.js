@@ -17,14 +17,14 @@ import DraggableColorList from './../../components/draggableColorList/DraggableC
 import arrayMove from 'array-move';
 import PaletteFormNav from '../../components/PaletteFormNav/PaletteFormNav';
 import ColorPickerForm from './../../components/ColorPickerForm/ColorPickerForm';
-
+import seedColors from '../../utils/seedColors';
 import useStyles from '../../styles/NewPaletteFormStyles.js';
 
 function NewPaletteForm(props) {
   //we add pairs to state. variable and a method
   //could use react memo for this
   const maxColors = props.maxColors || 20;
-  const [colors, setColors] = useState(props.palettes[0].colors);
+  const [colors, setColors] = useState(seedColors[0].colors);
   const [name, setName] = useState({});
   const isPaletteFull = colors.length >= maxColors;
   const { palettes, savePalette } = props;
@@ -161,7 +161,7 @@ function NewPaletteForm(props) {
           removeColor={removeColor}
           axis='xy'
           onSortEnd={onSortEnd}
-          // Drag will not be counted if not moved more for than 10pxs 
+          // Drag will not be counted if not moved more for than 10pxs
           distance={10}
         />
       </main>
