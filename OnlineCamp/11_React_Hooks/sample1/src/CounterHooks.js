@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function CounterHooks() {
   // using state 'hook' with a const or array destructuring
@@ -9,6 +9,11 @@ function CounterHooks() {
     setCount(tempNum);
   }
 
+  // There is no callback when updating the state, this use effect hooks will run at render and when state is updated. Can all pass an array of elements to watch at end to be specific
+  useEffect(() => {
+    console.log('something Changed');
+    document.title = `You clicked ${count} times`;
+  },); //we could pass an arr with states to keep an eye on for changes and then run funcs inside of it
 
   return (
     <React.Fragment>
