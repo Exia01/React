@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 //convention to name the useage
-import useToggle from './hooks/useToggle';
+import useToggle from './hooks/UseToggle';
 
 function Toggler() {
   //making reusable piece of stateful logic with useToggle
@@ -10,7 +10,7 @@ function Toggler() {
 
   return (
     <React.Fragment>
-      {/* passing the set toggle in useToggle as ref and calling when clicked */}
+      {/* passing the set toggle useToggle as ref and calling when clicked */}
       <h1 onClick={SetIsHappy}>{isHappy ? '😊' : '😑'} </h1>
       <h1 onClick={setIsSleepy}>{isSleepy ? '😶' : '😴'} </h1>
       <h1 onClick={setBanana}>{isBanana ? '🤡' : '👻'} </h1>
