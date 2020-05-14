@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import TodoList from '../TodoList/TodoList';
 import TodoForm from '../TodoForm/TodoForm';
@@ -12,17 +12,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 
 function TodoApp() {
-  // Pull from localStorage or create empty arr
-  const initialTodos = JSON.parse(window.localStorage.getItem('todos') || '[]');
   // // todo: id, task, completed
+  const initialTodos = [{ id: 1, task: 'Pet a monkey', completed: false }];
 
   const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
-    initialTodos
+    initialTodos,  //initial todos. Extract from the imported obj and inject the initial todos
   );
-
-  useEffect(() => {
-    window.localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
 
   return (
     <Paper

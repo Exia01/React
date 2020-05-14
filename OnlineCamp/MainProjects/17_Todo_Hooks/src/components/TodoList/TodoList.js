@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 function TodoList({ todos, removeTodo, toggleTodo, editTodo }) {
   // Destructuring props
   if (todos.length)
+    //simple if statement, don't show show anything if no length
     return (
       <Paper>
         {/* paper gives it the effect */}
@@ -23,7 +24,9 @@ function TodoList({ todos, removeTodo, toggleTodo, editTodo }) {
                 toggleTodo={toggleTodo}
                 editTodo={editTodo}
               />
+              {/* using index. If we're on the the last item don't add the divider */}
               {i < todos.length - 1 && <Divider />}
+              {/* using short circuit of and and  */}
             </React.Fragment>
           ))}
         </List>
