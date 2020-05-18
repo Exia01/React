@@ -1,6 +1,4 @@
-import { fade } from "@material-ui/core/styles/colorManipulator"; // fill fade color by certain amount
-
-// exporting as func expression
+import { fade } from "@material-ui/core/styles/colorManipulator";
 const styles = theme => ({
   root: {
     width: "100%",
@@ -14,29 +12,27 @@ const styles = theme => ({
     marginRight: 20
   },
   title: {
-    // not show up 320px
     display: "none",
-    // similar to bootstrap display from from 576px and 'up'
-    [theme.breakpoints.up("sm")]: { //baked into the material ui theme
+    [theme.breakpoints.up("sm")]: {
       display: "block"
     }
   },
   search: {
     position: "relative",
-    borderRadius: theme.shape.borderRadius, //comes with theme
-    backgroundColor: fade(theme.palette.common.white, 0.15),//
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25) //when hovering search
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing.unit,///default spacing unit
+      marginLeft: theme.spacing.unit,
       width: "auto"
     }
   },
   searchIcon: {
-    width: theme.spacing.unit * 12,//
+    width: theme.spacing.unit * 9,
     height: "100%",
     position: "absolute",
     display: "flex",
@@ -57,7 +53,7 @@ const styles = theme => ({
     [theme.breakpoints.up("sm")]: {
       width: 120,
       "&:focus": {
-        width: 200 //when focusing expand
+        width: 200
       }
     }
   }
