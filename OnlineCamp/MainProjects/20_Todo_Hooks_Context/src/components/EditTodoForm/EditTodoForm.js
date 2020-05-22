@@ -4,6 +4,10 @@ import TextField from '@material-ui/core/TextField';
 
 function EditTodoForm({ id, task, editTodo, toggleEditForm }) {
   const [value, handleChange, reset] = useInputState(task); //reusing the hook
+
+  // Values of context is changing so it re-renders the components 
+  console.log('Edit TodoForm rendering');
+  
   return (
     <form
       onSubmit={(e) => {

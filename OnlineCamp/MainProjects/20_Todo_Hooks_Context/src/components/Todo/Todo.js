@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodosContext } from './../../contexts/todos.context';
 import EditTodoForm from '../EditTodoForm/EditTodoForm';
 
 import useToggleState from '../../hooks/useToggleState';
@@ -12,9 +13,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 //destructuring props
-function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
+function Todo({ id, task, completed }) {
   const [isEditing, toggleIsEditing] = useToggleState(false);
-
+  const { removeTodo, toggleTodo, editTodo } = useContext(TodosContext);
   function checkBoxClickHandler() {
     toggleTodo(id);
   }
@@ -24,7 +25,7 @@ function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
 
   return (
     // added height to prevent list growth while editing
-    <ListItem style={{ height: '64px' }}>
+    <ListItem component='div' style={{ height: '64px' }}>
       {/* using ternary could move out of this to a func */}
       {isEditing ? (
         <EditTodoForm
@@ -61,3 +62,6 @@ function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
 }
 
 export default Todo;
+
+// List Item issue: when embedding another list style
+// https://github.com/mui-org/material-ui/issues/13597

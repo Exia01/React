@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react'; //since we have wrapped the provider around the apps we can import the context to consume the provider
+import { TodosContext } from './../../contexts/todos.context';
+
 import Todo from '../Todo/Todo';
 
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
-function TodoList({ todos, removeTodo, toggleTodo, editTodo }) {
+function TodoList() {
   // Destructuring props
+  const { todos } = useContext(TodosContext); //consuming from provider
   if (todos.length)
     //simple if statement, don't show show anything if no length
     return (
@@ -20,9 +23,6 @@ function TodoList({ todos, removeTodo, toggleTodo, editTodo }) {
               <Todo
                 {...todo}
                 key={todo.id}
-                removeTodo={removeTodo}
-                toggleTodo={toggleTodo}
-                editTodo={editTodo}
               />
               {/* using index. If we're on the the last item don't add the divider */}
               {i < todos.length - 1 && <Divider />}

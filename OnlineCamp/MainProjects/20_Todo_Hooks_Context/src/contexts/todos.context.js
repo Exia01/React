@@ -8,11 +8,11 @@ const defaultTodos = [
   { id: 2, task: 'Release lady bugs into garden', completed: true },
 ];
 
-const TodosContext = createContext();
+export const TodosContext = createContext();
 
 export default function TodosProvider(props) {
   // utilizing custom hook which returns obj(can be de-structured)
-  const todosObj = useTodoState(defaultTodos);
+  const todosObj = useTodoState(defaultTodos); //initial todos. injected into the hook
 
   return (
     //creating provider and passing value as obj to be consumed
