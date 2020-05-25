@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import {DispatchContext} from './../../contexts/todos.context';
+import React, { useContext, memo } from 'react';
+import { DispatchContext } from './../../contexts/todos.context';
 import EditTodoForm from '../EditTodoForm/EditTodoForm';
 
 import useToggleState from '../../hooks/useToggleState';
@@ -16,6 +16,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 function Todo({ id, task, completed }) {
   const [isEditing, toggleIsEditing] = useToggleState(false);
   const dispatch = useContext(DispatchContext); //pulling the dispatch func from reducer in todos context
+
+  console.log('Todo Re-rendering', task);
   function checkBoxClickHandler() {
     dispatch({ type: 'TOGGLE_TODO', id: id });
   }
@@ -56,7 +58,7 @@ function Todo({ id, task, completed }) {
   );
 }
 
-export default Todo;
+export default memo(Todo); //hoc similar to pure component for classes
 
 // List Item issue: when embedding another list style
 // https://github.com/mui-org/material-ui/issues/13597
