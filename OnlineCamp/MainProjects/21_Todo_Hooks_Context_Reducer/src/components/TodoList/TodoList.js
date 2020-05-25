@@ -9,9 +9,9 @@ import Divider from '@material-ui/core/Divider';
 
 function TodoList() {
   // Destructuring props
-  const { todos } = useContext(TodosContext); //consuming from provider
-  console.log(todos);
-  
+  const todos = useContext(TodosContext); //consuming from provider
+  console.log('Todo list rendering');
+
   if (todos.length)
     //simple if statement, don't show show anything if no length
     return (
@@ -22,10 +22,7 @@ function TodoList() {
             // To add a key to a fragment, we have to use the long-hand version
             // rather than <> </>, we have to use <React.Fragment>
             <React.Fragment key={i}>
-              <Todo
-                {...todo}
-                key={todo.id}
-              />
+              <Todo {...todo} key={todo.id} />
               {/* using index. If we're on the the last item don't add the divider */}
               {i < todos.length - 1 && <Divider />}
               {/* using short circuit of and and  */}

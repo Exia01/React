@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'; //useContext enables use of context
 import useInputState from '../../hooks/useInputState';
 //since we have wrapped the provider around the apps we can import the context to consume the provider
-import { TodosContext } from './../../contexts/todos.context';
+import {DispatchContext} from './../../contexts/todos.context';
 
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -11,7 +11,7 @@ function TodoForm() {
   // reusing hook from the inputState custom component
   const [value, handleChange, reset] = useInputState('');
 
-  const { dispatch } = useContext(TodosContext); //consuming provider with hook(uses the reducer )
+  const dispatch = useContext(DispatchContext); //consuming provider with hook(uses the reducer ) and only provides the Dispatch func
 
   function submitFormHandler(e) {
     e.preventDefault();

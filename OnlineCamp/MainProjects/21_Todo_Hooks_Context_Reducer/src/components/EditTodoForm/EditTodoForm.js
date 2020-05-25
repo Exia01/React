@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { TodosContext } from '../../contexts/todos.context';
+import {DispatchContext} from '../../contexts/todos.context'; //not de structuring only grabbing one thing
 import useInputState from '../../hooks/useInputState';
 import TextField from '@material-ui/core/TextField';
 
-function EditTodoForm({ id, task, editTodo, toggleEditForm }) {
-  const { dispatch } = useContext(TodosContext)
+function EditTodoForm({ id, task, toggleEditForm }) {
+  const dispatch = useContext(DispatchContext);
   const [value, handleChange, reset] = useInputState(task); //reusing the hook
 
-  // Values of context is changing so it re-renders the components 
+  // Values of context is changing so it re-renders the components
   console.log('Edit TodoForm rendering');
 
   return (
@@ -28,7 +28,6 @@ function EditTodoForm({ id, task, editTodo, toggleEditForm }) {
         fullWidth
         // material ui props
         autoFocus
-
       />
     </form>
   );
